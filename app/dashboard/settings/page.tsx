@@ -58,7 +58,7 @@ export default async function SettingsPage() {
           </CardHeader>
           <CardContent>
             <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-4">
-              <code className="text-sm">
+              <code className="text-sm break-all">
                 {process.env.NODE_ENV === 'production'
                   ? `https://unilink.com/${user.username}`
                   : `http://localhost:3000/${user.username}`

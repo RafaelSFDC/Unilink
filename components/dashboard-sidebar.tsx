@@ -14,13 +14,13 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { 
-  Link, 
-  Home, 
-  BarChart3, 
-  Palette, 
+import {
+  Link,
+  Home,
+  BarChart3,
   Settings,
-  Eye
+  Eye,
+  Menu
 } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
@@ -41,11 +41,6 @@ const menuItems = [
     icon: BarChart3,
   },
   {
-    title: 'Tema',
-    url: '/dashboard/theme',
-    icon: Palette,
-  },
-  {
     title: 'Configurações',
     url: '/dashboard/settings',
     icon: Settings,
@@ -63,18 +58,18 @@ export function DashboardSidebar() {
             <Link className="h-8 w-8 text-blue-600" />
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">Unilink</h1>
           </div>
-          <SidebarTrigger className="md:hidden" />
+          <SidebarTrigger />
         </div>
       </SidebarHeader>
-      
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild 
+                  <SidebarMenuButton
+                    asChild
                     isActive={pathname === item.url}
                   >
                     <a href={item.url}>
@@ -88,7 +83,7 @@ export function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      
+
       <SidebarFooter>
         <div className="flex items-center justify-between px-4 py-2">
           <Button asChild variant="outline" size="sm">
