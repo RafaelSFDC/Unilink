@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { updateTheme } from '@/app/actions/theme'
 import { toast } from 'sonner'
+import { TemplateSelector } from '@/components/template-selector'
+import { type TemplateId } from '@/components/profile-templates'
 
 interface User {
   id: string
@@ -16,6 +18,7 @@ interface User {
   title: string | null
   theme: {
     id: string
+    template: string
     backgroundColor: string
     textColor: string
     linkColor: string
@@ -34,7 +37,12 @@ interface ThemeFormProps {
 
 export function ThemeForm({ user }: ThemeFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(
+    (user.theme?.template as TemplateId) || 'default'
+  )
+
   const theme = user.theme || {
+    template: 'default',
     backgroundColor: '#ffffff',
     textColor: '#000000',
     linkColor: '#1a73e8',
@@ -48,9 +56,10 @@ export function ThemeForm({ user }: ThemeFormProps) {
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true)
-    
+
     try {
       const data = {
+        template: selectedTemplate,
         backgroundColor: formData.get('backgroundColor') as string,
         textColor: formData.get('textColor') as string,
         linkColor: formData.get('linkColor') as string,
@@ -75,10 +84,35 @@ export function ThemeForm({ user }: ThemeFormProps) {
     }
   }
 
+  const handleTemplateSelect = (templateId: TemplateId) => {
+    setSelectedTemplate(templateId)
+  }
+
+  const handlePreview = (templateId: TemplateId) => {
+    // Open preview in new tab
+    window.open(`/${user.username}?preview=${templateId}`, '_blank')
+  }
+
   return (
-    <form action={handleSubmit} className="space-y-6">
-      <div>
-        <Label htmlFor="backgroundType">Tipo de Fundo</Label>
+    <div className="space-y-8">
+      {/* Template Selector */}
+      <TemplateSelector
+        currentTemplate={selectedTemplate}
+        onTemplateSelect={handleTemplateSelect}
+        onPreview={handlePreview}
+      />
+
+      {/* Theme Customization Form */}
+      <form action={handleSubmit} className="space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Personalização Avançada</h3>
+          <p className="text-sm text-muted-foreground mb-6">
+            Customize cores, fontes e outros detalhes do template selecionado
+          </p>
+        </div>
+
+        <div>
+          <Label htmlFor="backgroundType">Tipo de Fundo</Label>
         <Select name="backgroundType" defaultValue={theme.backgroundType}>
           <SelectTrigger className="mt-1">
             <SelectValue />
@@ -217,9 +251,10 @@ export function ThemeForm({ user }: ThemeFormProps) {
         </Select>
       </div>
 
-      <Button type="submit" disabled={isLoading} className="w-full">
-        {isLoading ? 'Salvando...' : 'Salvar Tema'}
-      </Button>
-    </form>
+        <Button type="submit" disabled={isLoading} className="w-full">
+          {isLoading ? 'Salvando...' : 'Salvar Tema'}
+        </Button>
+      </form>
+    </div>
   )
 }

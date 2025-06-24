@@ -64,6 +64,9 @@ model Link {
 model Theme {
   id              String  @id @default(cuid())
 
+  // Template
+  template        String  @default("default") // default, minimal, modern, vibrant, professional, creative
+
   // Cores
   backgroundColor String  @default("#ffffff")
   textColor       String  @default("#000000")

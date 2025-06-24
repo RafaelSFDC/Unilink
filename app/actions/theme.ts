@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 
 interface UpdateThemeData {
+  template?: string
   backgroundColor: string
   textColor: string
   linkColor: string
@@ -23,9 +24,9 @@ export async function updateTheme(userId: string, data: UpdateThemeData) {
     }
 
     const user = await prisma.user.findUnique({
-      where: { 
+      where: {
         id: userId,
-        clerkId 
+        clerkId
       },
       include: { theme: true }
     })
@@ -35,6 +36,7 @@ export async function updateTheme(userId: string, data: UpdateThemeData) {
     }
 
     const themeData = {
+      template: data.template || 'default',
       backgroundColor: data.backgroundColor,
       textColor: data.textColor,
       linkColor: data.linkColor,
@@ -79,9 +81,9 @@ export async function resetTheme(userId: string) {
     }
 
     const user = await prisma.user.findUnique({
-      where: { 
+      where: {
         id: userId,
-        clerkId 
+        clerkId
       }
     })
 
@@ -90,6 +92,7 @@ export async function resetTheme(userId: string) {
     }
 
     const defaultTheme = {
+      template: 'default',
       backgroundColor: '#ffffff',
       textColor: '#000000',
       linkColor: '#1a73e8',
