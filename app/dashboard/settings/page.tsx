@@ -14,7 +14,7 @@ async function getUserData(clerkId: string) {
 
 export default async function SettingsPage() {
   const { userId } = await auth()
-  
+
   if (!userId) {
     redirect('/sign-in')
   }
@@ -57,13 +57,17 @@ export default async function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-4">
               <code className="text-sm">
-                {process.env.NODE_ENV === 'production' 
+                {process.env.NODE_ENV === 'production'
                   ? `https://unilink.com/${user.username}`
                   : `http://localhost:3000/${user.username}`
                 }
               </code>
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              <p><strong>Nome exibido:</strong> {user.firstName} {user.lastName}</p>
+              {user.title && <p><strong>Título:</strong> {user.title}</p>}
             </div>
           </CardContent>
         </Card>

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { IconSelector } from '@/components/icon-selector'
 import { createLink, updateLink } from '@/app/actions/links'
 import { toast } from 'sonner'
 
@@ -21,12 +22,13 @@ interface LinkFormProps {
 
 export function LinkForm({ link }: LinkFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [iconValue, setIconValue] = useState(link?.icon || '')
   const router = useRouter()
   const isEditing = !!link
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true)
-    
+
     try {
       const data = {
         title: formData.get('title') as string,
@@ -54,7 +56,7 @@ export function LinkForm({ link }: LinkFormProps) {
         return
       }
 
-      const result = isEditing 
+      const result = isEditing
         ? await updateLink(link.id, data)
         : await createLink(data)
 
@@ -99,18 +101,14 @@ export function LinkForm({ link }: LinkFormProps) {
       </div>
 
       <div>
-        <Label htmlFor="icon">Ícone (Emoji)</Label>
-        <Input
-          id="icon"
-          name="icon"
-          placeholder="🌐"
-          defaultValue={link?.icon || ''}
-          className="mt-1"
-          maxLength={2}
-        />
-        <p className="text-sm text-gray-500 mt-1">
-          Adicione um emoji para representar seu link
-        </p>
+        <Label>Ícone do Link</Label>
+        <div className="mt-1">
+          <IconSelector
+            value={iconValue}
+            onChange={setIconValue}
+            name="icon"
+          />
+        </div>
       </div>
 
       <div>
@@ -127,15 +125,15 @@ export function LinkForm({ link }: LinkFormProps) {
 
       <div className="flex gap-4">
         <Button type="submit" disabled={isLoading} className="flex-1">
-          {isLoading 
-            ? (isEditing ? 'Atualizando...' : 'Criando...') 
+          {isLoading
+            ? (isEditing ? 'Atualizando...' : 'Criando...')
             : (isEditing ? 'Atualizar Link' : 'Criar Link')
           }
         </Button>
-        
-        <Button 
-          type="button" 
-          variant="outline" 
+
+        <Button
+          type="button"
+          variant="outline"
           onClick={() => router.push('/dashboard/links')}
           disabled={isLoading}
         >

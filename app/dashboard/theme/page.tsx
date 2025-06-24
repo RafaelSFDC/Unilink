@@ -8,7 +8,11 @@ async function getUserTheme(clerkId: string) {
   const user = await prisma.user.findUnique({
     where: { clerkId },
     include: {
-      theme: true
+      theme: true,
+      links: {
+        where: { isActive: true },
+        orderBy: { order: 'asc' }
+      }
     }
   })
 
@@ -17,7 +21,7 @@ async function getUserTheme(clerkId: string) {
 
 export default async function ThemePage() {
   const { userId } = await auth()
-  
+
   if (!userId) {
     redirect('/sign-in')
   }
@@ -66,27 +70,77 @@ export default async function ThemePage() {
             </CardHeader>
             <CardContent>
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 min-h-[400px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-4"></div>
-                  <h3 className="text-lg font-bold mb-1">{user.firstName} {user.lastName}</h3>
-                  {user.title && <p className="text-sm text-gray-600 mb-4">{user.title}</p>}
-                  
-                  <div className="space-y-2 max-w-xs">
-                    <div className="bg-blue-600 text-white rounded-lg p-3 text-sm">
-                      🌐 Exemplo de Link
-                    </div>
-                    <div className="bg-blue-600 text-white rounded-lg p-3 text-sm">
-                      📱 Outro Link
-                    </div>
+                <div className="text-center max-w-sm">
+                  {/* Avatar */}
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                    {user.imageUrl ? (
+                      <img
+                        src={user.imageUrl}
+                        alt={`${user.firstName} ${user.lastName}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-white text-xl font-bold">
+                        {user.firstName?.[0]}{user.lastName?.[0]}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Nome */}
+                  <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white">
+                    {user.firstName} {user.lastName}
+                  </h3>
+
+                  {/* Título */}
+                  {user.title && (
+                    <p className="text-sm text-blue-600 dark:text-blue-400 mb-4">
+                      {user.title}
+                    </p>
+                  )}
+
+                  {/* Bio */}
+                  {user.bio && (
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                      {user.bio}
+                    </p>
+                  )}
+
+                  {/* Links */}
+                  <div className="space-y-2">
+                    {user.links.length > 0 ? (
+                      user.links.slice(0, 3).map((link) => (
+                        <div
+                          key={link.id}
+                          className="bg-blue-600 text-white rounded-lg p-3 text-sm flex items-center justify-center gap-2"
+                        >
+                          {link.icon && <span>{link.icon}</span>}
+                          <span>{link.title}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <>
+                        <div className="bg-blue-600 text-white rounded-lg p-3 text-sm">
+                          🌐 Exemplo de Link
+                        </div>
+                        <div className="bg-blue-600 text-white rounded-lg p-3 text-sm">
+                          📱 Outro Link
+                        </div>
+                      </>
+                    )}
+                    {user.links.length > 3 && (
+                      <div className="text-xs text-gray-500">
+                        +{user.links.length - 3} mais links
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-500 mb-2">
                   Esta é uma prévia básica. Para ver o resultado real:
                 </p>
-                <a 
+                <a
                   href={`/${user.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
