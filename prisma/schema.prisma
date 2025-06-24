@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  username  String   @unique
+  firstName String?
+  lastName  String?
+  imageUrl  String?
+  bio       String?
+  title     String?
+
+  // Configurações do perfil
+  isPublic  Boolean  @default(true)
+
+  // Tema personalizado
+  theme     Theme?
+
+  // Links do usuário
+  links     Link[]
+
+  // Analytics
+  analytics Analytics[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Link {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  description String?
+  icon        String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+
+  // Relacionamento com usuário
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Analytics de cliques
+  clicks      Click[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("links")
+}
+
+model Theme {
+  id              String  @id @default(cuid())
+
+  // Cores
+  backgroundColor String  @default("#ffffff")
+  textColor       String  @default("#000000")
+  linkColor       String  @default("#1a73e8")
+  buttonStyle     String  @default("rounded") // rounded, square, pill
+
+  // Fonte
+  fontFamily      String  @default("Inter")
+
+  // Background
+  backgroundType  String  @default("solid") // solid, gradient, image
+  backgroundImage String?
+  gradientFrom    String?
+  gradientTo      String?
+
+  // Relacionamento com usuário
+  userId          String  @unique
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("themes")
+}
+
+model Click {
+  id        String   @id @default(cuid())
+
+  // Relacionamento com link
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  // Dados do clique
+  ipAddress String?
+  userAgent String?
+  country   String?
+  city      String?
+  referrer  String?
+
+  clickedAt DateTime @default(now())
+
+  @@map("clicks")
+}
+
+model Analytics {
+  id          String   @id @default(cuid())
+
+  // Relacionamento com usuário
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Métricas diárias
+  date        DateTime @db.Date
+  totalViews  Int      @default(0)
+  totalClicks Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("analytics")
+}
