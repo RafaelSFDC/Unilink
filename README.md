@@ -4,6 +4,7 @@ Uma aplicação moderna de linktree construída com Next.js 15, Clerk para auten
 
 ## 🚀 Funcionalidades
 
+- **Landing Page Moderna** - Design profissional com gradientes e animações
 - **Autenticação segura** com Clerk
 - **Perfis personalizáveis** com temas customizados
 - **Gerenciamento de links** com drag & drop
@@ -11,6 +12,9 @@ Uma aplicação moderna de linktree construída com Next.js 15, Clerk para auten
 - **Páginas públicas** otimizadas para SEO
 - **Interface responsiva** com Tailwind CSS
 - **Componentes modernos** com shadcn/ui
+- **Depoimentos e estatísticas** para credibilidade
+- **Header sticky** com backdrop blur
+- **Seções de features** com hover effects
 
 ## 🛠️ Tecnologias
 
