@@ -25,6 +25,7 @@ const footerLinks = {
     { name: 'Temas', href: '/dashboard/theme' },
   ],
   company: [
+    { name: 'Início', href: '/' },
     { name: 'Sobre nós', href: '/about' },
     { name: 'Contato', href: '/contact' },
   ],
@@ -85,7 +86,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
+            <a href="/" className="flex items-center space-x-3 mb-4 hover:opacity-80 transition-opacity w-fit">
               <div className="relative">
                 <Link className="h-8 w-8 text-blue-600" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
@@ -93,7 +94,7 @@ export function Footer() {
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Unilink
               </span>
-            </div>
+            </a>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-sm">
               A plataforma mais completa para criadores de conteúdo organizarem e compartilharem todos os seus links importantes.
             </p>

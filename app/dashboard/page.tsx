@@ -6,27 +6,32 @@ import { Button } from '@/components/ui/button'
 import { Plus, Link, BarChart3, Palette, Eye } from 'lucide-react'
 
 async function getUserData(clerkId: string) {
-  const user = await prisma.user.findUnique({
-    where: { clerkId },
-    include: {
-      links: {
-        orderBy: { order: 'asc' }
-      },
-      theme: true,
-      _count: {
-        select: {
-          links: true
+  try {
+    const user = await prisma.user.findUnique({
+      where: { clerkId },
+      include: {
+        links: {
+          orderBy: { order: 'asc' }
+        },
+        theme: true,
+        _count: {
+          select: {
+            links: true
+          }
         }
       }
-    }
-  })
+    })
 
-  return user
+    return user
+  } catch (error) {
+    console.error('Erro ao conectar com o banco de dados:', error)
+    return null
+  }
 }
 
 export default async function DashboardPage() {
   const { userId } = await auth()
-  
+
   if (!userId) {
     redirect('/sign-in')
   }
@@ -34,17 +39,23 @@ export default async function DashboardPage() {
   const user = await getUserData(userId)
 
   if (!user) {
-    // Usuário não existe no banco, vamos criá-lo
+    // Usuário não existe no banco ou erro de conexão, vamos para onboarding
     redirect('/onboarding')
   }
 
-  const totalClicks = await prisma.click.count({
-    where: {
-      link: {
-        userId: user.id
+  let totalClicks = 0
+  try {
+    totalClicks = await prisma.click.count({
+      where: {
+        link: {
+          userId: user.id
+        }
       }
-    }
-  })
+    })
+  } catch (error) {
+    console.error('Erro ao buscar cliques:', error)
+    // totalClicks permanece 0 se houver erro
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -189,8 +200,8 @@ export default async function DashboardPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <span className={`px-2 py-1 text-xs rounded-full ${
-                      link.isActive 
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                      link.isActive
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                         : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
                     }`}>
                       {link.isActive ? 'Ativo' : 'Inativo'}
@@ -201,7 +212,7 @@ export default async function DashboardPage() {
                   </div>
                 </div>
               ))}
-              
+
               {user.links.length > 5 && (
                 <div className="text-center pt-4">
                   <Button asChild variant="outline">

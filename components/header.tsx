@@ -61,7 +61,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <div className="relative">
               <Link className="h-8 w-8 text-blue-600" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
@@ -73,11 +73,20 @@ export function Header() {
               <Sparkles className="w-3 h-3 mr-1" />
               Novo
             </Badge>
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                  href="/"
+                >
+                  Início
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent">
                   Recursos
@@ -160,6 +169,13 @@ export function Header() {
         {isMenuOpen && (
           <div className="lg:hidden border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-2 pt-2 pb-3 space-y-1">
+              <a
+                href="/"
+                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Início
+              </a>
               <a
                 href="/about"
                 className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
