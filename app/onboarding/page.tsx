@@ -1,11 +1,14 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { OnboardingForm } from '@/components/onboarding-form'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { AlertTriangle, Eye } from 'lucide-react'
 
 export default async function OnboardingPage() {
   const { userId } = await auth()
   const user = await currentUser()
-  
+
   if (!userId || !user) {
     redirect('/sign-in')
   }
@@ -22,7 +25,23 @@ export default async function OnboardingPage() {
           </p>
         </div>
 
-        <OnboardingForm 
+        <Alert className="mb-6 border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950">
+          <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+          <AlertDescription className="text-amber-800 dark:text-amber-200">
+            <strong>Aviso:</strong> Nosso banco de dados está temporariamente indisponível.
+            Se você encontrar problemas ao criar seu perfil, tente novamente em alguns minutos.
+            <div className="mt-3">
+              <Button asChild variant="outline" size="sm" className="bg-white dark:bg-gray-800">
+                <a href="/demo">
+                  <Eye className="h-4 w-4 mr-2" />
+                  Explorar Modo Demo
+                </a>
+              </Button>
+            </div>
+          </AlertDescription>
+        </Alert>
+
+        <OnboardingForm
           clerkId={userId}
           email={user.emailAddresses[0]?.emailAddress || ''}
           firstName={user.firstName || ''}

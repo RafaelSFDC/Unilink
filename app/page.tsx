@@ -58,9 +58,11 @@ export default function Home() {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </SignInButton>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-4">
-                  <Eye className="w-5 h-5 mr-2" />
-                  Ver Exemplo
+                <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4">
+                  <a href="/demo">
+                    <Eye className="w-5 h-5 mr-2" />
+                    Ver Exemplo
+                  </a>
                 </Button>
               </SignedOut>
 

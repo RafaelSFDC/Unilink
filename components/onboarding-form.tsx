@@ -23,7 +23,7 @@ export function OnboardingForm({ clerkId, email, firstName, lastName, imageUrl }
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true)
-    
+
     try {
       const result = await createUser({
         clerkId,
@@ -40,10 +40,12 @@ export function OnboardingForm({ clerkId, email, firstName, lastName, imageUrl }
         toast.success('Perfil criado com sucesso!')
         router.push('/dashboard')
       } else {
+        // Mostrar erro específico retornado pela action
         toast.error(result.error || 'Erro ao criar perfil')
       }
     } catch (error) {
-      toast.error('Erro inesperado ao criar perfil')
+      console.error('Erro no formulário:', error)
+      toast.error('Erro inesperado ao criar perfil. Tente novamente.')
     } finally {
       setIsLoading(false)
     }

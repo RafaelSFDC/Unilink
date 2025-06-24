@@ -59,6 +59,19 @@ export async function createUser(data: CreateUserData) {
     return { success: true, user }
   } catch (error) {
     console.error('Erro ao criar usuário:', error)
+
+    // Verificar se é erro de conexão com banco
+    if (error instanceof Error && (
+      error.message.includes('Can\'t reach database server') ||
+      error.message.includes('connection') ||
+      error.message.includes('timeout')
+    )) {
+      return {
+        success: false,
+        error: 'Banco de dados temporariamente indisponível. Tente novamente em alguns minutos ou entre em contato com o suporte.'
+      }
+    }
+
     return { success: false, error: 'Erro interno do servidor' }
   }
 }
