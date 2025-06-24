@@ -2,6 +2,8 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import {
   Link,
   Users,
@@ -23,46 +25,7 @@ import {
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <Link className="h-8 w-8 text-blue-600" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
-            </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Unilink
-            </h1>
-            <Badge variant="secondary" className="hidden sm:inline-flex">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Novo
-            </Badge>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <SignedOut>
-              <Button variant="ghost" className="hidden sm:inline-flex">
-                Recursos
-              </Button>
-              <SignInButton mode="modal">
-                <Button variant="outline">Entrar</Button>
-              </SignInButton>
-              <SignInButton mode="modal">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  Começar Grátis
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <Button asChild>
-                <a href="/dashboard">Dashboard</a>
-              </Button>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <main className="container mx-auto px-4">
@@ -428,20 +391,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-700 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <Link className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Unilink
-            </span>
-          </div>
-          <p className="text-gray-600 dark:text-gray-400">
-            Feito com ❤️ para criadores de conteúdo
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

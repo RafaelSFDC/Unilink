@@ -40,7 +40,9 @@ yarn build             # Build para produção
 ```
 
 ### 3. Funcionalidades Prontas
-- ✅ Landing page
+- ✅ Landing page moderna com header/footer
+- ✅ Header com navegação dropdown
+- ✅ Footer completo com newsletter
 - ✅ Autenticação com Clerk
 - ✅ Dashboard completo
 - ✅ Gerenciamento de links
