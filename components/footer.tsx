@@ -3,11 +3,11 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import { 
-  Link, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
+import {
+  Link,
+  Twitter,
+  Instagram,
+  Linkedin,
   Github,
   Mail,
   MapPin,
@@ -19,31 +19,23 @@ import {
 
 const footerLinks = {
   product: [
-    { name: 'Recursos', href: '#features' },
-    { name: 'Preços', href: '#pricing' },
-    { name: 'Analytics', href: '#analytics' },
-    { name: 'Integrações', href: '#integrations' },
-    { name: 'API', href: '#api' },
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Analytics', href: '/dashboard/analytics' },
+    { name: 'Gerenciar Links', href: '/dashboard/links' },
+    { name: 'Temas', href: '/dashboard/theme' },
   ],
   company: [
-    { name: 'Sobre nós', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Carreiras', href: '#careers' },
-    { name: 'Imprensa', href: '#press' },
-    { name: 'Parceiros', href: '#partners' },
+    { name: 'Sobre nós', href: '/about' },
+    { name: 'Contato', href: '/contact' },
   ],
   support: [
-    { name: 'Central de Ajuda', href: '#help' },
-    { name: 'Documentação', href: '#docs' },
-    { name: 'Status', href: '#status' },
-    { name: 'Contato', href: '#contact' },
-    { name: 'Comunidade', href: '#community' },
+    { name: 'Central de Ajuda', href: '/help' },
+    { name: 'Documentação', href: '/docs' },
+    { name: 'Contato', href: '/contact' },
   ],
   legal: [
-    { name: 'Privacidade', href: '#privacy' },
-    { name: 'Termos', href: '#terms' },
-    { name: 'Cookies', href: '#cookies' },
-    { name: 'Licenças', href: '#licenses' },
+    { name: 'Privacidade', href: '/privacy' },
+    { name: 'Termos', href: '/terms' },
   ],
 }
 
@@ -105,7 +97,7 @@ export function Footer() {
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-sm">
               A plataforma mais completa para criadores de conteúdo organizarem e compartilharem todos os seus links importantes.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center">

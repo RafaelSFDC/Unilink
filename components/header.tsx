@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Link, 
-  Menu, 
-  X, 
+import {
+  Link,
+  Menu,
+  X,
   Sparkles,
   BarChart3,
   Palette,
@@ -97,29 +97,20 @@ export function Header() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-              
+
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href="#pricing"
-                >
-                  Preços
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href="#about"
+                  href="/about"
                 >
                   Sobre
                 </NavigationMenuLink>
               </NavigationMenuItem>
-              
+
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href="#contact"
+                  href="/contact"
                 >
                   Contato
                 </NavigationMenuLink>
@@ -142,7 +133,7 @@ export function Header() {
                 </Button>
               </SignInButton>
             </SignedOut>
-            
+
             <SignedIn>
               <Button asChild variant="ghost" className="hidden sm:inline-flex">
                 <a href="/dashboard">
@@ -170,34 +161,20 @@ export function Header() {
           <div className="lg:hidden border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <a
-                href="#features"
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Recursos
-              </a>
-              <a
-                href="#pricing"
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Preços
-              </a>
-              <a
-                href="#about"
+                href="/about"
                 className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sobre
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contato
               </a>
-              
+
               <SignedIn>
                 <a
                   href="/dashboard"
