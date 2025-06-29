@@ -228,7 +228,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
           />
         </div>
 
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
           {isLoading ? 'Salvando...' : 'Salvar Alterações'}
         </Button>
       </form>

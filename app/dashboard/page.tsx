@@ -116,7 +116,7 @@ export default async function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild className="w-full">
+            <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
               <a href="/dashboard/links/new">Criar Link</a>
             </Button>
           </CardContent>
@@ -177,7 +177,7 @@ export default async function DashboardPage() {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Comece adicionando seu primeiro link
               </p>
-              <Button asChild>
+              <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
                 <a href="/dashboard/links/new">Adicionar Primeiro Link</a>
               </Button>
             </div>

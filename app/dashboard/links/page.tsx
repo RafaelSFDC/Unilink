@@ -21,7 +21,7 @@ async function getUserLinks(clerkId: string) {
 
 export default async function LinksPage() {
   const { userId } = await auth()
-  
+
   if (!userId) {
     redirect('/sign-in')
   }
@@ -43,8 +43,8 @@ export default async function LinksPage() {
             Gerencie todos os seus links em um só lugar
           </p>
         </div>
-        
-        <Button asChild>
+
+        <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
           <a href="/dashboard/links/new">
             <Plus className="h-4 w-4 mr-2" />
             Adicionar Link
@@ -61,7 +61,7 @@ export default async function LinksPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <Button asChild>
+            <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
               <a href="/dashboard/links/new">
                 <Plus className="h-4 w-4 mr-2" />
                 Adicionar Primeiro Link

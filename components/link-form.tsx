@@ -124,7 +124,7 @@ export function LinkForm({ link }: LinkFormProps) {
       </div>
 
       <div className="flex gap-4">
-        <Button type="submit" disabled={isLoading} className="flex-1">
+        <Button type="submit" disabled={isLoading} className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
           {isLoading
             ? (isEditing ? 'Atualizando...' : 'Criando...')
             : (isEditing ? 'Atualizar Link' : 'Criar Link')

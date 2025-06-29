@@ -3,11 +3,11 @@ import { Footer } from '@/components/footer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { 
-  AlertTriangle, 
-  Link, 
-  BarChart3, 
-  Eye, 
+import {
+  AlertTriangle,
+  Link,
+  BarChart3,
+  Eye,
   Palette,
   Plus,
   ExternalLink
@@ -24,7 +24,7 @@ export default function DemoPage() {
       order: 1
     },
     {
-      id: '2', 
+      id: '2',
       title: 'LinkedIn',
       url: 'https://linkedin.com/in/usuario',
       description: 'Conecte-se comigo profissionalmente',
@@ -44,12 +44,12 @@ export default function DemoPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8">
         <Alert className="mb-8 border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950">
           <AlertTriangle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           <AlertDescription className="text-blue-800 dark:text-blue-200">
-            <strong>Modo Demo:</strong> Esta é uma prévia da interface do Unilink. 
+            <strong>Modo Demo:</strong> Esta é uma prévia da interface do Unilink.
             Para criar sua conta real, aguarde o banco de dados voltar ao normal.
           </AlertDescription>
         </Alert>
@@ -109,7 +109,7 @@ export default function DemoPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full" disabled>
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300" disabled>
                 Criar Link (Demo)
               </Button>
             </CardContent>
@@ -193,7 +193,7 @@ export default function DemoPage() {
         </Card>
 
         <div className="mt-8 text-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
             <a href="/">
               Voltar ao Início
             </a>
