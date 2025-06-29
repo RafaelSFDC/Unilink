@@ -27,6 +27,23 @@ async function getAnalyticsData(clerkId: string) {
     }
   })
 
+  // Agrupar analytics por data (mesmo dia)
+  const groupedAnalytics = analytics.reduce((acc, item) => {
+    const dateKey = item.date.toDateString()
+    if (!acc[dateKey]) {
+      acc[dateKey] = {
+        date: item.date,
+        totalViews: 0,
+        totalClicks: 0
+      }
+    }
+    acc[dateKey].totalViews += item.totalViews
+    acc[dateKey].totalClicks += item.totalClicks
+    return acc
+  }, {} as Record<string, { date: Date; totalViews: number; totalClicks: number }>)
+
+  const dailyAnalytics = Object.values(groupedAnalytics).sort((a, b) => b.date.getTime() - a.date.getTime())
+
   const totalViews = analytics.reduce((sum, day) => sum + day.totalViews, 0)
   const totalClicks = analytics.reduce((sum, day) => sum + day.totalClicks, 0)
 
@@ -66,7 +83,7 @@ async function getAnalyticsData(clerkId: string) {
   return {
     totalViews,
     totalClicks,
-    dailyAnalytics: analytics,
+    dailyAnalytics,
     topLinks
   }
 }

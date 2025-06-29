@@ -52,10 +52,15 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
   const [links, setLinks] = useState(initialLinks)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [linkToDelete, setLinkToDelete] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({})
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const setLinkLoading = (linkId: string, loading: boolean) => {
+    setLoadingStates(prev => ({ ...prev, [linkId]: loading }))
+  }
 
   const handleToggleStatus = async (linkId: string) => {
-    setIsLoading(true)
+    setLinkLoading(linkId, true)
     try {
       const result = await toggleLinkStatus(linkId)
       if (result.success) {
@@ -71,14 +76,14 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
     } catch (error) {
       toast.error('Erro inesperado')
     } finally {
-      setIsLoading(false)
+      setLinkLoading(linkId, false)
     }
   }
 
   const handleDeleteLink = async () => {
     if (!linkToDelete) return
 
-    setIsLoading(true)
+    setIsDeleting(true)
     try {
       const result = await deleteLink(linkToDelete)
       if (result.success) {
@@ -90,7 +95,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
     } catch (error) {
       toast.error('Erro inesperado')
     } finally {
-      setIsLoading(false)
+      setIsDeleting(false)
       setDeleteDialogOpen(false)
       setLinkToDelete(null)
     }
@@ -168,7 +173,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                   <Switch
                     checked={link.isActive}
                     onCheckedChange={() => handleToggleStatus(link.id)}
-                    disabled={isLoading}
+                    disabled={loadingStates[link.id] || Object.values(loadingStates).some(Boolean)}
                   />
 
                   <Button
@@ -184,7 +189,12 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="hover:bg-gray-50 dark:hover:bg-gray-950/20">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="hover:bg-gray-50 dark:hover:bg-gray-950/20"
+                        disabled={loadingStates[link.id] || Object.values(loadingStates).some(Boolean)}
+                      >
                         <MoreVertical className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -198,6 +208,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                       <DropdownMenuItem
                         onClick={() => openDeleteDialog(link.id)}
                         className="text-red-600 dark:text-red-400"
+                        disabled={loadingStates[link.id] || Object.values(loadingStates).some(Boolean)}
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Remover
@@ -224,10 +235,10 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteLink}
-              disabled={isLoading}
+              disabled={isDeleting}
               className="bg-red-600 hover:bg-red-700"
             >
-              {isLoading ? 'Removendo...' : 'Remover'}
+              {isDeleting ? 'Removendo...' : 'Remover'}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

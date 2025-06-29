@@ -29,6 +29,7 @@ interface SettingsFormProps {
 export function SettingsForm({ user }: SettingsFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [isPublic, setIsPublic] = useState(user.isPublic)
+  const [isTogglingVisibility, setIsTogglingVisibility] = useState(false)
   const [username, setUsername] = useState(user.username)
   const [usernameStatus, setUsernameStatus] = useState<{
     checking: boolean
@@ -116,6 +117,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
   }
 
   async function handleToggleVisibility() {
+    setIsTogglingVisibility(true)
     try {
       const result = await toggleUserVisibility(user.id)
 
@@ -131,6 +133,8 @@ export function SettingsForm({ user }: SettingsFormProps) {
       }
     } catch (error) {
       toast.error('Erro inesperado')
+    } finally {
+      setIsTogglingVisibility(false)
     }
   }
 
@@ -277,6 +281,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
             <Switch
               checked={isPublic}
               onCheckedChange={handleToggleVisibility}
+              disabled={isTogglingVisibility || isLoading}
               className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-500 data-[state=checked]:to-purple-500"
             />
           </div>
