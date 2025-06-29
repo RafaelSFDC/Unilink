@@ -59,44 +59,47 @@ export default async function DashboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          Dashboard
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Gerencie seus links e acompanhe suas estatísticas
-        </p>
+      <div className="mb-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 rounded-lg -z-10"></div>
+        <div className="p-6">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            Dashboard
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Gerencie seus links e acompanhe suas estatísticas
+          </p>
+        </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card>
+        <Card className="border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Links</CardTitle>
-            <Link className="h-4 w-4 text-muted-foreground" />
+            <Link className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{user._count.links}</div>
+            <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">{user._count.links}</div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-indigo-500 bg-gradient-to-r from-indigo-50/50 to-transparent dark:from-indigo-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Cliques</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <BarChart3 className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalClicks}</div>
+            <div className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">{totalClicks}</div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-purple-500 bg-gradient-to-r from-purple-50/50 to-transparent dark:from-purple-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Perfil Público</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
+            <Eye className="h-4 w-4 text-purple-600 dark:text-purple-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">
               {user.isPublic ? 'Ativo' : 'Inativo'}
             </div>
           </CardContent>
@@ -105,10 +108,10 @@ export default async function DashboardPage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <Card>
+        <Card className="border-t-4 border-t-blue-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Plus className="h-5 w-5" />
+              <Plus className="h-5 w-5 text-blue-600 dark:text-blue-400" />
               Adicionar Link
             </CardTitle>
             <CardDescription>
@@ -122,10 +125,10 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-t-4 border-t-indigo-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Palette className="h-5 w-5" />
+              <Palette className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
               Personalizar Tema
             </CardTitle>
             <CardDescription>
@@ -133,16 +136,16 @@ export default async function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild variant="outline" className="w-full">
+            <Button asChild variant="outline" className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-300 dark:hover:bg-indigo-950">
               <a href="/dashboard/theme">Editar Tema</a>
             </Button>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-t-4 border-t-purple-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Eye className="h-5 w-5" />
+              <Eye className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               Ver Perfil
             </CardTitle>
             <CardDescription>
@@ -150,7 +153,7 @@ export default async function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild variant="outline" className="w-full">
+            <Button asChild variant="outline" className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 dark:border-purple-800 dark:text-purple-300 dark:hover:bg-purple-950">
               <a href={`/${user.username}`} target="_blank">
                 Ver Perfil Público
               </a>
@@ -160,9 +163,12 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent Links */}
-      <Card>
+      <Card className="border-t-4 border-t-gradient-to-r border-t-blue-500 hover:shadow-lg transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>Links Recentes</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <Link className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            Links Recentes
+          </CardTitle>
           <CardDescription>
             Seus links mais recentemente adicionados
           </CardDescription>

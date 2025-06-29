@@ -73,7 +73,7 @@ async function getAnalyticsData(clerkId: string) {
 
 export default async function AnalyticsPage() {
   const { userId } = await auth()
-  
+
   if (!userId) {
     redirect('/sign-in')
   }
@@ -84,56 +84,59 @@ export default async function AnalyticsPage() {
     redirect('/onboarding')
   }
 
-  const clickRate = data.totalViews > 0 
+  const clickRate = data.totalViews > 0
     ? ((data.totalClicks / data.totalViews) * 100).toFixed(1)
     : '0'
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          Analytics
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Acompanhe o desempenho do seu perfil nos últimos 30 dias
-        </p>
+      <div className="mb-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 rounded-lg -z-10"></div>
+        <div className="p-6">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            Analytics
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Acompanhe o desempenho do seu perfil nos últimos 30 dias
+          </p>
+        </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card>
+        <Card className="border-l-4 border-l-blue-500 bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Visualizações</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
+            <Eye className="h-4 w-4 text-blue-600 dark:text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.totalViews}</div>
+            <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">{data.totalViews}</div>
             <p className="text-xs text-muted-foreground">
               Pessoas que visitaram seu perfil
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-indigo-500 bg-gradient-to-r from-indigo-50/50 to-transparent dark:from-indigo-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Cliques</CardTitle>
-            <MousePointer className="h-4 w-4 text-muted-foreground" />
+            <MousePointer className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.totalClicks}</div>
+            <div className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">{data.totalClicks}</div>
             <p className="text-xs text-muted-foreground">
               Cliques nos seus links
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-purple-500 bg-gradient-to-r from-purple-50/50 to-transparent dark:from-purple-950/20 dark:to-transparent">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Taxa de Clique</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <TrendingUp className="h-4 w-4 text-purple-600 dark:text-purple-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{clickRate}%</div>
+            <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{clickRate}%</div>
             <p className="text-xs text-muted-foreground">
               Porcentagem de visitantes que clicaram
             </p>
