@@ -233,20 +233,23 @@ export function SettingsForm({ user }: SettingsFormProps) {
         </Button>
       </form>
 
-      <div className="border-t pt-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-              Perfil Público
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Quando ativo, seu perfil ficará visível para todos
-            </p>
+      <div className="border-t border-gradient-to-r from-blue-200 via-indigo-200 to-purple-200 dark:from-blue-800 dark:via-indigo-800 dark:to-purple-800 pt-6">
+        <div className="bg-gradient-to-r from-blue-50/50 via-indigo-50/50 to-purple-50/50 dark:from-blue-950/20 dark:via-indigo-950/20 dark:to-purple-950/20 rounded-lg p-4 border border-blue-200/50 dark:border-blue-800/50">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-medium bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Perfil Público
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Quando ativo, seu perfil ficará visível para todos
+              </p>
+            </div>
+            <Switch
+              checked={isPublic}
+              onCheckedChange={handleToggleVisibility}
+              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-500 data-[state=checked]:to-purple-500"
+            />
           </div>
-          <Switch
-            checked={isPublic}
-            onCheckedChange={handleToggleVisibility}
-          />
         </div>
       </div>
     </div>

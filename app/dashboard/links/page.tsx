@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { LinksList } from '@/components/links-list'
-import { Plus } from 'lucide-react'
+import { Plus, Link } from 'lucide-react'
 
 async function getUserLinks(clerkId: string) {
   const user = await prisma.user.findUnique({
@@ -56,9 +56,12 @@ export default async function LinksPage() {
       </div>
 
       {user.links.length === 0 ? (
-        <Card>
+        <Card className="border-t-4 border-t-blue-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="text-center">
-            <CardTitle>Nenhum link ainda</CardTitle>
+            <CardTitle className="flex items-center justify-center gap-2">
+              <Link className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              Nenhum link ainda
+            </CardTitle>
             <CardDescription>
               Comece adicionando seu primeiro link para compartilhar com o mundo
             </CardDescription>

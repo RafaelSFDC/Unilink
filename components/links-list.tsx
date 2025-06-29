@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { 
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -21,12 +21,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { 
-  Link, 
-  MoreVertical, 
-  Edit, 
-  Trash2, 
-  ExternalLink, 
+import {
+  Link,
+  MoreVertical,
+  Edit,
+  Trash2,
+  ExternalLink,
   GripVertical,
   Eye,
   EyeOff
@@ -59,8 +59,8 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
     try {
       const result = await toggleLinkStatus(linkId)
       if (result.success) {
-        setLinks(links.map(link => 
-          link.id === linkId 
+        setLinks(links.map(link =>
+          link.id === linkId
             ? { ...link, isActive: !link.isActive }
             : link
         ))
@@ -77,7 +77,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
 
   const handleDeleteLink = async () => {
     if (!linkToDelete) return
-    
+
     setIsLoading(true)
     try {
       const result = await deleteLink(linkToDelete)
@@ -104,27 +104,42 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
   return (
     <>
       <div className="space-y-4">
-        {links.map((link) => (
-          <Card key={link.id}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4 flex-1">
-                  <GripVertical className="h-5 w-5 text-gray-400 cursor-move" />
-                  
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                    {link.icon ? (
-                      <span className="text-xl">{link.icon}</span>
-                    ) : (
-                      <Link className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                    )}
-                  </div>
-                  
+        {links.map((link, index) => {
+          const colors = [
+            { bg: 'bg-blue-100 dark:bg-blue-900', icon: 'text-blue-600 dark:text-blue-400', border: 'border-l-blue-500' },
+            { bg: 'bg-indigo-100 dark:bg-indigo-900', icon: 'text-indigo-600 dark:text-indigo-400', border: 'border-l-indigo-500' },
+            { bg: 'bg-purple-100 dark:bg-purple-900', icon: 'text-purple-600 dark:text-purple-400', border: 'border-l-purple-500' },
+            { bg: 'bg-pink-100 dark:bg-pink-900', icon: 'text-pink-600 dark:text-pink-400', border: 'border-l-pink-500' },
+          ]
+          const colorScheme = colors[index % colors.length]
+
+          return (
+            <Card key={link.id} className={`${colorScheme.border} border-l-4 hover:shadow-lg transition-shadow duration-300`}>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4 flex-1">
+                    <GripVertical className="h-5 w-5 text-gray-400 cursor-move" />
+
+                    <div className={`w-12 h-12 ${colorScheme.bg} rounded-lg flex items-center justify-center`}>
+                      {link.icon ? (
+                        <span className="text-xl">{link.icon}</span>
+                      ) : (
+                        <Link className={`h-6 w-6 ${colorScheme.icon}`} />
+                      )}
+                    </div>
+
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-semibold text-gray-900 dark:text-white truncate">
                         {link.title}
                       </h3>
-                      <Badge variant={link.isActive ? 'default' : 'secondary'}>
+                      <Badge
+                        variant={link.isActive ? 'default' : 'secondary'}
+                        className={link.isActive
+                          ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 dark:from-green-900 dark:to-emerald-900 dark:text-green-200'
+                          : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                        }
+                      >
                         {link.isActive ? (
                           <>
                             <Eye className="h-3 w-3 mr-1" />
@@ -155,20 +170,21 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                     onCheckedChange={() => handleToggleStatus(link.id)}
                     disabled={isLoading}
                   />
-                  
+
                   <Button
                     variant="outline"
                     size="sm"
                     asChild
+                    className={`${colorScheme.border.replace('border-l-', 'border-')} hover:bg-gradient-to-r ${colorScheme.bg.replace('bg-', 'hover:from-').replace(' dark:bg-', '/20 hover:to-').replace('-100', '-50').replace('-900', '-950/20')}`}
                   >
                     <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4" />
+                      <ExternalLink className={`h-4 w-4 ${colorScheme.icon}`} />
                     </a>
                   </Button>
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="hover:bg-gray-50 dark:hover:bg-gray-950/20">
                         <MoreVertical className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -179,7 +195,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                           Editar
                         </a>
                       </DropdownMenuItem>
-                      <DropdownMenuItem 
+                      <DropdownMenuItem
                         onClick={() => openDeleteDialog(link.id)}
                         className="text-red-600 dark:text-red-400"
                       >
@@ -192,7 +208,8 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
               </div>
             </CardContent>
           </Card>
-        ))}
+          )
+        })}
       </div>
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -205,7 +222,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={handleDeleteLink}
               disabled={isLoading}
               className="bg-red-600 hover:bg-red-700"

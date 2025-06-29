@@ -146,9 +146,12 @@ export default async function AnalyticsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Links */}
-        <Card>
+        <Card className="border-t-4 border-t-indigo-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
-            <CardTitle>Links Mais Clicados</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+              Links Mais Clicados
+            </CardTitle>
             <CardDescription>
               Seus links com melhor performance
             </CardDescription>
@@ -172,7 +175,7 @@ export default async function AnalyticsPage() {
                       </p>
                     </div>
                     <div className="ml-4 flex-shrink-0">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-800 dark:from-indigo-900 dark:to-purple-900 dark:text-indigo-200">
                         {link.clicks} cliques
                       </span>
                     </div>
@@ -184,9 +187,12 @@ export default async function AnalyticsPage() {
         </Card>
 
         {/* Recent Activity */}
-        <Card>
+        <Card className="border-t-4 border-t-purple-500 hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
-            <CardTitle>Atividade Recente</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              Atividade Recente
+            </CardTitle>
             <CardDescription>
               Visualizações e cliques dos últimos dias
             </CardDescription>
