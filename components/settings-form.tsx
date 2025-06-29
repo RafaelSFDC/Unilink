@@ -170,37 +170,67 @@ export function SettingsForm({ user }: SettingsFormProps) {
               onChange={(e) => setUsername(e.target.value)}
               required
               className={cn(
-                "mt-1 pr-10",
-                usernameStatus.available === true && "border-green-500",
-                usernameStatus.available === false && "border-red-500"
+                "mt-1 pr-24 transition-all duration-300",
+                usernameStatus.checking && "border-blue-400 bg-blue-50/50 dark:bg-blue-950/20",
+                usernameStatus.available === true && "border-green-500 bg-green-50/50 dark:bg-green-950/20",
+                usernameStatus.available === false && "border-red-500 bg-red-50/50 dark:bg-red-950/20"
               )}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               {usernameStatus.checking && (
-                <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                <div className="flex items-center gap-1.5 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded-md">
+                  <Loader2 className="h-3 w-3 animate-spin text-blue-600 dark:text-blue-400" />
+                  <span className="text-xs text-blue-700 dark:text-blue-300 font-medium">
+                    Verificando
+                  </span>
+                </div>
               )}
               {!usernameStatus.checking && usernameStatus.available === true && (
-                <Check className="h-4 w-4 text-green-500" />
+                <div className="flex items-center gap-1.5 bg-green-100 dark:bg-green-900 px-2 py-1 rounded-md">
+                  <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
+                  <span className="text-xs text-green-700 dark:text-green-300 font-medium">
+                    Disponível
+                  </span>
+                </div>
               )}
               {!usernameStatus.checking && usernameStatus.available === false && (
-                <X className="h-4 w-4 text-red-500" />
+                <div className="flex items-center gap-1.5 bg-red-100 dark:bg-red-900 px-2 py-1 rounded-md">
+                  <X className="h-3 w-3 text-red-600 dark:text-red-400" />
+                  <span className="text-xs text-red-700 dark:text-red-300 font-medium">
+                    Indisponível
+                  </span>
+                </div>
               )}
             </div>
           </div>
-          <div className="mt-1 space-y-1">
-            <p className="text-sm text-gray-500">
-              Seu link será: {process.env.NODE_ENV === 'production'
-                ? `https://unilink.com/${username}`
-                : `http://localhost:3000/${username}`}
-            </p>
-            {usernameStatus.message && (
+          <div className="mt-2 space-y-2">
+            <div className={cn(
+              "text-sm p-3 rounded-lg border transition-all duration-300",
+              usernameStatus.checking && "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 dark:from-blue-950/20 dark:to-indigo-950/20 dark:border-blue-800",
+              usernameStatus.available === true && "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 dark:from-green-950/20 dark:to-emerald-950/20 dark:border-green-800",
+              usernameStatus.available === false && "bg-gradient-to-r from-red-50 to-pink-50 border-red-200 dark:from-red-950/20 dark:to-pink-950/20 dark:border-red-800",
+              usernameStatus.available === null && "bg-gray-50 border-gray-200 dark:bg-gray-950/20 dark:border-gray-800"
+            )}>
               <p className={cn(
-                "text-sm",
-                usernameStatus.available === true && "text-green-600",
-                usernameStatus.available === false && "text-red-600"
+                "font-medium",
+                usernameStatus.checking && "text-blue-700 dark:text-blue-300",
+                usernameStatus.available === true && "text-green-700 dark:text-green-300",
+                usernameStatus.available === false && "text-red-700 dark:text-red-300",
+                usernameStatus.available === null && "text-gray-700 dark:text-gray-300"
+              )}>
+                Seu link será: {process.env.NODE_ENV === 'production'
+                  ? `https://unilink.com/${username}`
+                  : `http://localhost:3000/${username}`}
+              </p>
+            </div>
+            {usernameStatus.message && (
+              <div className={cn(
+                "text-sm p-2 rounded-md",
+                usernameStatus.available === true && "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                usernameStatus.available === false && "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
               )}>
                 {usernameStatus.message}
-              </p>
+              </div>
             )}
           </div>
         </div>
