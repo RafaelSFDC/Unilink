@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { useState } from "react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
-  Link,
+  Link as LinkIcon,
   Menu,
   X,
   Sparkles,
@@ -13,9 +13,7 @@ import {
   Palette,
   Shield,
   Zap,
-  Users,
-  ChevronDown
-} from 'lucide-react'
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -23,64 +21,59 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const features = [
   {
-    title: "Analytics Avançados",
-    description: "Acompanhe cliques e visualizações em tempo real",
+    title: "Analytics",
+    description: "Dados brutais em tempo real.",
     icon: BarChart3,
-    href: "#analytics"
+    href: "#analytics",
   },
   {
-    title: "Personalização Total",
-    description: "Customize cores, fontes e layout",
+    title: "Design",
+    description: "Personalização sem limites.",
     icon: Palette,
-    href: "#customization"
+    href: "#customization",
   },
   {
-    title: "Segurança Garantida",
-    description: "Autenticação segura e proteção de dados",
+    title: "Segurança",
+    description: "Proteção total dos seus dados.",
     icon: Shield,
-    href: "#security"
+    href: "#security",
   },
   {
-    title: "Performance Otimizada",
-    description: "Carregamento rápido e experiência fluida",
+    title: "Velocidade",
+    description: "Performance extrema.",
     icon: Zap,
-    href: "#performance"
-  }
-]
+    href: "#performance",
+  },
+];
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50 supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 bg-background border-b-4 border-foreground">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-            <div className="relative">
-              <Link className="h-8 w-8 text-blue-600" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+          <a href="/" className="flex items-center space-x-3 group">
+            <div className="relative border-2 border-foreground p-1 bg-secondary shadow-neo group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+              <LinkIcon className="h-8 w-8 text-foreground" />
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-black tracking-tighter uppercase italic">
               Unilink
             </h1>
-            <Badge variant="secondary" className="hidden sm:inline-flex">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Novo
-            </Badge>
           </a>
 
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-2">
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                  className="px-4 py-2 font-bold uppercase tracking-tight hover:bg-accent hover:text-accent-foreground border-2 border-transparent hover:border-foreground transition-all"
                   href="/"
                 >
                   Início
@@ -88,11 +81,11 @@ export function Header() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent">
+                <NavigationMenuTrigger className="bg-transparent font-bold uppercase tracking-tight hover:bg-accent border-2 border-transparent hover:border-foreground">
                   Recursos
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  <ul className="grid w-[400px] gap-3 p-6 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background border-4 border-foreground shadow-neo-lg">
                     {features.map((feature) => (
                       <ListItem
                         key={feature.title}
@@ -106,24 +99,6 @@ export function Header() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href="/about"
-                >
-                  Sobre
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                  href="/contact"
-                >
-                  Contato
-                </NavigationMenuLink>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
@@ -131,109 +106,112 @@ export function Header() {
           <div className="flex items-center space-x-4">
             <SignedOut>
               <SignInButton mode="modal">
-                <Button variant="ghost" className="hidden sm:inline-flex">
+                <Button
+                  variant="ghost"
+                  className="hidden sm:inline-flex font-bold uppercase"
+                >
                   Entrar
                 </Button>
               </SignInButton>
               <SignInButton mode="modal">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  <span className="hidden sm:inline">Começar Grátis</span>
-                  <span className="sm:hidden">Entrar</span>
-                </Button>
+                <Button className="font-bold uppercase">Começar</Button>
               </SignInButton>
             </SignedOut>
 
             <SignedIn>
-              <Button asChild variant="ghost" className="hidden sm:inline-flex">
+              <Button
+                asChild
+                variant="outline"
+                className="hidden sm:inline-flex font-bold uppercase shadow-neo"
+              >
                 <a href="/dashboard">
                   <BarChart3 className="w-4 h-4 mr-2" />
-                  Dashboard
+                  Painel
                 </a>
               </Button>
-              <UserButton />
+              <div className="border-2 border-foreground p-0.5 shadow-neo">
+                <UserButton />
+              </div>
             </SignedIn>
 
             {/* Mobile Menu Button */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden shadow-neo"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200/50 dark:border-gray-700/50">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="/"
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Início
-              </a>
-              <a
-                href="/about"
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sobre
-              </a>
-              <a
-                href="/contact"
-                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contato
-              </a>
-
-              <SignedIn>
-                <a
-                  href="/dashboard"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Dashboard
-                </a>
-              </SignedIn>
-            </div>
+          <div className="lg:hidden border-t-4 border-foreground py-6 space-y-4 bg-background animate-in slide-in-from-top duration-300">
+            <a
+              href="/"
+              className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
+            >
+              Início
+            </a>
+            <a
+              href="/about"
+              className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
+            >
+              Sobre
+            </a>
+            <a
+              href="/contact"
+              className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
+            >
+              Contato
+            </a>
           </div>
         )}
       </div>
     </header>
-  )
+  );
 }
 
-const ListItem = ({ className, title, children, icon: Icon, ...props }: {
-  className?: string
-  title: string
-  children: React.ReactNode
-  icon: any
-  href: string
+const ListItem = ({
+  className,
+  title,
+  children,
+  icon: Icon,
+  ...props
+}: {
+  className?: string;
+  title: string;
+  children: React.ReactNode;
+  icon: any;
+  href: string;
 }) => {
   return (
     <li>
       <NavigationMenuLink asChild>
         <a
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            "block select-none space-y-1 border-2 border-transparent p-4 leading-none no-underline outline-none transition-all hover:bg-secondary hover:border-foreground hover:shadow-neo",
+            className,
           )}
           {...props}
         >
           <div className="flex items-center space-x-2">
-            <Icon className="w-4 h-4 text-blue-600" />
-            <div className="text-sm font-medium leading-none">{title}</div>
+            <Icon className="w-5 h-5" />
+            <div className="text-lg font-black uppercase tracking-tight">
+              {title}
+            </div>
           </div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 text-sm font-medium leading-snug opacity-70">
             {children}
           </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-}
+  );
+};
