@@ -1,54 +1,59 @@
-import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
-import { prisma } from '@/lib/prisma'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { LinksList } from '@/components/links-list'
-import { Plus, Link } from 'lucide-react'
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { LinksList } from "@/components/links-list";
+import { Plus, Link } from "lucide-react";
 
 async function getUserLinks(clerkId: string) {
   const user = await prisma.user.findUnique({
     where: { clerkId },
     include: {
       links: {
-        orderBy: { order: 'asc' }
-      }
-    }
-  })
+        orderBy: { order: "asc" },
+      },
+    },
+  });
 
-  return user
+  return user;
 }
 
 export default async function LinksPage() {
-  const { userId } = await auth()
+  const { userId } = await auth();
 
   if (!userId) {
-    redirect('/sign-in')
+    redirect("/sign-in");
   }
 
-  const user = await getUserLinks(userId)
+  const user = await getUserLinks(userId);
 
   if (!user) {
-    redirect('/onboarding')
+    redirect("/onboarding");
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 rounded-lg -z-10"></div>
-        <div className="p-6 flex justify-between items-center">
+    <div className="container mx-auto px-4 py-12">
+      <div className="mb-12 relative">
+        <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-[1deg] flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-5xl font-black uppercase tracking-tighter mb-2">
               Meus Links
             </h1>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-foreground/80 font-bold text-lg uppercase tracking-tight">
               Gerencie todos os seus links em um só lugar
             </p>
           </div>
 
-          <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Button asChild className="h-14 px-8 text-lg">
             <a href="/dashboard/links/new">
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-5 w-5 mr-2" />
               Adicionar Link
             </a>
           </Button>
@@ -56,20 +61,20 @@ export default async function LinksPage() {
       </div>
 
       {user.links.length === 0 ? (
-        <Card className="border-t-4 border-t-blue-500 hover:shadow-lg transition-shadow duration-300">
-          <CardHeader className="text-center">
-            <CardTitle className="flex items-center justify-center gap-2">
-              <Link className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+        <Card className="text-center p-12">
+          <CardHeader>
+            <Link className="h-20 w-20 text-muted-foreground mx-auto mb-6 opacity-20" />
+            <CardTitle className="text-3xl font-black uppercase mb-4">
               Nenhum link ainda
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-lg font-bold text-muted-foreground mb-8">
               Comece adicionando seu primeiro link para compartilhar com o mundo
             </CardDescription>
           </CardHeader>
-          <CardContent className="text-center">
-            <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
+          <CardContent>
+            <Button asChild className="h-16 px-12 text-xl">
               <a href="/dashboard/links/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="h-5 w-5 mr-2" />
                 Adicionar Primeiro Link
               </a>
             </Button>
@@ -79,5 +84,5 @@ export default async function LinksPage() {
         <LinksList links={user.links} />
       )}
     </div>
-  )
+  );
 }

@@ -1,104 +1,105 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Check, Eye } from 'lucide-react'
-import { TEMPLATE_OPTIONS, type TemplateId } from '@/components/profile-templates'
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Check, Eye } from "lucide-react";
+import {
+  TEMPLATE_OPTIONS,
+  type TemplateId,
+} from "@/components/profile-templates";
 
 interface TemplateSelectorProps {
-  currentTemplate: TemplateId
-  onTemplateSelect: (templateId: TemplateId) => void
-  onPreview?: (templateId: TemplateId) => void
+  currentTemplate: TemplateId;
+  onTemplateSelect: (templateId: TemplateId) => void;
+  onPreview?: (templateId: TemplateId) => void;
 }
 
-export function TemplateSelector({ 
-  currentTemplate, 
-  onTemplateSelect, 
-  onPreview 
+export function TemplateSelector({
+  currentTemplate,
+  onTemplateSelect,
+  onPreview,
 }: TemplateSelectorProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(currentTemplate)
+  const [selectedTemplate, setSelectedTemplate] =
+    useState<TemplateId>(currentTemplate);
 
   const handleTemplateClick = (templateId: TemplateId) => {
-    setSelectedTemplate(templateId)
-    onTemplateSelect(templateId)
-  }
+    setSelectedTemplate(templateId);
+    onTemplateSelect(templateId);
+  };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Escolha um Template</h3>
-        <p className="text-sm text-muted-foreground">
+    <div className="space-y-10">
+      <div className="border-b-4 border-foreground pb-4">
+        <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">
+          Escolha um Template
+        </h3>
+        <p className="text-sm font-bold uppercase opacity-60">
           Selecione um design para seu perfil público
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {TEMPLATE_OPTIONS.map((template) => (
-          <Card 
+          <Card
             key={template.id}
-            className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
-              selectedTemplate === template.id 
-                ? 'ring-2 ring-primary border-primary' 
-                : 'hover:border-primary/50'
+            className={`cursor-pointer transition-all duration-300 border-4 shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 ${
+              selectedTemplate === template.id
+                ? "bg-yellow-100 border-foreground ring-4 ring-primary ring-offset-4"
+                : "bg-background hover:bg-muted/50"
             }`}
             onClick={() => handleTemplateClick(template.id)}
           >
-            <CardContent className="p-4">
+            <CardContent className="p-6">
               {/* Template Preview */}
-              <div className="aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-3 relative overflow-hidden">
-                {/* Preview placeholder - you can replace with actual screenshots */}
+              <div className="aspect-[3/4] border-4 border-foreground bg-white mb-6 relative overflow-hidden shadow-neo-sm">
+                {/* Preview placeholder */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mx-auto mb-2"></div>
-                    <div className="w-16 h-2 bg-gray-300 rounded mb-1"></div>
-                    <div className="w-12 h-1 bg-gray-300 rounded mb-3"></div>
-                    <div className="space-y-1">
-                      <div className="w-20 h-3 bg-gray-400 rounded"></div>
-                      <div className="w-20 h-3 bg-gray-400 rounded"></div>
-                      <div className="w-20 h-3 bg-gray-400 rounded"></div>
+                    <div className="w-12 h-12 bg-primary border-4 border-foreground shadow-neo-sm mx-auto mb-4 rotate-[5deg]"></div>
+                    <div className="w-24 h-4 bg-foreground mb-2"></div>
+                    <div className="w-16 h-2 bg-foreground/30 mb-6 mx-auto"></div>
+                    <div className="space-y-3">
+                      <div className="w-32 h-6 bg-secondary border-2 border-foreground shadow-neo-sm"></div>
+                      <div className="w-32 h-6 bg-accent border-2 border-foreground shadow-neo-sm"></div>
                     </div>
                   </div>
                 </div>
 
-                {/* Template-specific styling */}
-                {template.id === 'minimal' && (
-                  <div className="absolute inset-0 bg-white"></div>
+                {/* Template-specific styling overlay */}
+                {template.id === "minimal" && (
+                  <div className="absolute inset-0 bg-white opacity-20 pointer-events-none"></div>
                 )}
-                {template.id === 'modern' && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600"></div>
+                {template.id === "modern" && (
+                  <div className="absolute inset-0 bg-primary/20 pointer-events-none"></div>
                 )}
-                {template.id === 'vibrant' && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500"></div>
-                )}
-                {template.id === 'professional' && (
-                  <div className="absolute inset-0 bg-gray-50"></div>
-                )}
-                {template.id === 'creative' && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-pink-300 to-purple-300"></div>
+                {template.id === "vibrant" && (
+                  <div className="absolute inset-0 bg-accent/20 pointer-events-none"></div>
                 )}
 
                 {/* Selection indicator */}
                 {selectedTemplate === template.id && (
-                  <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-                    <Check className="w-3 h-3" />
+                  <div className="absolute top-4 right-4 bg-primary border-4 border-foreground text-white p-1 shadow-neo-sm scale-110">
+                    <Check className="w-6 h-6 stroke-[4]" />
                   </div>
                 )}
               </div>
 
               {/* Template Info */}
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium">{template.name}</h4>
+                  <h4 className="text-xl font-black uppercase tracking-tight">
+                    {template.name}
+                  </h4>
                   {currentTemplate === template.id && (
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge className="bg-primary text-white border-2 border-foreground shadow-neo-sm font-black uppercase text-[10px]">
                       Atual
                     </Badge>
                   )}
                 </div>
-                
-                <p className="text-sm text-muted-foreground">
+
+                <p className="text-xs font-bold uppercase opacity-70 leading-tight h-8 overflow-hidden">
                   {template.description}
                 </p>
 
@@ -106,14 +107,13 @@ export function TemplateSelector({
                 {onPreview && (
                   <Button
                     variant="outline"
-                    size="sm"
-                    className="w-full mt-2"
+                    className="w-full h-12 border-2 shadow-neo-sm hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] font-black uppercase text-xs"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      onPreview(template.id)
+                      e.stopPropagation();
+                      onPreview(template.id);
                     }}
                   >
-                    <Eye className="w-3 h-3 mr-1" />
+                    <Eye className="w-4 h-4 mr-2" />
                     Visualizar
                   </Button>
                 )}
@@ -124,15 +124,37 @@ export function TemplateSelector({
       </div>
 
       {/* Template Features */}
-      <div className="bg-muted/50 rounded-lg p-4">
-        <h4 className="font-medium mb-2">Recursos dos Templates</h4>
-        <ul className="text-sm text-muted-foreground space-y-1">
-          <li>• Totalmente responsivos para mobile e desktop</li>
-          <li>• Personalizáveis com suas cores e fontes</li>
-          <li>• Animações suaves e efeitos visuais</li>
-          <li>• Otimizados para performance e SEO</li>
+      <div className="bg-primary border-4 border-foreground p-8 shadow-neo-lg rotate-[-0.5deg]">
+        <h4 className="text-2xl font-black uppercase text-white mb-4 tracking-tighter">
+          Recursos dos Templates
+        </h4>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
+            <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
+              1
+            </span>
+            Totalmente responsivos (Mobile & Desktop)
+          </li>
+          <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
+            <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
+              2
+            </span>
+            Personalizáveis com suas cores e fontes
+          </li>
+          <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
+            <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
+              3
+            </span>
+            Animações suaves e efeitos visuais
+          </li>
+          <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
+            <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
+              4
+            </span>
+            Otimizados para performance e SEO
+          </li>
         </ul>
       </div>
     </div>
-  )
+  );
 }

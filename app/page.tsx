@@ -38,10 +38,7 @@ export default function Home() {
         <section className="py-20 lg:py-40 text-left border-b-4 border-foreground">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="reveal animate-stagger-1">
-              <Badge
-                variant="outline"
-                className="mb-6 px-4 py-2 border-2 border-foreground bg-secondary text-foreground font-bold rounded-none shadow-neo"
-              >
+              <Badge variant="secondary" className="mb-6 px-4 py-2">
                 <Star className="w-4 h-4 mr-2 fill-foreground" />
                 10K+ CRIADORES CONFIAM
               </Badge>
@@ -135,19 +132,14 @@ export default function Home() {
                 color: "bg-accent",
               },
             ].map((feature, i) => (
-              <Card
-                key={i}
-                className={`reveal animate-stagger-${i + 1} rounded-none border-4`}
-              >
+              <Card key={i} className="reveal animate-stagger">
                 <CardHeader>
                   <div
                     className={`w-16 h-16 ${feature.color} border-4 border-foreground flex items-center justify-center mb-6 shadow-neo`}
                   >
                     <feature.icon className="h-8 w-8" />
                   </div>
-                  <CardTitle className="text-3xl mb-4">
-                    {feature.title}
-                  </CardTitle>
+                  <CardTitle>{feature.title}</CardTitle>
                   <CardDescription className="text-lg text-foreground/80">
                     {feature.desc}
                   </CardDescription>

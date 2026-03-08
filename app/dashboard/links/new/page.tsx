@@ -1,32 +1,46 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { LinkForm } from '@/components/link-form'
-import { ArrowLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { LinkForm } from "@/components/link-form";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function NewLinkPage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Button variant="outline" asChild className="mb-4">
+    <div className="container mx-auto px-4 py-12">
+      <div className="mb-12">
+        <Button
+          variant="outline"
+          asChild
+          className="mb-8 h-12 px-6 border-2 font-black uppercase shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+        >
           <a href="/dashboard/links">
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="h-5 w-5 mr-2" />
             Voltar para Links
           </a>
         </Button>
-        
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-          Adicionar Novo Link
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Crie um novo link para adicionar ao seu perfil
-        </p>
+
+        <div className="p-8 bg-primary border-4 border-foreground shadow-neo-lg rotate-[-1deg] max-w-2xl">
+          <h1 className="text-4xl font-black uppercase tracking-tighter text-white mb-2">
+            Adicionar Novo Link
+          </h1>
+          <p className="text-white/80 font-bold text-lg uppercase tracking-tight">
+            Crie um novo link para o seu perfil
+          </p>
+        </div>
       </div>
 
       <div className="max-w-2xl">
-        <Card>
-          <CardHeader>
-            <CardTitle>Informações do Link</CardTitle>
-            <CardDescription>
+        <Card className="border-4">
+          <CardHeader className="bg-muted border-b-4 border-foreground mb-6">
+            <CardTitle className="text-2xl font-black uppercase">
+              Informações do Link
+            </CardTitle>
+            <CardDescription className="text-xs font-black uppercase opacity-60">
               Preencha as informações do seu novo link
             </CardDescription>
           </CardHeader>
@@ -36,5 +50,5 @@ export default function NewLinkPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
