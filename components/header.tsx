@@ -14,6 +14,7 @@ import {
   Shield,
   Zap,
 } from "lucide-react";
+import { Logo } from "@/components/logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -61,7 +62,7 @@ export function Header() {
           {/* Logo */}
           <a href="/" className="flex items-center space-x-3 group">
             <div className="relative border-2 border-foreground p-1 bg-secondary shadow-neo group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
-              <LinkIcon className="h-8 w-8 text-foreground" />
+              <Logo className="h-8 w-8 text-foreground" />
             </div>
             <h1 className="text-3xl font-black tracking-tighter uppercase italic">
               Unilink
