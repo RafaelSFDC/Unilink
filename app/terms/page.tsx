@@ -1,80 +1,101 @@
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { FileText, Scale, Shield, Users, AlertTriangle, Mail } from 'lucide-react'
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  FileText,
+  Scale,
+  Shield,
+  Users,
+  AlertTriangle,
+  Mail,
+} from "lucide-react";
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <section className="text-center mb-16">
-          <Badge variant="outline" className="mb-6 px-4 py-2">
-            <Scale className="w-4 h-4 mr-2 text-blue-500" />
-            Termos de Uso
+        <section className="text-left mb-16 border-b-8 border-foreground pb-16">
+          <Badge className="mb-6 px-6 py-2 bg-emerald-400 text-white border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm rotate-1 w-fit">
+            <Scale className="w-4 h-4 mr-2" />
+            REGRAS DO JOGO
           </Badge>
-          
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Termos de{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Uso
+
+          <h1 className="text-6xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
+            TERMOS DE
+            <br />
+            <span className="bg-primary text-white px-6 shadow-neo-lg -rotate-2 inline-block mt-4 not-italic border-4 border-foreground">
+              USO
             </span>
           </h1>
-          
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Estes termos estabelecem as regras para o uso do Unilink. Ao usar nosso serviço, 
-            você concorda com estes termos.
-          </p>
-          
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-            Última atualização: 24 de junho de 2024
-          </p>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <p className="text-2xl lg:text-3xl font-bold max-w-3xl leading-tight uppercase tracking-tighter opacity-80">
+              ESTES TERMOS ESTABELECEM AS REGRAS PARA O USO DO UNILINK. AO USAR
+              NOSSO SERVIÇO, VOCÊ CONCORDA EM SER BRUTALMENTE HONESTO E SEGUIR
+              NOSSAS DIRETRIZES.
+            </p>
+            <div className="bg-foreground text-background p-4 border-4 border-foreground shadow-neo rotate-1 shrink-0">
+              <p className="text-xs font-black uppercase tracking-widest">
+                ÚLTIMA ATUALIZAÇÃO
+              </p>
+              <p className="text-lg font-black uppercase tracking-tighter">
+                24 JUN 2024
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* Key Points */}
         <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Pontos Principais
-            </h2>
-          </div>
-
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 text-center">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-white" />
+            <Card className="border-4 border-foreground shadow-neo bg-emerald-100 rounded-none overflow-hidden">
+              <CardHeader className="p-8">
+                <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center mb-6 -rotate-3">
+                  <Users className="h-8 w-8 text-foreground stroke-3" />
                 </div>
-                <CardTitle>Uso Responsável</CardTitle>
-                <CardDescription>
-                  Use o Unilink de forma ética e responsável, respeitando outros usuários e as leis aplicáveis.
+                <CardTitle className="text-2xl font-black uppercase tracking-tighter">
+                  USO RESPONSÁVEL
+                </CardTitle>
+                <CardDescription className="text-sm font-bold uppercase opacity-60">
+                  USE A PLATAFORMA DE FORMA ÉTICA E RESPEITE A COMUNIDADE.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 text-center">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-white" />
+            <Card className="border-4 border-foreground shadow-neo bg-blue-100 rounded-none overflow-hidden">
+              <CardHeader className="p-8">
+                <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center mb-6 rotate-3">
+                  <Shield className="h-8 w-8 text-foreground stroke-3" />
                 </div>
-                <CardTitle>Seus Direitos</CardTitle>
-                <CardDescription>
-                  Você mantém todos os direitos sobre o conteúdo que cria e pode excluir sua conta a qualquer momento.
+                <CardTitle className="text-2xl font-black uppercase tracking-tighter">
+                  SEUS DIREITOS
+                </CardTitle>
+                <CardDescription className="text-sm font-bold uppercase opacity-60">
+                  VOCÊ É DONO DO SEU CONTEÚDO E PODE SAIR QUANDO QUISER.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 text-center">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FileText className="h-8 w-8 text-white" />
+            <Card className="border-4 border-foreground shadow-neo bg-purple-100 rounded-none overflow-hidden">
+              <CardHeader className="p-8">
+                <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center mb-6 -rotate-2">
+                  <FileText className="h-8 w-8 text-foreground stroke-3" />
                 </div>
-                <CardTitle>Transparência</CardTitle>
-                <CardDescription>
-                  Nossos termos são claros e diretos. Se algo mudar, você será notificado com antecedência.
+                <CardTitle className="text-2xl font-black uppercase tracking-tighter">
+                  TRANSPARÊNCIA
+                </CardTitle>
+                <CardDescription className="text-sm font-bold uppercase opacity-60">
+                  TERMORS CLAROS. SEM LETRAS MIÚDAS OU SURPRESAS RUINS.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -82,229 +103,164 @@ export default function TermsPage() {
         </section>
 
         {/* Terms Content */}
-        <div className="max-w-4xl mx-auto space-y-12">
-          {/* Acceptance */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <Scale className="w-6 h-6 mr-3 text-blue-600" />
-                1. Aceitação dos Termos
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                Ao acessar e usar o Unilink, você aceita e concorda em ficar vinculado aos 
-                termos e condições deste acordo. Se você não concordar com algum destes termos, 
-                não use nosso serviço.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300">
-                Estes termos se aplicam a todos os visitantes, usuários e outras pessoas que 
-                acessam ou usam o serviço.
-              </p>
-            </CardContent>
-          </Card>
+        <div className="max-w-5xl mx-auto space-y-16">
+          {[
+            {
+              id: "1",
+              title: "ACEITAÇÃO DOS TERMOS",
+              icon: Scale,
+              color: "bg-emerald-400",
+              content:
+                "AO ACESSAR E USAR O UNILINK, VOCÊ ACEITA E CONCORDA EM FICAR VINCULADO AOS TERMOS E CONDIÇÕES DESTE ACORDO. SE VOCÊ NÃO CONCORDAR COM ALGUM DESTES TERMOS, NÃO USE NOSSO SERVIÇO. ESTES TERMOS SE APLICAM A TODOS OS VISITANTES, USUÁRIOS E OUTRAS PESSOAS QUE ACESSAM OU USAM O SERVIÇO.",
+            },
+            {
+              id: "2",
+              title: "DESCRIÇÃO DO SERVIÇO",
+              icon: FileText,
+              color: "bg-blue-400",
+              content:
+                "O UNILINK É UMA PLATAFORMA QUE PERMITE AOS USUÁRIOS CRIAR PÁGINAS PERSONALIZADAS PARA ORGANIZAR E COMPARTILHAR LINKS IMPORTANTES.",
+              list: [
+                "CRIAÇÃO DE PÁGINAS DE LINKS PERSONALIZADAS",
+                "FERRAMENTAS DE PERSONALIZAÇÃO (CORES, FONTES, LAYOUT)",
+                "ANALYTICS DE VISUALIZAÇÕES E CLIQUES",
+                "GERENCIAMENTO DE LINKS E CONTEÚDO",
+                "HOSPEDAGEM E MANUTENÇÃO DA PLATAFORMA",
+              ],
+            },
+            {
+              id: "3",
+              title: "CONTAS DE USUÁRIO",
+              icon: Users,
+              color: "bg-purple-400",
+              sections: [
+                {
+                  subtitle: "CRIAÇÃO DE CONTA",
+                  text: "VOCÊ DEVE FORNECER INFORMAÇÕES PRECISAS E ATUALIZADAS. VOCÊ É RESPONSÁVEL POR MANTER A CONFIDENCIALIDADE DE SUA CONTA.",
+                },
+                {
+                  subtitle: "RESPONSABILIDADE",
+                  text: "VOCÊ É RESPONSÁVEL POR TODAS AS ATIVIDADES QUE OCORREM EM SUA CONTA.",
+                },
+                {
+                  subtitle: "IDADE MÍNIMA",
+                  text: "VOCÊ DEVE TER PELO MENOS 13 ANOS PARA USAR O UNILINK.",
+                },
+              ],
+            },
+            {
+              id: "4",
+              title: "USO ACEITÁVEL",
+              icon: Shield,
+              color: "bg-red-400",
+              content:
+                "VOCÊ CONCORDA EM USAR O UNILINK APENAS PARA FINS LEGAIS. VOCÊ NÃO PODE:",
+              list: [
+                "VIOLAR QUALQUER LEI LOCAL OU INTERNACIONAL",
+                "TRANSMITIR MATERIAL DIFAMATÓRIO OU OFENSIVO",
+                "ASSEDIAR OU PREJUDICAR OUTRAS PESSOAS",
+                "DISTRIBUIR SPAM OU CONTEÚDO MALICIOSO",
+                "VIOLAR DIREITOS DE PROPRIEDADE INTELECTUAL",
+                "TENTAR HACKEAR NOSSOS SISTEMAS",
+              ],
+            },
+          ].map((item, i) => (
+            <div key={i} className="reveal">
+              <div className="flex items-center gap-6 mb-8 group">
+                <div
+                  className={`w-20 h-20 ${item.color} border-4 border-foreground shadow-neo flex items-center justify-center group-hover:rotate-12 transition-transform`}
+                >
+                  <item.icon className="w-10 h-10 text-white stroke-3" />
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">
+                  {item.id}. {item.title}
+                </h2>
+              </div>
 
-          {/* Service Description */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <FileText className="w-6 h-6 mr-3 text-green-600" />
-                2. Descrição do Serviço
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                O Unilink é uma plataforma que permite aos usuários criar páginas personalizadas 
-                para organizar e compartilhar links importantes. Nossos serviços incluem:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-4">
-                <li>Criação de páginas de links personalizadas</li>
-                <li>Ferramentas de personalização (cores, fontes, layout)</li>
-                <li>Analytics de visualizações e cliques</li>
-                <li>Gerenciamento de links e conteúdo</li>
-                <li>Hospedagem e manutenção da plataforma</li>
-              </ul>
-            </CardContent>
-          </Card>
+              <Card className="border-4 border-foreground shadow-neo bg-white rounded-none p-10">
+                <CardContent className="p-0 space-y-6">
+                  {item.content && (
+                    <p className="text-xl font-bold uppercase tracking-tight leading-relaxed opacity-80">
+                      {item.content}
+                    </p>
+                  )}
 
-          {/* User Accounts */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <Users className="w-6 h-6 mr-3 text-purple-600" />
-                3. Contas de Usuário
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Criação de Conta</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Para usar o Unilink, você deve criar uma conta fornecendo informações precisas 
-                  e atualizadas. Você é responsável por manter a confidencialidade de sua conta.
+                  {item.list && (
+                    <ul className="space-y-4">
+                      {item.list.map((li, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center gap-4 text-lg font-black uppercase tracking-tighter"
+                        >
+                          <div className="w-3 h-3 bg-foreground rotate-45 shrink-0" />
+                          {li}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {item.sections && (
+                    <div className="grid md:grid-cols-3 gap-8">
+                      {item.sections.map((sec, idx) => (
+                        <div key={idx} className="space-y-2">
+                          <h3 className="text-sm font-black uppercase tracking-widest text-primary italic">
+                            {sec.subtitle}
+                          </h3>
+                          <p className="text-lg font-bold uppercase tracking-tight opacity-70">
+                            {sec.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+
+          {/* Limitation & Disclaimers */}
+          <div className="grid lg:grid-cols-2 gap-12">
+            <Card className="border-4 border-foreground shadow-neo bg-yellow-400 rounded-none p-10 rotate-1">
+              <div className="flex items-center gap-4 mb-6">
+                <AlertTriangle className="w-10 h-10 text-foreground stroke-3" />
+                <h3 className="text-2xl font-black uppercase tracking-tighter">
+                  LIMITAÇÕES
+                </h3>
+              </div>
+              <p className="font-bold uppercase tracking-tight leading-tight mb-4">
+                O UNILINK É FORNECIDO "COMO ESTÁ". NÃO GARANTIMOS QUE O SERVIÇO
+                SERÁ 100% LIVRE DE ERROS.
+              </p>
+              <p className="text-sm font-black uppercase opacity-60">
+                NÃO SOMOS RESPONSÁVEIS POR DANOS INDIRETOS OU PERDA DE DADOS.
+              </p>
+            </Card>
+
+            <Card className="border-4 border-foreground shadow-neo bg-foreground text-background rounded-none p-10 -rotate-1">
+              <div className="flex items-center gap-4 mb-6">
+                <Mail className="w-10 h-10 stroke-3" />
+                <h3 className="text-2xl font-black uppercase tracking-tighter">
+                  DÚVIDAS?
+                </h3>
+              </div>
+              <p className="font-bold uppercase tracking-tight leading-tight mb-6">
+                SE VOCÊ TIVER DÚVIDAS SOBRE NOSSOS TERMOS, MANDE UM EMAIL PARA O
+                NOSSO TIME JURÍDICO.
+              </p>
+              <div className="space-y-1">
+                <p className="text-xl font-black tracking-tighter">
+                  LEGAL@UNILINK.COM
+                </p>
+                <p className="text-xs font-black opacity-50 uppercase tracking-widest">
+                  SÃO PAULO, BRASIL
                 </p>
               </div>
-              
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Responsabilidade</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Você é responsável por todas as atividades que ocorrem em sua conta e deve 
-                  notificar-nos imediatamente sobre qualquer uso não autorizado.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Idade Mínima</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Você deve ter pelo menos 13 anos para usar o Unilink. Se você tem entre 13 e 18 anos, 
-                  deve ter permissão dos pais ou responsáveis.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Acceptable Use */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <Shield className="w-6 h-6 mr-3 text-green-600" />
-                4. Uso Aceitável
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                Você concorda em usar o Unilink apenas para fins legais e de acordo com estes termos. 
-                Você NÃO pode usar nosso serviço para:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-4">
-                <li>Violar qualquer lei local, estadual, nacional ou internacional</li>
-                <li>Transmitir material que seja difamatório, obsceno ou ofensivo</li>
-                <li>Assediar, abusar ou prejudicar outras pessoas</li>
-                <li>Distribuir spam, malware ou conteúdo malicioso</li>
-                <li>Violar direitos de propriedade intelectual</li>
-                <li>Tentar obter acesso não autorizado a nossos sistemas</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* Content Ownership */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <FileText className="w-6 h-6 mr-3 text-blue-600" />
-                5. Propriedade do Conteúdo
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Seu Conteúdo</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Você mantém todos os direitos sobre o conteúdo que cria no Unilink. 
-                  Ao usar nosso serviço, você nos concede uma licença limitada para hospedar, 
-                  exibir e distribuir seu conteúdo conforme necessário para fornecer o serviço.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Nosso Conteúdo</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  O Unilink e todo o seu conteúdo original, recursos e funcionalidades são 
-                  propriedade exclusiva do Unilink e são protegidos por direitos autorais, 
-                  marcas registradas e outras leis.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Termination */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <AlertTriangle className="w-6 h-6 mr-3 text-orange-600" />
-                6. Rescisão
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Por Você</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Você pode encerrar sua conta a qualquer momento excluindo-a através das 
-                  configurações ou entrando em contato conosco.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Por Nós</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Podemos suspender ou encerrar sua conta se você violar estes termos ou 
-                  usar o serviço de forma inadequada. Tentaremos notificá-lo com antecedência 
-                  sempre que possível.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Disclaimers */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <AlertTriangle className="w-6 h-6 mr-3 text-red-600" />
-                7. Limitações de Responsabilidade
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                O Unilink é fornecido "como está" e "conforme disponível". Não garantimos que 
-                o serviço será ininterrupto, livre de erros ou completamente seguro.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300">
-                Em nenhuma circunstância seremos responsáveis por danos indiretos, incidentais, 
-                especiais ou consequenciais resultantes do uso ou incapacidade de usar nosso serviço.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Changes to Terms */}
-          <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <FileText className="w-6 h-6 mr-3 text-purple-600" />
-                8. Alterações nos Termos
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600 dark:text-gray-300">
-                Podemos atualizar estes termos periodicamente. Quando fizermos alterações 
-                significativas, notificaremos você por email ou através de um aviso em nosso serviço.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300">
-                Seu uso continuado do serviço após as alterações constituirá sua aceitação 
-                dos novos termos.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Contact */}
-          <Card className="border-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center">
-                <Mail className="w-6 h-6 mr-3" />
-                Dúvidas sobre os Termos?
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4 opacity-90">
-                Se você tiver alguma dúvida sobre estes termos de uso, entre em contato conosco.
-              </p>
-              <div className="space-y-2">
-                <p><strong>Email:</strong> legal@unilink.com</p>
-                <p><strong>Endereço:</strong> São Paulo, Brasil</p>
-              </div>
-            </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
       </main>
 
       <Footer />
     </div>
-  )
+  );
 }

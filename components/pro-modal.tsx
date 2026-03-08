@@ -21,7 +21,7 @@ export function ProModal({ isOpen, onClose }: ProModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] border-4 border-foreground shadow-neo-lg bg-white rotate-[1deg]">
+      <DialogContent className="sm:max-w-[425px] border-4 border-foreground shadow-neo-lg bg-white rotate-1">
         <DialogHeader className="space-y-4">
           <div className="flex items-center justify-center -mt-10">
             <div className="bg-primary p-4 border-4 border-foreground shadow-neo rotate-[-5deg]">
@@ -47,7 +47,7 @@ export function ProModal({ isOpen, onClose }: ProModalProps) {
               key={feature}
               className="flex items-center gap-3 p-3 border-2 border-foreground bg-muted shadow-neo-sm"
             >
-              <Check className="h-5 w-5 text-green-500 stroke-[3]" />
+              <Check className="h-5 w-5 text-green-500 stroke-3" />
               <span className="text-xs font-black uppercase">{feature}</span>
             </div>
           ))}

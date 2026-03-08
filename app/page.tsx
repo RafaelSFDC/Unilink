@@ -38,7 +38,7 @@ export default function Home() {
         <section className="py-24 lg:py-48 text-left border-b-8 border-foreground">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="reveal animate-stagger-1">
-              <Badge className="mb-8 px-6 py-2 bg-yellow-400 text-foreground border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm rotate-[-1deg]">
+              <Badge className="mb-8 px-6 py-2 bg-yellow-400 text-foreground border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1">
                 <Sparkles className="w-4 h-4 mr-2 fill-current" />A PLATAFORMA
                 #1 PARA CRIADORES BRUTAIS
               </Badge>
@@ -46,7 +46,7 @@ export default function Home() {
               <h1 className="text-7xl sm:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
                 CRIE SEU
                 <br />
-                <span className="bg-primary text-white px-6 shadow-neo-lg rotate-[2deg] inline-block mt-4 not-italic">
+                <span className="bg-primary text-white px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic">
                   IMPÉRIO
                 </span>
               </h1>
@@ -65,7 +65,7 @@ export default function Home() {
                       className="h-20 px-12 text-2xl font-black uppercase tracking-tighter border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                     >
                       COMEÇAR AGORA
-                      <ArrowRight className="w-8 h-8 ml-3 stroke-[3]" />
+                      <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
                     </Button>
                   </SignInButton>
                   <div className="flex items-center gap-4 group">
@@ -86,7 +86,7 @@ export default function Home() {
                   >
                     <a href="/dashboard">
                       MEU PAINEL
-                      <ArrowRight className="w-8 h-8 ml-3 stroke-[3]" />
+                      <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
                     </a>
                   </Button>
                 </SignedIn>
@@ -121,7 +121,7 @@ export default function Home() {
 
         {/* Features Grid */}
         <section className="py-32 border-b-8 border-foreground relative">
-          <div className="absolute top-0 left-0 -translate-y-1/2 bg-foreground text-background px-8 py-3 font-black text-2xl uppercase tracking-tighter rotate-[-1deg]">
+          <div className="absolute top-0 left-0 -translate-y-1/2 bg-foreground text-background px-8 py-3 font-black text-2xl uppercase tracking-tighter -rotate-1">
             FEATURES BRUTAIS
           </div>
 
@@ -162,9 +162,9 @@ export default function Home() {
                 )}
                 <CardHeader className="p-8">
                   <div
-                    className={`w-20 h-20 ${feature.color} border-4 border-foreground flex items-center justify-center mb-8 shadow-neo rotate-[-5deg]`}
+                    className={`w-20 h-20 ${feature.color} border-4 border-foreground flex items-center justify-center mb-8 shadow-neo -rotate-5`}
                   >
-                    <feature.icon className="h-10 w-10 stroke-[3]" />
+                    <feature.icon className="h-10 w-10 stroke-3" />
                   </div>
                   <CardTitle className="text-3xl font-black uppercase tracking-tighter mb-4 italic">
                     {feature.title}
@@ -180,7 +180,7 @@ export default function Home() {
 
         {/* Pricing Section */}
         <section className="py-32 border-b-8 border-foreground bg-accent/5 relative overflow-hidden">
-          <div className="absolute top-0 right-0 translate-y-[-50%] bg-primary text-white px-8 py-3 font-black text-2xl uppercase tracking-tighter rotate-[2deg] z-20">
+          <div className="absolute top-0 right-0 translate-y-[-50%] bg-primary text-white px-8 py-3 font-black text-2xl uppercase tracking-tighter rotate-2 z-20">
             PREÇOS TRANSPARENTES
           </div>
 
@@ -215,7 +215,7 @@ export default function Home() {
                     key={i}
                     className="flex items-center gap-3 font-bold text-lg"
                   >
-                    <CheckCircle className="w-6 h-6 text-emerald-500 stroke-[3]" />
+                    <CheckCircle className="w-6 h-6 text-emerald-500 stroke-3" />
                     {item}
                   </li>
                 ))}

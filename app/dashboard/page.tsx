@@ -69,7 +69,7 @@ export default async function DashboardPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       {!isPro && (
-        <div className="mb-8 bg-yellow-400 border-4 border-foreground p-6 shadow-neo rotate-[1deg] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mb-8 bg-yellow-400 border-4 border-foreground p-6 shadow-neo rotate-1 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="bg-white p-3 border-4 border-foreground shadow-neo rotate-[-5deg]">
               <Zap className="h-8 w-8 text-yellow-500 fill-yellow-400" />
@@ -93,7 +93,7 @@ export default async function DashboardPage() {
       )}
 
       <div className="mb-12 relative">
-        <div className="p-8 bg-primary border-4 border-foreground shadow-neo-lg rotate-[-1deg]">
+        <div className="p-8 bg-primary border-4 border-foreground shadow-neo-lg -rotate-1">
           <h1 className="text-5xl font-black uppercase tracking-tighter text-primary-foreground mb-2">
             Dashboard
           </h1>

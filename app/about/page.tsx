@@ -1,257 +1,204 @@
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { 
-  Users, 
-  Target, 
-  Heart, 
-  Zap, 
-  Shield, 
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Users,
+  Target,
+  Heart,
+  Zap,
+  Shield,
   Globe,
   Star,
   TrendingUp,
   Award,
-  CheckCircle
-} from 'lucide-react'
+  CheckCircle,
+} from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <section className="text-center mb-20">
-          <Badge variant="outline" className="mb-6 px-4 py-2">
-            <Heart className="w-4 h-4 mr-2 text-red-500" />
-            Nossa História
+        <section className="text-left mb-20 border-b-8 border-foreground pb-20">
+          <Badge className="mb-8 px-6 py-2 bg-primary text-white border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1 w-fit">
+            <Heart className="w-4 h-4 mr-2 fill-current" />
+            NOSSA HISTÓRIA
           </Badge>
-          
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Sobre o{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Unilink
+
+          <h1 className="text-6xl sm:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
+            SOBRE O
+            <br />
+            <span className="bg-secondary text-foreground px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic border-4 border-foreground">
+              UNILINK
             </span>
           </h1>
-          
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Criamos o Unilink com uma missão simples: facilitar a vida dos criadores de conteúdo, 
-            oferecendo uma plataforma moderna, segura e intuitiva para organizar todos os seus links importantes.
+
+          <p className="text-2xl lg:text-3xl font-bold max-w-4xl leading-tight uppercase tracking-tighter opacity-80">
+            CRIAMOS O UNILINK COM UMA MISSÃO SIMPLES: FACILITAR A VIDA DOS
+            CRIADORES DE CONTEÚDO, OFERECENDO UMA PLATAFORMA BRUTAL, SEGURA E
+            INTUITIVA PARA ORGANIZAR TUDO QUE IMPORTA.
           </p>
         </section>
 
         {/* Mission & Vision */}
-        <section className="grid md:grid-cols-2 gap-8 mb-20">
-          <Card className="border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
-            <CardHeader>
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
-                <Target className="h-6 w-6 text-white" />
+        <section className="grid md:grid-cols-2 gap-12 mb-20">
+          <Card className="border-4 border-foreground shadow-neo bg-accent rounded-none overflow-hidden">
+            <CardHeader className="bg-foreground text-background p-8 border-b-4 border-foreground">
+              <div className="w-16 h-16 bg-primary border-4 border-background flex items-center justify-center mb-6 shadow-neo-sm rotate-[-5deg]">
+                <Target className="h-10 w-10 text-white stroke-3" />
               </div>
-              <CardTitle className="text-2xl">Nossa Missão</CardTitle>
-              <CardDescription className="text-base">
-                Empoderar criadores de conteúdo com ferramentas simples e poderosas para conectar 
-                sua audiência a tudo que importa, de forma organizada e profissional.
-              </CardDescription>
+              <CardTitle className="text-4xl font-black uppercase tracking-tighter italic">
+                Nossa Missão
+              </CardTitle>
             </CardHeader>
+            <CardContent className="p-8">
+              <p className="text-xl font-bold uppercase tracking-tight leading-none">
+                EMPODERAR CRIADORES COM FERRAMENTAS IMPACTANTES PARA CONECTAR
+                SUA AUDIÊNCIA AO QUE IMPORTA, DE FORMA ORGANIZADA E
+                PROFISSIONAL.
+              </p>
+            </CardContent>
           </Card>
 
-          <Card className="border-0 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
-            <CardHeader>
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
-                <Globe className="h-6 w-6 text-white" />
+          <Card className="border-4 border-foreground shadow-neo bg-secondary rounded-none overflow-hidden">
+            <CardHeader className="bg-foreground text-background p-8 border-b-4 border-foreground">
+              <div className="w-16 h-16 bg-accent border-4 border-background flex items-center justify-center mb-6 shadow-neo-sm rotate-[5deg]">
+                <Globe className="h-10 w-10 text-white stroke-3" />
               </div>
-              <CardTitle className="text-2xl">Nossa Visão</CardTitle>
-              <CardDescription className="text-base">
-                Ser a plataforma de referência mundial para criadores que querem uma presença 
-                online organizada, com analytics poderosos e personalização total.
-              </CardDescription>
+              <CardTitle className="text-4xl font-black uppercase tracking-tighter italic">
+                Nossa Visão
+              </CardTitle>
             </CardHeader>
+            <CardContent className="p-8">
+              <p className="text-xl font-bold uppercase tracking-tight leading-none">
+                SER A REFERÊNCIA MUNDIAL PARA CRIADORES QUE BUSCAM PRESENÇA
+                ONLINE BRUTAL, ANALYTICS PODEROSOS E PERSONALIZAÇÃO SEM LIMITES.
+              </p>
+            </CardContent>
           </Card>
         </section>
 
         {/* Values */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Nossos Valores
+        <section className="mb-20 pb-20 border-b-8 border-foreground">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8">
+            <h2 className="text-5xl lg:text-8xl font-black uppercase tracking-tighter italic">
+              NOSSOS VALORES
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Os princípios que guiam tudo que fazemos
-            </p>
+            <div className="bg-primary p-6 border-4 border-foreground shadow-neo -rotate-3 hidden md:block">
+              <Star className="w-12 h-12 text-white fill-current" />
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="h-8 w-8 text-white" />
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              {
+                icon: Zap,
+                title: "Simplicidade",
+                desc: "Acreditamos que ferramentas poderosas devem ser diretas. Cada funcionalidade é pensada para ser brutalmente intuitiva.",
+                color: "bg-emerald-400",
+              },
+              {
+                icon: Shield,
+                title: "Segurança",
+                desc: "Seus dados são sagrados. Utilizamos blindagem de elite para proteger cada informação sua.",
+                color: "bg-primary",
+              },
+              {
+                icon: Users,
+                title: "Comunidade",
+                desc: "Construímos o Unilink ouvindo quem importa. Seu feedback molda nossa evolução constante.",
+                color: "bg-accent",
+              },
+            ].map((value, i) => (
+              <div
+                key={i}
+                className="p-10 border-4 border-foreground bg-white shadow-neo hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all"
+              >
+                <div
+                  className={`w-20 h-20 ${value.color} border-4 border-foreground flex items-center justify-center mb-8 shadow-neo rotate-[5deg]`}
+                >
+                  <value.icon className="h-10 w-10 text-white stroke-3" />
                 </div>
-                <CardTitle>Simplicidade</CardTitle>
-                <CardDescription>
-                  Acreditamos que ferramentas poderosas devem ser fáceis de usar. 
-                  Cada funcionalidade é pensada para ser intuitiva.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="text-center border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
-                <CardTitle>Segurança</CardTitle>
-                <CardDescription>
-                  Seus dados são sagrados. Utilizamos as melhores práticas de segurança 
-                  para proteger suas informações.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="text-center border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <CardTitle>Comunidade</CardTitle>
-                <CardDescription>
-                  Construímos o Unilink ouvindo nossa comunidade. Cada feedback 
-                  nos ajuda a melhorar.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4 italic">
+                  {value.title}
+                </h3>
+                <p className="text-lg font-bold uppercase tracking-tight opacity-80 leading-tight">
+                  {value.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Stats */}
-        <section className="mb-20">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-center text-white">
-            <h3 className="text-3xl lg:text-4xl font-bold mb-8">
-              Unilink em Números
+        <section className="mb-32">
+          <div className="bg-foreground text-background p-12 lg:p-24 border-8 border-foreground shadow-neo-lg text-center relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+              <div className="grid grid-cols-6 gap-8 rotate-12 -translate-y-1/2">
+                {Array.from({ length: 30 }).map((_, i) => (
+                  <TrendingUp key={i} className="w-24 h-24 text-white" />
+                ))}
+              </div>
+            </div>
+
+            <h3 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-16 italic relative z-10">
+              UNILINK EM NÚMEROS
             </h3>
-            
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="text-4xl font-bold mb-2">10K+</div>
-                <div className="text-lg opacity-90">Usuários Ativos</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">50K+</div>
-                <div className="text-lg opacity-90">Links Criados</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">1M+</div>
-                <div className="text-lg opacity-90">Cliques Rastreados</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold mb-2">99.9%</div>
-                <div className="text-lg opacity-90">Uptime</div>
-              </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
+              {[
+                { label: "Usuários Ativos", value: "10K+" },
+                { label: "Links Criados", value: "50K+" },
+                { label: "Cliques", value: "1M+" },
+                { label: "Uptime", value: "99.9%" },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="bg-background text-foreground p-8 border-4 border-foreground shadow-neo rotate-2"
+                >
+                  <div className="text-4xl lg:text-6xl font-black mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm font-black uppercase tracking-widest opacity-60">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Por que escolher o Unilink?
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Grátis para sempre
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Funcionalidades essenciais sempre gratuitas, sem pegadinhas.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Analytics detalhados
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Acompanhe o desempenho dos seus links com métricas precisas.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Personalização total
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Customize cores, fontes e layout para combinar com sua marca.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Suporte dedicado
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Nossa equipe está sempre pronta para ajudar você.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Performance otimizada
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Páginas que carregam rapidamente em qualquer dispositivo.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Atualizações constantes
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Novos recursos e melhorias baseados no feedback da comunidade.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* CTA */}
+        <section className="py-20 text-center">
+          <Badge className="bg-yellow-400 text-black border-4 border-foreground font-black uppercase text-lg mb-8 px-8 py-2 shadow-neo rotate-1">
+            JUNTE-SE À REVOLUÇÃO
+          </Badge>
+          <h2 className="text-5xl lg:text-9xl font-black uppercase tracking-tighter mb-12 italic">
+            PRONTO PARA
+            <br />
+            SER BRUTAL?
+          </h2>
+          <Button
+            size="lg"
+            className="h-24 bg-primary text-white border-4 border-foreground shadow-neo-lg px-20 text-3xl font-black uppercase tracking-tighter hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all"
+            asChild
+          >
+            <a href="/onboarding">CRIAR MEU PERFIL</a>
+          </Button>
         </section>
       </main>
 
       <Footer />
     </div>
-  )
+  );
 }

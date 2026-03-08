@@ -41,7 +41,7 @@ export default async function ThemePage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 relative">
-        <div className="p-8 bg-accent border-4 border-foreground shadow-neo-lg rotate-[-1deg] text-white">
+        <div className="p-8 bg-accent border-4 border-foreground shadow-neo-lg -rotate-1 text-white">
           <h1 className="text-5xl font-black uppercase tracking-tighter mb-2">
             Personalizar Tema
           </h1>

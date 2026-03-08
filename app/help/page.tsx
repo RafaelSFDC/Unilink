@@ -1,13 +1,19 @@
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { 
-  Search, 
-  BookOpen, 
-  MessageCircle, 
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Search,
+  BookOpen,
+  MessageCircle,
   Video,
   FileText,
   Users,
@@ -16,8 +22,8 @@ import {
   BarChart3,
   Palette,
   Link as LinkIcon,
-  ArrowRight
-} from 'lucide-react'
+  ArrowRight,
+} from "lucide-react";
 
 const helpCategories = [
   {
@@ -28,8 +34,8 @@ const helpCategories = [
       "Como criar sua primeira página",
       "Configurando seu perfil",
       "Adicionando seus primeiros links",
-      "Personalizando sua página"
-    ]
+      "Personalizando sua página",
+    ],
   },
   {
     title: "Gerenciamento de Links",
@@ -39,8 +45,8 @@ const helpCategories = [
       "Como adicionar novos links",
       "Organizando links por categoria",
       "Editando e removendo links",
-      "Links com ícones personalizados"
-    ]
+      "Links com ícones personalizados",
+    ],
   },
   {
     title: "Personalização",
@@ -50,8 +56,8 @@ const helpCategories = [
       "Escolhendo cores e temas",
       "Personalizando fontes",
       "Adicionando sua foto de perfil",
-      "Configurando layout"
-    ]
+      "Configurando layout",
+    ],
   },
   {
     title: "Analytics",
@@ -61,8 +67,8 @@ const helpCategories = [
       "Interpretando seus analytics",
       "Rastreamento de cliques",
       "Métricas de visualização",
-      "Relatórios mensais"
-    ]
+      "Relatórios mensais",
+    ],
   },
   {
     title: "Configurações",
@@ -72,8 +78,8 @@ const helpCategories = [
       "Configurações de privacidade",
       "Alterando seu username",
       "Configurações de notificação",
-      "Excluindo sua conta"
-    ]
+      "Excluindo sua conta",
+    ],
   },
   {
     title: "Solução de Problemas",
@@ -83,123 +89,137 @@ const helpCategories = [
       "Problemas de login",
       "Links não funcionando",
       "Página não carregando",
-      "Problemas de performance"
-    ]
-  }
-]
+      "Problemas de performance",
+    ],
+  },
+];
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <section className="text-center mb-16">
-          <Badge variant="outline" className="mb-6 px-4 py-2">
-            <BookOpen className="w-4 h-4 mr-2 text-blue-500" />
-            Central de Ajuda
+        <section className="text-left mb-16 border-b-8 border-foreground pb-16">
+          <Badge className="mb-6 px-6 py-2 bg-blue-400 text-white border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1 w-fit">
+            <BookOpen className="w-4 h-4 mr-2" />
+            CENTRAL DE AJUDA
           </Badge>
-          
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Como podemos{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ajudar?
+
+          <h1 className="text-6xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
+            COMO PODEMOS
+            <br />
+            <span className="bg-primary text-white px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic border-4 border-foreground">
+              AJUDAR?
             </span>
           </h1>
-          
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            Encontre respostas para suas dúvidas, tutoriais passo a passo e dicas para aproveitar 
-            ao máximo o Unilink.
-          </p>
 
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input 
-              placeholder="Pesquisar na central de ajuda..."
-              className="pl-12 py-4 text-lg"
-            />
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+            <p className="text-2xl lg:text-3xl font-bold max-w-3xl leading-tight uppercase tracking-tighter opacity-80">
+              ENCONTRE RESPOSTAS PARA SUAS DÚVIDAS, TUTORIAIS PASSO A PASSO E
+              DICAS PARA APROVEITAR AO MÁXIMO O UNILINK.
+            </p>
+
+            {/* Search Bar */}
+            <div className="max-w-xl w-full relative">
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-foreground w-6 h-6 z-10 stroke-3" />
+              <Input
+                placeholder="PESQUISAR NA CENTRAL DE AJUDA..."
+                className="pl-16 py-8 text-xl border-4 border-foreground shadow-neo rounded-none bg-white font-black uppercase tracking-tighter placeholder:text-foreground/30 focus:ring-0 focus:border-primary transition-all pr-8"
+              />
+            </div>
           </div>
         </section>
 
         {/* Quick Actions */}
         <section className="mb-16">
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Video className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Tutoriais em Vídeo
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Aprenda visualmente com nossos tutoriais passo a passo
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <MessageCircle className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Falar com Suporte
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Entre em contato direto com nossa equipe de suporte
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Comunidade
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Conecte-se com outros usuários e compartilhe dicas
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "TUTORIAIS EM VÍDEO",
+                desc: "APRENDA VISUALMENTE COM NOSSOS TUTORIAIS PASSO A PASSO.",
+                icon: Video,
+                color: "bg-blue-100",
+                hoverColor: "hover:bg-blue-200",
+              },
+              {
+                title: "FALAR COM SUPORTE",
+                desc: "ENTRE EM CONTATO DIRETO COM NOSSA EQUIPE DE SUPORTE.",
+                icon: MessageCircle,
+                color: "bg-emerald-100",
+                hoverColor: "hover:bg-emerald-200",
+              },
+              {
+                title: "COMUNIDADE",
+                desc: "CONECTE-SE COM OUTROS USUÁRIOS E COMPARTILHE DICAS.",
+                icon: Users,
+                color: "bg-purple-100",
+                hoverColor: "hover:bg-purple-200",
+              },
+            ].map((action, idx) => (
+              <Card
+                key={idx}
+                className={`border-4 border-foreground shadow-neo ${action.color} ${action.hoverColor} rounded-none transition-all cursor-pointer group`}
+              >
+                <CardContent className="p-8 text-center">
+                  <div className="w-20 h-20 bg-white border-4 border-foreground shadow-neo flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform">
+                    <action.icon className="h-10 w-10 text-foreground stroke-3" />
+                  </div>
+                  <h3 className="text-2xl font-black uppercase tracking-tighter mb-2 italic">
+                    {action.title}
+                  </h3>
+                  <p className="text-sm font-bold uppercase tracking-tight opacity-70 leading-tight">
+                    {action.desc}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
         {/* Help Categories */}
         <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Categorias de Ajuda
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Navegue pelos tópicos organizados por categoria
-            </p>
+          <div className="flex items-center gap-6 mb-12">
+            <div className="w-20 h-20 bg-pink-400 border-4 border-foreground shadow-neo flex items-center justify-center -rotate-3">
+              <BookOpen className="w-10 h-10 text-white stroke-3" />
+            </div>
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">
+                CATEGORIAS
+              </h2>
+              <p className="text-xl font-bold uppercase tracking-tight opacity-70 leading-none">
+                NAVEGUE PELOS TÓPICOS ORGANIZADOS
+              </p>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {helpCategories.map((category, index) => (
-              <Card key={index} className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mb-4">
-                    <category.icon className="h-6 w-6 text-white" />
+              <Card
+                key={index}
+                className="border-4 border-foreground shadow-neo bg-white rounded-none hover:translate-x-1 hover:-translate-y-1 transition-transform"
+              >
+                <CardHeader className="p-8 border-b-4 border-foreground bg-gray-50">
+                  <div className="w-14 h-14 bg-primary text-white border-4 border-foreground shadow-neo flex items-center justify-center mb-4 rotate-2">
+                    <category.icon className="h-8 w-8 stroke-3" />
                   </div>
-                  <CardTitle className="text-xl">{category.title}</CardTitle>
-                  <CardDescription>{category.description}</CardDescription>
+                  <CardTitle className="text-2xl font-black uppercase tracking-tighter italic">
+                    {category.title}
+                  </CardTitle>
+                  <CardDescription className="text-xs font-black uppercase tracking-widest opacity-60 mt-1">
+                    {category.description}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
+                <CardContent className="p-8">
+                  <ul className="space-y-4">
                     {category.articles.map((article, articleIndex) => (
                       <li key={articleIndex}>
-                        <a 
-                          href="#" 
-                          className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center group"
+                        <a
+                          href="#"
+                          className="text-base font-bold uppercase tracking-tight text-foreground/70 hover:text-primary transition-colors flex items-center group leading-none"
                         >
-                          <ArrowRight className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-4 h-4 mr-3 text-primary group-hover:translate-x-1 transition-transform stroke-4" />
                           {article}
                         </a>
                       </li>
@@ -213,126 +233,112 @@ export default function HelpPage() {
 
         {/* Popular Articles */}
         <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Artigos Populares
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Os guias mais acessados pelos usuários
-            </p>
+          <div className="flex items-center gap-6 mb-12 flex-row-reverse text-right">
+            <div className="w-20 h-20 bg-blue-400 border-4 border-foreground shadow-neo flex items-center justify-center rotate-3">
+              <FileText className="w-10 h-10 text-white stroke-3" />
+            </div>
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">
+                ARTIGOS POPULARES
+              </h2>
+              <p className="text-xl font-bold uppercase tracking-tight opacity-70 leading-none">
+                OS GUIAS MAIS ACESSADOS PELOS USUÁRIOS
+              </p>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-5 w-5 text-white" />
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "GUIA COMPLETO: CRIANDO SUA PRIMEIRA PÁGINA",
+                desc: "PASSO A PASSO COMPLETO PARA CRIAR E CONFIGURAR SUA PÁGINA DO ZERO.",
+                color: "bg-blue-400",
+              },
+              {
+                title: "COMO PERSONALIZAR CORES E TEMAS",
+                desc: "APRENDA A CUSTOMIZAR SUA PÁGINA PARA COMBINAR COM SUA MARCA.",
+                color: "bg-emerald-400",
+              },
+              {
+                title: "ENTENDENDO SEUS ANALYTICS",
+                desc: "COMO INTERPRETAR E USAR OS DADOS PARA MELHORAR SUA PERFORMANCE.",
+                color: "bg-purple-400",
+              },
+              {
+                title: "DICAS PARA AUMENTAR CLIQUES",
+                desc: "ESTRATÉGIAS COMPROVADAS PARA MELHORAR O ENGAJAMENTO.",
+                color: "bg-pink-400",
+              },
+            ].map((article, i) => (
+              <Card
+                key={i}
+                className="border-4 border-foreground shadow-neo bg-white rounded-none p-8 hover:rotate-1 transition-transform"
+              >
+                <div className="flex items-start gap-6">
+                  <div
+                    className={`w-16 h-16 ${article.color} border-4 border-foreground shadow-neo flex items-center justify-center shrink-0 -rotate-2`}
+                  >
+                    <FileText className="h-8 w-8 text-white stroke-3" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      Guia Completo: Criando sua Primeira Página
+                    <h3 className="text-2xl font-black uppercase tracking-tighter mb-3 leading-[0.9] italic">
+                      {article.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                      Passo a passo completo para criar e configurar sua página do zero.
+                    <p className="text-sm font-bold uppercase tracking-tight opacity-60 mb-6 leading-tight">
+                      {article.desc}
                     </p>
-                    <Button variant="ghost" size="sm" className="p-0 h-auto text-blue-600 hover:text-blue-700">
-                      Ler artigo <ArrowRight className="w-3 h-3 ml-1" />
+                    <Button
+                      variant="ghost"
+                      className="p-0 h-auto font-black uppercase tracking-widest text-primary hover:bg-transparent group italic underline decoration-4 underline-offset-4"
+                    >
+                      LER ARTIGO{" "}
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform stroke-4" />
                     </Button>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      Como Personalizar Cores e Temas
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                      Aprenda a customizar sua página para combinar com sua marca.
-                    </p>
-                    <Button variant="ghost" size="sm" className="p-0 h-auto text-blue-600 hover:text-blue-700">
-                      Ler artigo <ArrowRight className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      Entendendo seus Analytics
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                      Como interpretar e usar os dados para melhorar sua performance.
-                    </p>
-                    <Button variant="ghost" size="sm" className="p-0 h-auto text-blue-600 hover:text-blue-700">
-                      Ler artigo <ArrowRight className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      Dicas para Aumentar Cliques
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-                      Estratégias comprovadas para melhorar o engajamento.
-                    </p>
-                    <Button variant="ghost" size="sm" className="p-0 h-auto text-blue-600 hover:text-blue-700">
-                      Ler artigo <ArrowRight className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              </Card>
+            ))}
           </div>
         </section>
 
-        {/* Contact Support */}
-        <section className="text-center">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white">
-            <h3 className="text-3xl lg:text-4xl font-bold mb-4">
-              Não encontrou o que procurava?
-            </h3>
-            <p className="text-xl mb-8 opacity-90">
-              Nossa equipe de suporte está pronta para ajudar você
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Falar com Suporte
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900">
-                <Users className="w-5 h-5 mr-2" />
-                Comunidade
-              </Button>
+        {/* CTA Section */}
+        <section className="mt-24">
+          <Card className="border-8 border-foreground shadow-neo bg-primary text-white rounded-none p-16 text-center relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/10 to-transparent" />
+            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+              <div className="text-left">
+                <h3 className="text-6xl font-black uppercase tracking-tighter underline decoration-white/30 decoration-8 underline-offset-8 mb-6 italic">
+                  NÃO ACHOU O<br />
+                  QUE PRECISA?
+                </h3>
+                <p className="text-2xl font-bold uppercase tracking-tight max-w-xl leading-tight">
+                  NOSSO TIME DE SUPORTE ESTÁ PRONTO PARA AJUDAR VOCÊ A DECOLAR
+                  COM O UNILINK.
+                </p>
+              </div>
+              <div className="flex flex-col gap-6">
+                <Button
+                  size="lg"
+                  className="bg-white text-foreground border-4 border-foreground shadow-neo font-black uppercase tracking-widest text-2xl h-20 -rotate-2 hover:rotate-0 transition-transform"
+                >
+                  <MessageCircle className="w-8 h-8 mr-4 stroke-3" />
+                  FALAR COM SUPORTE
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-foreground text-background border-4 border-foreground shadow-neo font-black uppercase tracking-widest text-2xl h-20 rotate-1 hover:rotate-0 transition-transform"
+                >
+                  <Users className="w-8 h-8 mr-4 stroke-3" />
+                  COMUNIDADE
+                </Button>
+              </div>
             </div>
-          </div>
+          </Card>
         </section>
       </main>
 
       <Footer />
     </div>
-  )
+  );
 }

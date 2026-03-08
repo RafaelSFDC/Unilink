@@ -126,7 +126,7 @@ export default async function AnalyticsPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 relative">
-        <div className="p-8 bg-accent border-4 border-foreground shadow-neo-lg rotate-[-1deg]">
+        <div className="p-8 bg-accent border-4 border-foreground shadow-neo-lg -rotate-1">
           <h1 className="text-5xl font-black uppercase tracking-tighter text-white mb-2">
             Analytics
           </h1>
@@ -225,7 +225,7 @@ export default async function AnalyticsPage() {
                           {link.url}
                         </p>
                       </div>
-                      <div className="ml-4 flex-shrink-0">
+                      <div className="ml-4 shrink-0">
                         <span className="inline-flex items-center px-4 py-1 border-2 border-foreground bg-primary text-white text-xs font-black uppercase shadow-neo">
                           {link.clicks} cliques
                         </span>
@@ -238,7 +238,7 @@ export default async function AnalyticsPage() {
           </Card>
           {!isPro && (
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
-              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg rotate-[2deg]">
+              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg rotate-2">
                 <Zap className="h-12 w-12 text-primary mx-auto mb-4 fill-primary" />
                 <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">
                   Recurso PRO
@@ -308,7 +308,7 @@ export default async function AnalyticsPage() {
           </Card>
           {!isPro && (
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
-              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg rotate-[-2deg]">
+              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg -rotate-2">
                 <BarChart3 className="h-12 w-12 text-accent mx-auto mb-4 fill-accent" />
                 <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">
                   Relatórios PRO

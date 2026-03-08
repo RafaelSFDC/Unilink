@@ -1,305 +1,215 @@
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Badge } from '@/components/ui/badge'
-import { 
-  Mail, 
-  MessageCircle, 
-  Phone, 
-  MapPin, 
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import {
+  Mail,
+  MessageCircle,
+  Phone,
+  MapPin,
   Clock,
   Send,
   Twitter,
   Instagram,
   Linkedin,
   Github,
-  Heart
-} from 'lucide-react'
+  Heart,
+} from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-16">
         {/* Hero Section */}
-        <section className="text-center mb-16">
-          <Badge variant="outline" className="mb-6 px-4 py-2">
-            <MessageCircle className="w-4 h-4 mr-2 text-blue-500" />
-            Fale Conosco
+        <section className="text-left mb-16 border-b-8 border-foreground pb-16">
+          <Badge className="mb-6 px-6 py-2 bg-accent text-white border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1 w-fit">
+            <MessageCircle className="w-4 h-4 mr-2 fill-current" />
+            VAMOS CONVERSAR
           </Badge>
-          
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Entre em{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Contato
+
+          <h1 className="text-6xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
+            DIGA UM
+            <br />
+            <span className="bg-primary text-white px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic border-4 border-foreground">
+              HELLO!
             </span>
           </h1>
-          
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Tem alguma dúvida, sugestão ou precisa de ajuda? Nossa equipe está aqui para ajudar você. 
-            Entre em contato conosco através dos canais abaixo.
+
+          <p className="text-2xl lg:text-3xl font-bold max-w-4xl leading-tight uppercase tracking-tighter opacity-80">
+            DÚVIDAS, SUGESTÕES OU APENAS QUER FALAR SOBRE DESIGN BRUTAL? NOSSA
+            EQUIPE ESTÁ PRONTA PARA ATENDER VOCÊ RAPIDAMENTE.
           </p>
         </section>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Form */}
-          <div>
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl">Envie uma Mensagem</CardTitle>
-                <CardDescription>
-                  Preencha o formulário abaixo e responderemos o mais rápido possível
+          <div className="reveal animate-stagger-1">
+            <Card className="border-8 border-foreground shadow-neo-lg bg-white rounded-none overflow-hidden">
+              <CardHeader className="bg-foreground text-background p-10 border-b-8 border-foreground">
+                <CardTitle className="text-4xl font-black uppercase tracking-tighter italic">
+                  ENVIE SUA MENSAGEM
+                </CardTitle>
+                <CardDescription className="text-lg font-bold uppercase opacity-60">
+                  RESPOSTAS RÁPIDAS E DIRETAS AO PONTO
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                      Nome
+              <CardContent className="p-10 space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-xl font-black uppercase tracking-tighter">
+                      NOME
                     </label>
-                    <Input placeholder="Seu nome completo" />
+                    <Input
+                      placeholder="SEU NOME BRUTAL"
+                      className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
+                    />
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                      Email
+                  <div className="space-y-3">
+                    <label className="text-xl font-black uppercase tracking-tighter">
+                      EMAIL
                     </label>
-                    <Input type="email" placeholder="seu@email.com" />
+                    <Input
+                      type="email"
+                      placeholder="SEU@EMAIL.COM"
+                      className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
+                    />
                   </div>
                 </div>
-                
-                <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                    Assunto
+
+                <div className="space-y-3">
+                  <label className="text-xl font-black uppercase tracking-tighter">
+                    ASSUNTO
                   </label>
-                  <Input placeholder="Como podemos ajudar?" />
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                    Mensagem
-                  </label>
-                  <Textarea 
-                    placeholder="Descreva sua dúvida, sugestão ou problema..."
-                    rows={6}
+                  <Input
+                    placeholder="COMO PODEMOS AJUDAR?"
+                    className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
                   />
                 </div>
-                
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  <Send className="w-4 h-4 mr-2" />
-                  Enviar Mensagem
+
+                <div className="space-y-3">
+                  <label className="text-xl font-black uppercase tracking-tighter">
+                    MENSAGEM
+                  </label>
+                  <Textarea
+                    placeholder="DIGITE SUA MENSAGEM AQUI..."
+                    rows={6}
+                    className="border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
+                  />
+                </div>
+
+                <Button className="w-full h-20 text-2xl font-black uppercase tracking-tighter bg-primary text-white border-4 border-foreground shadow-neo-lg hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all">
+                  <Send className="w-8 h-8 mr-4 stroke-3" />
+                  ENVIAR AGORA
                 </Button>
               </CardContent>
             </Card>
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             {/* Contact Methods */}
-            <div className="space-y-6">
-              <Card className="border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-white" />
+            <div className="grid gap-8">
+              {[
+                {
+                  label: "Email",
+                  value: "contato@unilink.io",
+                  icon: Mail,
+                  color: "bg-emerald-400",
+                  sub: "RESPOSTA EM ATÉ 24H",
+                },
+                {
+                  label: "Telefone",
+                  value: "+55 (11) 9999-9999",
+                  icon: Phone,
+                  color: "bg-red-400",
+                  sub: "SEG A SEX, 9H ÀS 18H",
+                },
+                {
+                  label: "Local",
+                  value: "SÃO PAULO, BRASIL",
+                  icon: MapPin,
+                  color: "bg-yellow-400",
+                  sub: "ATENDIMENTO GLOBAL",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-6 p-8 border-4 border-foreground bg-white shadow-neo hover:-rotate-1 transition-transform"
+                >
+                  <div
+                    className={`w-16 h-16 ${item.color} border-4 border-foreground flex items-center justify-center shadow-neo rotate-[-5deg]`}
+                  >
+                    <item.icon className="w-8 h-8 text-white stroke-3" />
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-black uppercase tracking-widest opacity-60 mb-1">
+                      {item.label}
+                    </h3>
+                    <div className="text-2xl font-black uppercase tracking-tighter">
+                      {item.value}
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-1">contato@unilink.com</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Resposta em até 24 horas
-                      </p>
+                    <div className="text-[10px] font-black uppercase tracking-widest mt-1 opacity-40">
+                      {item.sub}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Telefone</h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-1">+55 (11) 9999-9999</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Segunda a sexta, 9h às 18h
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Localização</h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-1">São Paulo, Brasil</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Atendimento remoto
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              ))}
             </div>
 
-            {/* Business Hours */}
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-blue-600" />
-                  Horário de Atendimento
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Segunda - Sexta</span>
-                  <span className="font-medium text-gray-900 dark:text-white">9:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Sábado</span>
-                  <span className="font-medium text-gray-900 dark:text-white">9:00 - 14:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Domingo</span>
-                  <span className="font-medium text-gray-500 dark:text-gray-400">Fechado</span>
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Social Media */}
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle>Siga-nos nas Redes Sociais</CardTitle>
-                <CardDescription>
-                  Fique por dentro das novidades e dicas
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex space-x-4">
+            <div className="p-10 border-4 border-foreground bg-accent shadow-neo relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/10 rotate-45 translate-x-16 -translate-y-16" />
+              <h3 className="text-3xl font-black uppercase tracking-tighter mb-8 italic relative z-10">
+                REDES BRUTAIS
+              </h3>
+              <div className="flex flex-wrap gap-6 relative z-10">
+                {[
+                  { icon: Twitter, color: "bg-blue-400", label: "Twitter" },
+                  { icon: Instagram, color: "bg-pink-400", label: "Instagram" },
+                  { icon: Linkedin, color: "bg-blue-600", label: "LinkedIn" },
+                  { icon: Github, color: "bg-gray-800", label: "GitHub" },
+                ].map((s, i) => (
                   <a
+                    key={i}
                     href="#"
-                    className="w-10 h-10 bg-blue-500 hover:bg-blue-600 rounded-lg flex items-center justify-center text-white transition-colors"
-                    aria-label="Twitter"
+                    className={`w-16 h-16 ${s.color} border-4 border-foreground shadow-neo flex items-center justify-center hover:scale-110 transition-transform`}
+                    aria-label={s.label}
                   >
-                    <Twitter className="w-5 h-5" />
+                    <s.icon className="w-8 h-8 text-white" />
                   </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-pink-500 hover:bg-pink-600 rounded-lg flex items-center justify-center text-white transition-colors"
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-blue-700 hover:bg-blue-800 rounded-lg flex items-center justify-center text-white transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-gray-800 hover:bg-gray-900 rounded-lg flex items-center justify-center text-white transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Support Message */}
+            <div className="bg-primary p-10 border-4 border-foreground shadow-neo text-white rotate-1">
+              <div className="flex items-center gap-6 mb-4">
+                <Heart className="w-12 h-12 fill-white" />
+                <h3 className="text-3xl font-black uppercase tracking-tighter italic">
+                  SUPORTE REAL
+                </h3>
+              </div>
+              <p className="font-bold uppercase tracking-tight leading-tight">
+                NÃO SOMOS ROBÔS. SOMOS CRIADORES COMO VOCÊ. CADA TICKER É LIDO E
+                RESPONDIDO COM ATENÇÃO TOTAL.
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* FAQ Section */}
-        <section className="mt-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Perguntas Frequentes
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Respostas para as dúvidas mais comuns
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Como criar minha primeira página?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Após fazer login, você será direcionado para o onboarding que te guiará 
-                  pelos primeiros passos para criar sua página personalizada.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">O Unilink é realmente gratuito?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Sim! Oferecemos todas as funcionalidades essenciais gratuitamente, 
-                  incluindo links ilimitados e analytics básicos.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Posso personalizar minha página?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Absolutamente! Você pode personalizar cores, fontes, layout e muito mais 
-                  para que sua página combine perfeitamente com sua marca.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Como funciona o analytics?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Rastreamos automaticamente visualizações da sua página e cliques nos seus links, 
-                  fornecendo insights valiosos sobre sua audiência.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white">
-            <h3 className="text-3xl lg:text-4xl font-bold mb-4">
-              Ainda tem dúvidas?
-            </h3>
-            <p className="text-xl mb-8 opacity-90">
-              Nossa equipe está sempre pronta para ajudar você
-            </p>
-            <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
-              <Heart className="w-5 h-5 mr-2" />
-              Falar com Suporte
-            </Button>
-          </div>
-        </section>
       </main>
 
       <Footer />
     </div>
-  )
+  );
 }

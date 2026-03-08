@@ -79,7 +79,7 @@ export function TemplateSelector({
                 </div>
               )}
               {/* Template Preview */}
-              <div className="aspect-[3/4] border-4 border-foreground bg-white mb-6 relative overflow-hidden shadow-neo-sm">
+              <div className="aspect-3/4 border-4 border-foreground bg-white mb-6 relative overflow-hidden shadow-neo-sm">
                 {/* Preview placeholder */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
@@ -107,7 +107,7 @@ export function TemplateSelector({
                 {/* Selection indicator */}
                 {selectedTemplate === template.id && (
                   <div className="absolute top-4 right-4 bg-primary border-4 border-foreground text-white p-1 shadow-neo-sm scale-110">
-                    <Check className="w-6 h-6 stroke-[4]" />
+                    <Check className="w-6 h-6 stroke-4" />
                   </div>
                 )}
               </div>
@@ -133,7 +133,7 @@ export function TemplateSelector({
                 {onPreview && (
                   <Button
                     variant="outline"
-                    className="w-full h-12 border-2 shadow-neo-sm hover:shadow-none hover:translate-x-[1px] hover:translate-y-[1px] font-black uppercase text-xs"
+                    className="w-full h-12 border-2 shadow-neo-sm hover:shadow-none hover:translate-x-px hover:translate-y-px font-black uppercase text-xs"
                     onClick={(e) => {
                       e.stopPropagation();
                       onPreview(template.id);
