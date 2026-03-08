@@ -1,4 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
+import { checkSubscription } from "@/lib/subscription";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import {
@@ -35,6 +36,8 @@ export default async function ThemePage() {
     redirect("/onboarding");
   }
 
+  const isPro = await checkSubscription();
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 relative">
@@ -60,7 +63,7 @@ export default async function ThemePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ThemeForm user={user} />
+            <ThemeForm user={user} isPro={isPro} />
           </CardContent>
         </Card>
       </div>

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Eye } from "lucide-react";
+import { Check, Eye, Zap } from "lucide-react";
+import { ProModal } from "@/components/pro-modal";
 import {
   TEMPLATE_OPTIONS,
   type TemplateId,
@@ -14,17 +15,34 @@ interface TemplateSelectorProps {
   currentTemplate: TemplateId;
   onTemplateSelect: (templateId: TemplateId) => void;
   onPreview?: (templateId: TemplateId) => void;
+  isPro: boolean;
 }
+
+const PRO_TEMPLATES: TemplateId[] = [
+  "modern",
+  "vibrant",
+  "professional",
+  "creative",
+];
 
 export function TemplateSelector({
   currentTemplate,
   onTemplateSelect,
   onPreview,
+  isPro,
 }: TemplateSelectorProps) {
   const [selectedTemplate, setSelectedTemplate] =
     useState<TemplateId>(currentTemplate);
+  const [isProModalOpen, setIsProModalOpen] = useState(false);
 
   const handleTemplateClick = (templateId: TemplateId) => {
+    const isPremium = PRO_TEMPLATES.includes(templateId);
+
+    if (isPremium && !isPro) {
+      setIsProModalOpen(true);
+      return;
+    }
+
     setSelectedTemplate(templateId);
     onTemplateSelect(templateId);
   };
@@ -51,7 +69,15 @@ export function TemplateSelector({
             }`}
             onClick={() => handleTemplateClick(template.id)}
           >
-            <CardContent className="p-6">
+            <CardContent className="p-6 relative">
+              {PRO_TEMPLATES.includes(template.id) && (
+                <div className="absolute top-2 right-2 z-20">
+                  <Badge className="bg-yellow-400 text-foreground border-2 border-foreground shadow-neo-sm font-black uppercase text-[8px] flex items-center gap-1">
+                    <Zap className="w-2 h-2 fill-current" />
+                    PRO
+                  </Badge>
+                </div>
+              )}
               {/* Template Preview */}
               <div className="aspect-[3/4] border-4 border-foreground bg-white mb-6 relative overflow-hidden shadow-neo-sm">
                 {/* Preview placeholder */}
@@ -155,6 +181,10 @@ export function TemplateSelector({
           </li>
         </ul>
       </div>
+      <ProModal
+        isOpen={isProModalOpen}
+        onClose={() => setIsProModalOpen(false)}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { checkSubscription } from "@/lib/subscription";
 import {
   Card,
   CardContent,
@@ -8,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BarChart3, Eye, MousePointer, TrendingUp } from "lucide-react";
+import { BarChart3, Eye, MousePointer, TrendingUp, Zap } from "lucide-react";
 
 async function getAnalyticsData(clerkId: string) {
   const user = await prisma.user.findUnique({
@@ -115,6 +116,8 @@ export default async function AnalyticsPage() {
     redirect("/onboarding");
   }
 
+  const isPro = await checkSubscription();
+
   const clickRate =
     data.totalViews > 0
       ? ((data.totalClicks / data.totalViews) * 100).toFixed(1)
@@ -189,94 +192,140 @@ export default async function AnalyticsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Top Links */}
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
-              <BarChart3 className="h-6 w-6 text-primary" />
-              Links Mais Clicados
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {data.topLinks.length === 0 ? (
-              <div className="text-center py-12">
-                <BarChart3 className="h-20 w-20 mx-auto mb-4 opacity-10" />
-                <p className="font-bold uppercase opacity-50">
-                  Nenhum clique registrado ainda
+        <div className="relative group">
+          <Card
+            className={`border-4 ${!isPro && "opacity-50 blur-[2px] pointer-events-none select-none"}`}
+          >
+            <CardHeader className="bg-muted border-b-4 border-foreground mb-4">
+              <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
+                <BarChart3 className="h-6 w-6 text-primary" />
+                Links Mais Clicados
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {data.topLinks.length === 0 ? (
+                <div className="text-center py-12">
+                  <BarChart3 className="h-20 w-20 mx-auto mb-4 opacity-10" />
+                  <p className="font-bold uppercase opacity-50">
+                    Nenhum clique registrado ainda
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-6 pt-4">
+                  {data.topLinks.map((link, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 border-2 border-foreground bg-background shadow-neo"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="font-black uppercase tracking-tight text-lg truncate">
+                          {link.title}
+                        </p>
+                        <p className="text-xs font-bold opacity-60 truncate">
+                          {link.url}
+                        </p>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <span className="inline-flex items-center px-4 py-1 border-2 border-foreground bg-primary text-white text-xs font-black uppercase shadow-neo">
+                          {link.clicks} cliques
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+          {!isPro && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
+              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg rotate-[2deg]">
+                <Zap className="h-12 w-12 text-primary mx-auto mb-4 fill-primary" />
+                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">
+                  Recurso PRO
+                </h3>
+                <p className="font-bold uppercase text-xs mb-6 opacity-70">
+                  Desbloqueie analytics detalhado por link
                 </p>
+                <a
+                  href="/dashboard/billing"
+                  className="inline-block bg-primary text-white font-black uppercase px-6 py-3 border-4 border-foreground shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                >
+                  Assinar Agora
+                </a>
               </div>
-            ) : (
-              <div className="space-y-6 pt-4">
-                {data.topLinks.map((link, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-4 border-2 border-foreground bg-background shadow-neo"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="font-black uppercase tracking-tight text-lg truncate">
-                        {link.title}
-                      </p>
-                      <p className="text-xs font-bold opacity-60 truncate">
-                        {link.url}
-                      </p>
-                    </div>
-                    <div className="ml-4 flex-shrink-0">
-                      <span className="inline-flex items-center px-4 py-1 border-2 border-foreground bg-primary text-white text-xs font-black uppercase shadow-neo">
-                        {link.clicks} cliques
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+            </div>
+          )}
+        </div>
 
         {/* Recent Activity */}
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-4">
-            <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
-              <Eye className="h-6 w-6 text-accent" />
-              Atividade Recente
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {data.dailyAnalytics.length === 0 ? (
-              <div className="text-center py-12">
-                <Eye className="h-20 w-20 mx-auto mb-4 opacity-10" />
-                <p className="font-bold uppercase opacity-50">
-                  Nenhuma atividade registrada ainda
+        <div className="relative group">
+          <Card
+            className={`border-4 ${!isPro && "opacity-50 blur-[2px] pointer-events-none select-none"}`}
+          >
+            <CardHeader className="bg-muted border-b-4 border-foreground mb-4">
+              <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
+                <Eye className="h-6 w-6 text-accent" />
+                Atividade Recente
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {data.dailyAnalytics.length === 0 ? (
+                <div className="text-center py-12">
+                  <Eye className="h-20 w-20 mx-auto mb-4 opacity-10" />
+                  <p className="font-bold uppercase opacity-50">
+                    Nenhuma atividade registrada ainda
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4 pt-4">
+                  {data.dailyAnalytics.slice(0, 7).map((day) => (
+                    <div
+                      key={day.date.toISOString()}
+                      className="flex items-center justify-between p-4 border-2 border-foreground bg-background shadow-neo"
+                    >
+                      <div>
+                        <p className="font-black uppercase tracking-widest text-sm">
+                          {day.date.toLocaleDateString("pt-BR", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                      <div className="flex items-center space-x-4 text-xs font-black uppercase">
+                        <span className="bg-secondary border-2 border-foreground px-2 py-1 shadow-neo">
+                          {day.totalViews} Vis.
+                        </span>
+                        <span className="bg-accent border-2 border-foreground px-2 py-1 text-white shadow-neo">
+                          {day.totalClicks} Cliques
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+          {!isPro && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center">
+              <div className="bg-white border-4 border-foreground p-8 shadow-neo-lg rotate-[-2deg]">
+                <BarChart3 className="h-12 w-12 text-accent mx-auto mb-4 fill-accent" />
+                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">
+                  Relatórios PRO
+                </h3>
+                <p className="font-bold uppercase text-xs mb-6 opacity-70">
+                  Acompanhe sua evolução diária detalhada
                 </p>
+                <a
+                  href="/dashboard/billing"
+                  className="inline-block bg-accent text-white font-black uppercase px-6 py-3 border-4 border-foreground shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                >
+                  Ver Planos
+                </a>
               </div>
-            ) : (
-              <div className="space-y-4 pt-4">
-                {data.dailyAnalytics.slice(0, 7).map((day) => (
-                  <div
-                    key={day.date.toISOString()}
-                    className="flex items-center justify-between p-4 border-2 border-foreground bg-background shadow-neo"
-                  >
-                    <div>
-                      <p className="font-black uppercase tracking-widest text-sm">
-                        {day.date.toLocaleDateString("pt-BR", {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                    <div className="flex items-center space-x-4 text-xs font-black uppercase">
-                      <span className="bg-secondary border-2 border-foreground px-2 py-1 shadow-neo">
-                        {day.totalViews} Vis.
-                      </span>
-                      <span className="bg-accent border-2 border-foreground px-2 py-1 text-white shadow-neo">
-                        {day.totalClicks} Cliques
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

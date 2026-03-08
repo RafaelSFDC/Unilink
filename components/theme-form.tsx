@@ -39,9 +39,10 @@ interface User {
 
 interface ThemeFormProps {
   user: User;
+  isPro: boolean;
 }
 
-export function ThemeForm({ user }: ThemeFormProps) {
+export function ThemeForm({ user, isPro }: ThemeFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(
     (user.theme?.template as TemplateId) || "default",
@@ -106,6 +107,7 @@ export function ThemeForm({ user }: ThemeFormProps) {
         currentTemplate={selectedTemplate}
         onTemplateSelect={handleTemplateSelect}
         onPreview={handlePreview}
+        isPro={isPro}
       />
 
       {/* Theme Customization Form */}

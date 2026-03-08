@@ -10,7 +10,13 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Link, BarChart3, Settings, LayoutDashboard } from "lucide-react";
+import {
+  Link,
+  BarChart3,
+  Settings,
+  LayoutDashboard,
+  CreditCard,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
@@ -37,6 +43,14 @@ const menuItems = [
     color: "text-accent-foreground",
     activeColor:
       "bg-accent text-accent-foreground border-2 border-foreground shadow-neo",
+  },
+  {
+    title: "Assinatura",
+    url: "/dashboard/billing",
+    icon: CreditCard,
+    color: "text-yellow-600",
+    activeColor:
+      "bg-yellow-100 text-yellow-600 border-2 border-foreground shadow-neo",
   },
   {
     title: "Configurações",

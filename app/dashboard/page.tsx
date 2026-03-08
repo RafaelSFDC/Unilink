@@ -9,7 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Link, BarChart3, Palette, Eye } from "lucide-react";
+import { Plus, Link, BarChart3, Palette, Eye, Zap } from "lucide-react";
+import { checkSubscription } from "@/lib/subscription";
 
 async function getUserData(clerkId: string) {
   try {
@@ -63,8 +64,34 @@ export default async function DashboardPage() {
     // totalClicks permanece 0 se houver erro
   }
 
+  const isPro = await checkSubscription();
+
   return (
     <div className="container mx-auto px-4 py-12">
+      {!isPro && (
+        <div className="mb-8 bg-yellow-400 border-4 border-foreground p-6 shadow-neo rotate-[1deg] flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="bg-white p-3 border-4 border-foreground shadow-neo rotate-[-5deg]">
+              <Zap className="h-8 w-8 text-yellow-500 fill-yellow-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black uppercase tracking-tighter">
+                Faça o upgrade para o PRO
+              </h2>
+              <p className="font-bold text-xs uppercase opacity-80">
+                Desbloqueie templates premium, analytics detalhado e muito mais!
+              </p>
+            </div>
+          </div>
+          <Button
+            asChild
+            className="bg-black text-white hover:bg-zinc-800 border-4 border-white shadow-neo-sm h-14 px-8 text-lg font-black uppercase whitespace-nowrap"
+          >
+            <a href="/dashboard/billing">Assinar por R$ 10</a>
+          </Button>
+        </div>
+      )}
+
       <div className="mb-12 relative">
         <div className="p-8 bg-primary border-4 border-foreground shadow-neo-lg rotate-[-1deg]">
           <h1 className="text-5xl font-black uppercase tracking-tighter text-primary-foreground mb-2">

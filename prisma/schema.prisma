@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  username  String   @unique
+  id        String  @id @default(cuid())
+  clerkId   String  @unique
+  email     String  @unique
+  username  String  @unique
   firstName String?
   lastName  String?
   imageUrl  String?
@@ -22,13 +22,13 @@ model User {
   title     String?
 
   // Configurações do perfil
-  isPublic  Boolean  @default(true)
+  isPublic Boolean @default(true)
 
   // Tema personalizado
-  theme     Theme?
+  theme Theme?
 
   // Links do usuário
-  links     Link[]
+  links Link[]
 
   // Analytics
   analytics Analytics[]
@@ -36,45 +36,51 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Stripe
+  stripeCustomerId       String?   @unique @map("stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
+  stripePriceId          String?   @map("stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map("stripe_current_period_end")
+
   @@map("users")
 }
 
 model Link {
-  id          String   @id @default(cuid())
+  id          String  @id @default(cuid())
   title       String
   url         String
   description String?
   icon        String?
-  isActive    Boolean  @default(true)
-  order       Int      @default(0)
+  isActive    Boolean @default(true)
+  order       Int     @default(0)
 
   // Relacionamento com usuário
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Analytics de cliques
-  clicks      Click[]
+  clicks Click[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("links")
 }
 
 model Theme {
-  id              String  @id @default(cuid())
+  id String @id @default(cuid())
 
   // Template
-  template        String  @default("default") // default, minimal, modern, vibrant, professional, creative
+  template String @default("default") // default, minimal, modern, vibrant, professional, creative
 
   // Cores
-  backgroundColor String  @default("#ffffff")
-  textColor       String  @default("#000000")
-  linkColor       String  @default("#1a73e8")
-  buttonStyle     String  @default("rounded") // rounded, square, pill
+  backgroundColor String @default("#ffffff")
+  textColor       String @default("#000000")
+  linkColor       String @default("#1a73e8")
+  buttonStyle     String @default("rounded") // rounded, square, pill
 
   // Fonte
-  fontFamily      String  @default("Inter")
+  fontFamily String @default("Inter")
 
   // Background
   backgroundType  String  @default("solid") // solid, gradient, image
@@ -83,21 +89,21 @@ model Theme {
   gradientTo      String?
 
   // Relacionamento com usuário
-  userId          String  @unique
-  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("themes")
 }
 
 model Click {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
   // Relacionamento com link
-  linkId    String
-  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId String
+  link   Link   @relation(fields: [linkId], references: [id], onDelete: Cascade)
 
   // Dados do clique
   ipAddress String?
@@ -112,19 +118,19 @@ model Click {
 }
 
 model Analytics {
-  id          String   @id @default(cuid())
+  id String @id @default(cuid())
 
   // Relacionamento com usuário
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Métricas diárias
   date        DateTime
   totalViews  Int      @default(0)
   totalClicks Int      @default(0)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, date])
   @@map("analytics")
