@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
+import { Watermark } from '@/components/watermark'
 
 interface User {
   id: string
@@ -30,6 +31,7 @@ interface User {
     gradientFrom: string | null
     gradientTo: string | null
   } | null
+  isPro?: boolean
 }
 
 interface ModernTemplateProps {
@@ -131,17 +133,7 @@ export function ModernTemplate({ user, onLinkClick }: ModernTemplateProps) {
         )}
 
         {/* Footer */}
-        <div className="text-center mt-16">
-          <p className="text-sm text-white/50">
-            Criado com{' '}
-            <a 
-              href="/" 
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Unilink
-            </a>
-          </p>
-        </div>
+        <Watermark isPro={user.isPro || false} />
       </div>
     </div>
   )

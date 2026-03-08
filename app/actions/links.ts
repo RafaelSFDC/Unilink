@@ -27,6 +27,19 @@ export async function createLink(data: CreateLinkData) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
+    // Verificar limite de links para usuários Free
+    const DAY_IN_MS = 86_400_000;
+    const isPro = 
+      user.plan === "PRO" || 
+      (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now()));
+
+    if (!isPro && user.links.length >= 5) {
+      return { 
+        success: false, 
+        error: 'Limite de links atingido. Assine o plano PRO para links ilimitados!' 
+      }
+    }
+
     // Determinar a ordem do novo link
     const maxOrder = user.links.length > 0 
       ? Math.max(...user.links.map(link => link.order))

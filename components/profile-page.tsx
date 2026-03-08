@@ -39,6 +39,7 @@ interface User {
     gradientFrom: string | null
     gradientTo: string | null
   } | null
+  isPro?: boolean
 }
 
 interface ProfilePageProps {

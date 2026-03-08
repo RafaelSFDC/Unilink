@@ -16,21 +16,25 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const userSubscription = await prisma.user.findUnique({
-      where: {
-        clerkId: userId,
-      },
+    const dbUser = await prisma.user.findUnique({
+      where: { clerkId: userId },
     });
 
-    if (userSubscription && userSubscription.stripeCustomerId) {
+    if (!dbUser) {
+      return new NextResponse("User not found", { status: 404 });
+    }
+
+    // Se já é PRO, redireciona para o portal do cliente (billing) do Stripe
+    if (dbUser.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
-        customer: userSubscription.stripeCustomerId,
+        customer: dbUser.stripeCustomerId,
         return_url: settingsUrl,
       });
 
-      return new NextResponse(JSON.stringify({ url: stripeSession.url }));
+      return NextResponse.json({ url: stripeSession.url });
     }
 
+    // Se não é PRO, inicia checkout
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: settingsUrl,
       cancel_url: settingsUrl,
@@ -44,10 +48,9 @@ export async function GET() {
             currency: "BRL",
             product_data: {
               name: "Unilink PRO",
-              description:
-                "Acesso a todas as ferramentas e analytics avançados.",
+              description: "Acesso ilimitado a templates, analytics e remoção de marca d'água.",
             },
-            unit_amount: 1000, // 10.00 BRL
+            unit_amount: 1000, // R$ 10,00
             recurring: {
               interval: "month",
             },
@@ -56,13 +59,13 @@ export async function GET() {
         },
       ],
       metadata: {
-        userId,
+        userId: dbUser.id,
       },
     });
 
-    return new NextResponse(JSON.stringify({ url: stripeSession.url }));
+    return NextResponse.json({ url: stripeSession.url });
   } catch (error) {
-    console.log("[STRIPE_CHECKOUT_ERROR]", error);
+    console.error("[STRIPE_CHECKOUT_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+import { Watermark } from "@/components/watermark";
 
 interface User {
   id: string;
@@ -30,6 +31,7 @@ interface User {
     gradientFrom: string | null;
     gradientTo: string | null;
   } | null;
+  isPro?: boolean;
 }
 
 interface DefaultTemplateProps {
@@ -168,17 +170,7 @@ export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
         )}
 
         {/* Footer */}
-        <div className="text-center mt-12">
-          <p className="text-xs font-black uppercase tracking-widest">
-            Criado com{" "}
-            <a
-              href="/"
-              className="bg-primary text-primary-foreground px-2 py-0.5 border-2 border-foreground shadow-neo ml-1"
-            >
-              Unilink
-            </a>
-          </p>
-        </div>
+        <Watermark isPro={user.isPro || false} />
       </div>
     </div>
   );

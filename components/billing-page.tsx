@@ -1,18 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Zap } from "lucide-react";
+import { Check, Zap, Star, Shield, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface BillingPageProps {
@@ -37,104 +29,113 @@ export default function BillingPage({ isPro }: BillingPageProps) {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Assinatura</h1>
-        <p className="text-muted-foreground">
-          Gerencie sua assinatura e plano do Unilink.
-        </p>
+    <div className="flex flex-col gap-12 p-8 lg:p-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-8 border-foreground pb-12">
+        <div>
+          <Badge className="mb-4 bg-primary text-white border-4 border-foreground shadow-neo font-black uppercase text-sm">
+            ASSINATURA E PLANOS
+          </Badge>
+          <h1 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter italic">
+            GERENCIE SEU <br />
+            <span className="bg-yellow-400 text-black px-4 shadow-neo-lg inline-block -rotate-1 mt-2">STATUS</span>
+          </h1>
+        </div>
+        
+        {isPro ? (
+          <div className="bg-emerald-400 border-4 border-foreground shadow-neo p-6 flex items-center gap-4 rotate-2">
+            <Zap className="w-10 h-10 text-white fill-current" />
+            <div>
+              <div className="font-black uppercase text-2xl tracking-tighter">PLANO PRO ATIVO</div>
+              <div className="font-bold opacity-80 uppercase text-xs">STATUS: EM DIA</div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-zinc-200 border-4 border-foreground shadow-neo p-6 flex items-center gap-4 -rotate-1">
+            <Star className="w-10 h-10 text-foreground" />
+            <div>
+              <div className="font-black uppercase text-2xl tracking-tighter">PLANO FREE</div>
+              <div className="font-bold opacity-80 uppercase text-xs">LIMITE DE 5 LINKS</div>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
-        {/* Plano Grátis */}
-        <Card className="border-2">
-          <CardHeader>
-            <CardTitle>Plano Gratuito</CardTitle>
-            <CardDescription>O essencial para começar.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1">
-            <div className="text-4xl font-bold mb-6">Grátis</div>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Links ilimitados
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl">
+        {/* Basic Card for Free Users or downgrade info */}
+        <div className={`border-8 border-foreground p-10 flex flex-col ${!isPro ? "bg-white shadow-neo" : "bg-zinc-100 opacity-60 grayscale"}`}>
+          <div className="mb-8">
+            <h3 className="text-4xl font-black uppercase tracking-tighter mb-4 italic">GRÁTIS</h3>
+            <div className="text-5xl font-black italic">R$ 0<span className="text-lg opacity-40 not-italic">/mês</span></div>
+          </div>
+          
+          <ul className="space-y-4 mb-10 flex-1">
+            {["Links Ilimitados", "Temas Básicos", "Analytics Essencial", "QR Code Unilink"].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 font-bold text-lg">
+                <Check className="h-6 w-6 text-emerald-500 stroke-[4px]" />
+                {item}
               </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Check className="h-4 w-4" />
-                Tema padrão
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Check className="h-4 w-4" />
-                Analytics básico
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" className="w-full" disabled={!isPro}>
-              {isPro ? "Mudar para Grátis" : "Seu plano atual"}
-            </Button>
-          </CardFooter>
-        </Card>
+            ))}
+          </ul>
 
-        {/* Plano PRO */}
-        <Card
-          className={`border-2 relative ${isPro ? "border-primary" : "border-zinc-800"}`}
-        >
-          {isPro && (
-            <Badge className="absolute -top-3 right-4 px-3 py-1 bg-primary text-primary-foreground font-bold">
-              ATIVO
-            </Badge>
+          <Button 
+            variant="outline" 
+            className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo"
+            disabled={!isPro}
+            onClick={isPro ? onSubscribe : undefined}
+          >
+            {isPro ? "MUDAR PARA GRÁTIS" : "PLANO ATUAL"}
+          </Button>
+        </div>
+
+        {/* PRO Card */}
+        <div className={`border-8 border-foreground p-10 flex flex-col relative ${isPro ? "bg-primary text-white shadow-neo-lg rotate-1" : "bg-white shadow-neo hover:rotate-1 transition-transform"}`}>
+          {!isPro && (
+             <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-6 py-2 border-4 border-foreground font-black uppercase text-sm shadow-neo z-10 animate-bounce">
+                MAIS POPULAR
+             </div>
           )}
-          <CardHeader>
+          
+          <div className="mb-8">
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                PRO <Zap className="h-4 w-4 fill-primary text-primary" />
-              </CardTitle>
+              <h3 className="text-4xl font-black uppercase tracking-tighter mb-4 italic">UNILINK PRO</h3>
+              <Zap className={`h-10 w-10 fill-current ${isPro ? "text-yellow-400" : "text-primary"}`} />
             </div>
-            <CardDescription>
-              Tudo o que você precisa para crescer.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1">
-            <div className="text-4xl font-bold mb-6">
-              R$ 10
-              <span className="text-lg font-normal text-muted-foreground">
-                /mês
-              </span>
-            </div>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Tudo do Grátis
+            <div className="text-5xl font-black italic">R$ 10<span className={`text-lg opacity-60 not-italic ${isPro ? "text-white" : "text-black"}`}>/mês</span></div>
+          </div>
+          
+          <ul className="space-y-4 mb-10 flex-1">
+            {[
+              "Templates de Elite (PRO)",
+              "Deep Analytics (Fontes & Cliques)",
+              "Remover Marca Unilink",
+              "SEO Otimizado & Pixels",
+              "Suporte Prioritário VIP"
+            ].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 font-bold text-lg">
+                <Zap className={`h-6 w-6 fill-current ${isPro ? "text-yellow-400" : "text-primary"}`} />
+                {item}
               </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Analytics detalhado (Fonte, Tempo, Cliques)
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Temas e Templates Premium
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Layouts customizados
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-green-500" />
-                Suporte prioritário
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button
-              className="w-full font-bold bg-primary hover:bg-primary/90"
-              onClick={onSubscribe}
-              disabled={isLoading}
-            >
-              {isPro ? "Gerenciar Assinatura" : "Assinar agora"}
-            </Button>
-          </CardFooter>
-        </Card>
+            ))}
+          </ul>
+
+          <Button 
+            className={`h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo ${isPro ? "bg-white text-primary hover:bg-zinc-200" : "bg-primary text-white hover:bg-primary/90"}`}
+            onClick={onSubscribe}
+            disabled={isLoading}
+          >
+            {isLoading ? "CARREGANDO..." : isPro ? "GERENCIAR ASSINATURA" : "ASSINE AGORA"}
+          </Button>
+        </div>
+      </div>
+
+      {/* Trust Badges */}
+      <div className="flex flex-wrap gap-8 pt-12">
+        <div className="flex items-center gap-3 font-black uppercase text-sm opacity-60">
+          <Shield className="w-5 h-5" /> PAGAMENTO 100% SEGURO
+        </div>
+        <div className="flex items-center gap-3 font-black uppercase text-sm opacity-60">
+          <CreditCard className="w-5 h-5" /> CANCELAMENTO INSTANTÂNEO
+        </div>
       </div>
     </div>
   );

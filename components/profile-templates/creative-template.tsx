@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ExternalLink, Sparkles, Heart, Star } from 'lucide-react'
+import { Watermark } from '@/components/watermark'
 
 interface User {
   id: string
@@ -30,6 +31,7 @@ interface User {
     gradientFrom: string | null
     gradientTo: string | null
   } | null
+  isPro?: boolean
 }
 
 interface CreativeTemplateProps {
@@ -182,19 +184,7 @@ export function CreativeTemplate({ user, onLinkClick }: CreativeTemplateProps) {
         )}
 
         {/* Footer */}
-        <div className="text-center mt-16">
-          <p className="text-white/70 drop-shadow">
-            Criado com muito{' '}
-            <Heart className="inline w-4 h-4 text-red-300 animate-pulse" />
-            {' '}no{' '}
-            <a 
-              href="/" 
-              className="text-white font-bold hover:text-white/90 transition-colors"
-            >
-              Unilink 🌈
-            </a>
-          </p>
-        </div>
+        <Watermark isPro={user.isPro || false} />
       </div>
     </div>
   )

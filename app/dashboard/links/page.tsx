@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { LinksList } from "@/components/links-list";
-import { Plus, Link } from "lucide-react";
+import { Plus, Link, Zap } from "lucide-react";
 
 async function getUserLinks(clerkId: string) {
   const user = await prisma.user.findUnique({
@@ -38,25 +38,53 @@ export default async function LinksPage() {
     redirect("/onboarding");
   }
 
+  const isPro = 
+    user.plan === "PRO" || 
+    (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()));
+
+  const canAddLink = isPro || user.links.length < 5;
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 relative">
-        <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-[1deg] flex justify-between items-center">
+        <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-1 flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <h1 className="text-5xl font-black uppercase tracking-tighter mb-2">
               Meus Links
             </h1>
             <p className="text-foreground/80 font-bold text-lg uppercase tracking-tight">
-              Gerencie todos os seus links em um só lugar
+              {isPro ? 'Links Ilimitados' : `${user.links.length}/5 Links Utilizados`}
             </p>
           </div>
 
-          <Button asChild className="h-14 px-8 text-lg">
-            <a href="/dashboard/links/new">
-              <Plus className="h-5 w-5 mr-2" />
-              Adicionar Link
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {!isPro && user.links.length >= 5 && (
+              <Button asChild variant="destructive" className="h-14 px-8 text-lg bg-yellow-400 text-black hover:bg-yellow-500 border-4">
+                <a href="/dashboard/billing">
+                  <Zap className="h-5 w-5 mr-2" />
+                  Upgrade PRO
+                </a>
+              </Button>
+            )}
+            
+            <Button 
+              asChild={canAddLink} 
+              disabled={!canAddLink}
+              className="h-14 px-8 text-lg"
+            >
+              {canAddLink ? (
+                <a href="/dashboard/links/new">
+                  <Plus className="h-5 w-5 mr-2" />
+                  Adicionar Link
+                </a>
+              ) : (
+                <span className="opacity-50 cursor-not-allowed flex items-center">
+                  <Plus className="h-5 w-5 mr-2" />
+                  Limite Atingido
+                </span>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 

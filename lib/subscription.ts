@@ -1,35 +1,41 @@
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "./prisma";
 
 const DAY_IN_MS = 86_400_000;
 
-export async function checkSubscription() {
-  const { userId } = await auth();
+export async function getSubscription() {
+  const { userId: clerkId } = await auth();
 
-  if (!userId) {
-    return false;
+  if (!clerkId) {
+    return null;
   }
 
-  const userSubscription = await prisma.user.findUnique({
-    where: {
-      clerkId: userId,
-    },
+  const user = await prisma.user.findUnique({
+    where: { clerkId },
     select: {
       stripeSubscriptionId: true,
       stripeCurrentPeriodEnd: true,
       stripeCustomerId: true,
       stripePriceId: true,
+      plan: true,
     },
   });
 
-  if (!userSubscription) {
-    return false;
+  if (!user) {
+    return null;
   }
 
   const isValid =
-    userSubscription.stripePriceId &&
-    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
-      Date.now();
+    user.stripePriceId &&
+    user.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
 
-  return !!isValid;
+  return {
+    ...user,
+    isPro: !!isValid || user.plan === "PRO",
+  };
+}
+
+export async function checkSubscription() {
+  const subscription = await getSubscription();
+  return !!subscription?.isPro;
 }

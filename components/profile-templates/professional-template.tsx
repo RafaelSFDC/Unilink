@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ExternalLink, MapPin, Mail, Phone } from 'lucide-react'
+import { Watermark } from '@/components/watermark'
 
 interface User {
   id: string
@@ -30,6 +31,7 @@ interface User {
     gradientFrom: string | null
     gradientTo: string | null
   } | null
+  isPro?: boolean
 }
 
 interface ProfessionalTemplateProps {
@@ -150,17 +152,7 @@ export function ProfessionalTemplate({ user, onLinkClick }: ProfessionalTemplate
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-8">
-          <p className="text-sm text-gray-400">
-            Perfil criado com{' '}
-            <a 
-              href="/" 
-              className="text-blue-600 hover:text-blue-700 transition-colors font-medium"
-            >
-              Unilink
-            </a>
-          </p>
-        </div>
+        <Watermark isPro={user.isPro || false} />
       </div>
     </div>
   )

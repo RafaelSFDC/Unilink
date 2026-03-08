@@ -22,7 +22,18 @@ async function getUserByUsername(username: string) {
     }
   })
 
-  return user
+  if (!user) return null
+
+  // Adicionando flag isPro baseada no plano ou assinatura ativa
+  const DAY_IN_MS = 86_400_000;
+  const isPro = 
+    user.plan === "PRO" || 
+    (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now()));
+
+  return {
+    ...user,
+    isPro
+  }
 }
 
 export async function generateMetadata({ params }: ProfilePageProps) {

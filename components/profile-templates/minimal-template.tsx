@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
+import { Watermark } from '@/components/watermark'
 
 interface User {
   id: string
@@ -30,6 +31,7 @@ interface User {
     gradientFrom: string | null
     gradientTo: string | null
   } | null
+  isPro?: boolean
 }
 
 interface MinimalTemplateProps {
@@ -122,16 +124,7 @@ export function MinimalTemplate({ user, onLinkClick }: MinimalTemplateProps) {
         )}
 
         {/* Footer */}
-        <div className="text-center mt-16">
-          <p className="text-xs text-gray-300 font-light">
-            <a 
-              href="/" 
-              className="hover:text-gray-400 transition-colors"
-            >
-              Unilink
-            </a>
-          </p>
-        </div>
+        <Watermark isPro={user.isPro || false} />
       </div>
     </div>
   )
