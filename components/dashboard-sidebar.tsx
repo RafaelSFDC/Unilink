@@ -43,6 +43,7 @@ const menuItems = [
     color: "text-accent-foreground",
     activeColor:
       "bg-accent text-accent-foreground border-2 border-foreground shadow-neo",
+    isPro: true,
   },
   {
     title: "Assinatura",
@@ -84,13 +85,20 @@ export function DashboardSidebar() {
                           : "hover:bg-gray-50 dark:hover:bg-gray-950/20"
                       }
                     >
-                      <a href={item.url}>
-                        <item.icon
-                          className={`h-4 w-4 ${isActive ? item.color : "text-gray-600 dark:text-gray-400"}`}
-                        />
-                        <span className={isActive ? item.color : ""}>
-                          {item.title}
-                        </span>
+                      <a href={item.url} className="flex items-center justify-between w-full">
+                        <div className="flex items-center gap-2">
+                          <item.icon
+                            className={`h-4 w-4 ${isActive ? item.color : "text-gray-600 dark:text-gray-400"}`}
+                          />
+                          <span className={isActive ? item.color : ""}>
+                            {item.title}
+                          </span>
+                        </div>
+                        {item.title === "Analytics" && (
+                          <span className="bg-yellow-400 text-black text-[10px] font-black px-1.5 py-0.5 border-2 border-foreground shadow-neo-sm rotate-2">
+                            PRO
+                          </span>
+                        )}
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

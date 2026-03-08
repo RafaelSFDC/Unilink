@@ -3,6 +3,8 @@ import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "@/components/ui/sonner";
+import { PostHogProvider } from "@/components/providers/posthog-provider";
+import PostHogPageView from "@/components/providers/posthog-pageview";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -33,8 +35,11 @@ export default function RootLayout({
         <body
           className={`${bricolage.variable} ${plusJakarta.variable} font-jakarta antialiased`}
         >
-          {children}
-          <Toaster />
+          <PostHogProvider>
+            <PostHogPageView />
+            {children}
+            <Toaster />
+          </PostHogProvider>
         </body>
       </html>
     </ClerkProvider>
