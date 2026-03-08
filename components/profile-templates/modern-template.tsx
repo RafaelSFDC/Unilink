@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import { Watermark } from '@/components/watermark'
+import { NewsletterBlock } from '@/components/newsletter-block'
 
 interface User {
   id: string
@@ -125,6 +126,13 @@ export function ModernTemplate({ user, onLinkClick }: ModernTemplateProps) {
             </button>
           ))}
         </div>
+
+        {/* Newsletter Block (PRO) */}
+        {user.isPro && (
+          <div className="mt-8">
+            <NewsletterBlock />
+          </div>
+        )}
 
         {user.links.length === 0 && (
           <div className="text-center py-16">

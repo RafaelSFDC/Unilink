@@ -16,6 +16,7 @@ import {
   Settings,
   LayoutDashboard,
   CreditCard,
+  Palette,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -44,6 +45,14 @@ const menuItems = [
     activeColor:
       "bg-accent text-accent-foreground border-2 border-foreground shadow-neo",
     isPro: true,
+  },
+  {
+    title: "Customização",
+    url: "/dashboard/theme",
+    icon: Palette,
+    color: "text-pink-600",
+    activeColor:
+      "bg-pink-100 text-pink-600 border-2 border-foreground shadow-neo",
   },
   {
     title: "Assinatura",

@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { ExternalLink, MapPin, Mail, Phone } from 'lucide-react'
 import { Watermark } from '@/components/watermark'
+import { NewsletterBlock } from '@/components/newsletter-block'
 
 interface User {
   id: string
@@ -150,6 +151,13 @@ export function ProfessionalTemplate({ user, onLinkClick }: ProfessionalTemplate
             </div>
           )}
         </div>
+
+        {/* Newsletter Block (PRO) */}
+        {user.isPro && (
+          <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <NewsletterBlock />
+          </div>
+        )}
 
         {/* Footer */}
         <Watermark isPro={user.isPro || false} />

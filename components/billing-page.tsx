@@ -13,8 +13,9 @@ interface BillingPageProps {
 
 export default function BillingPage({ isPro }: BillingPageProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPaymentChoice, setShowPaymentChoice] = useState(false);
 
-  const onSubscribe = async () => {
+  const onSubscribeStripe = async () => {
     try {
       setIsLoading(true);
       const response = await fetch("/api/stripe/checkout");
@@ -22,14 +23,60 @@ export default function BillingPage({ isPro }: BillingPageProps) {
 
       window.location.href = data.url;
     } catch (error) {
-      toast.error("Algo deu errado. Tente novamente.");
+      toast.error("Algo deu errado com Stripe. Tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onSubscribeMP = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/mercadopago/checkout");
+      const data = await response.json();
+
+      window.location.href = data.url;
+    } catch (error) {
+      toast.error("Algo deu errado com Mercado Pago. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col gap-12 p-8 lg:p-12">
+    <div className="flex flex-col gap-12 p-8 lg:p-12 relative">
+      {/* Opções de Pagamento (Modal Simples Estilizado) */}
+      {showPaymentChoice && !isPro && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border-8 border-foreground p-10 max-w-md w-full shadow-neo-lg rotate-1">
+            <h2 className="text-3xl font-black uppercase italic mb-6">Escolha como pagar</h2>
+            <div className="flex flex-col gap-4">
+              <Button 
+                className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo bg-primary text-white hover:bg-primary/90"
+                onClick={onSubscribeStripe}
+                disabled={isLoading}
+              >
+                Cartão (Stripe)
+              </Button>
+              <Button 
+                className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo bg-blue-500 text-white hover:bg-blue-600"
+                onClick={onSubscribeMP}
+                disabled={isLoading}
+              >
+                Pix / MP (Recomendado BR)
+              </Button>
+              <Button 
+                variant="ghost"
+                className="mt-4 font-bold uppercase underline"
+                onClick={() => setShowPaymentChoice(false)}
+              >
+                Cancelar
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-8 border-foreground pb-12">
         <div>
           <Badge className="mb-4 bg-primary text-white border-4 border-foreground shadow-neo font-black uppercase text-sm">
@@ -81,9 +128,9 @@ export default function BillingPage({ isPro }: BillingPageProps) {
             variant="outline" 
             className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo"
             disabled={!isPro}
-            onClick={isPro ? onSubscribe : undefined}
+            onClick={() => toast.info("Para cancelar, entre em contato ou gerencie no portal do Stripe.")}
           >
-            {isPro ? "MUDAR PARA GRÁTIS" : "PLANO ATUAL"}
+            {isPro ? "CANCELAR ASSINATURA" : "PLANO ATUAL"}
           </Button>
         </div>
 
@@ -91,7 +138,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
         <div className={`border-8 border-foreground p-10 flex flex-col relative ${isPro ? "bg-primary text-white shadow-neo-lg rotate-1" : "bg-white shadow-neo hover:rotate-1 transition-transform"}`}>
           {!isPro && (
              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-6 py-2 border-4 border-foreground font-black uppercase text-sm shadow-neo z-10 animate-bounce">
-                MAIS POPULAR
+                MAIS POPULAR / VITALÍCIO
              </div>
           )}
           
@@ -100,7 +147,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
               <h3 className="text-4xl font-black uppercase tracking-tighter mb-4 italic">UNILINK PRO</h3>
               <Zap className={`h-10 w-10 fill-current ${isPro ? "text-yellow-400" : "text-primary"}`} />
             </div>
-            <div className="text-5xl font-black italic">R$ 10<span className={`text-lg opacity-60 not-italic ${isPro ? "text-white" : "text-black"}`}>/mês</span></div>
+            <div className="text-5xl font-black italic">R$ 10<span className={`text-lg opacity-60 not-italic ${isPro ? "text-white" : "text-black"}`}>/único</span></div>
           </div>
           
           <ul className="space-y-4 mb-10 flex-1">
@@ -120,7 +167,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
 
           <Button 
             className={`h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo ${isPro ? "bg-white text-primary hover:bg-zinc-200" : "bg-primary text-white hover:bg-primary/90"}`}
-            onClick={onSubscribe}
+            onClick={isPro ? onSubscribeStripe : () => setShowPaymentChoice(true)}
             disabled={isLoading}
           >
             {isLoading ? "CARREGANDO..." : isPro ? "GERENCIAR ASSINATURA" : "ASSINE AGORA"}
@@ -134,7 +181,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           <Shield className="w-5 h-5" /> PAGAMENTO 100% SEGURO
         </div>
         <div className="flex items-center gap-3 font-black uppercase text-sm opacity-60">
-          <CreditCard className="w-5 h-5" /> CANCELAMENTO INSTANTÂNEO
+          <CreditCard className="w-5 h-5" /> CHECKOUT COM PIX OU CARTÃO
         </div>
       </div>
     </div>

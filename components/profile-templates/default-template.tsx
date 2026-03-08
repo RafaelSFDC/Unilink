@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { Watermark } from "@/components/watermark";
+import { NewsletterBlock } from "@/components/newsletter-block";
 
 interface User {
   id: string;
@@ -160,6 +161,13 @@ export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
             </button>
           ))}
         </div>
+
+        {/* Newsletter Block (PRO feature / Competitive Edge) */}
+        {user.isPro && (
+          <div className="mt-8">
+            <NewsletterBlock />
+          </div>
+        )}
 
         {user.links.length === 0 && (
           <div className="text-center py-12 border-2 border-dashed border-foreground/30 opacity-60">
