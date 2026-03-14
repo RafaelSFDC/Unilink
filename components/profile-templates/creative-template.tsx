@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ExternalLink, Sparkles, Heart, Star } from 'lucide-react'
 import { Watermark } from '@/components/watermark'
 import { NewsletterBlock } from '@/components/newsletter-block'
+import { getThemeBackgroundStyle, getThemeFontFamily, resolveTheme, type ThemeSettings } from '@/lib/theme'
 
 interface User {
   id: string
@@ -21,17 +22,7 @@ interface User {
     icon: string | null
     order: number
   }>
-  theme: {
-    backgroundColor: string
-    textColor: string
-    linkColor: string
-    buttonStyle: string
-    fontFamily: string
-    backgroundType: string
-    backgroundImage: string | null
-    gradientFrom: string | null
-    gradientTo: string | null
-  } | null
+  theme: Partial<ThemeSettings> | Record<string, unknown> | null
   isPro?: boolean
 }
 
@@ -41,17 +32,7 @@ interface CreativeTemplateProps {
 }
 
 export function CreativeTemplate({ user, onLinkClick }: CreativeTemplateProps) {
-  const theme = user.theme || {
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-    linkColor: '#1a73e8',
-    buttonStyle: 'rounded',
-    fontFamily: 'Inter',
-    backgroundType: 'solid',
-    backgroundImage: null,
-    gradientFrom: null,
-    gradientTo: null,
-  }
+  const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null)
 
   const decorativeElements = [
     { icon: Sparkles, color: 'text-yellow-400', delay: '0s' },
@@ -63,8 +44,10 @@ export function CreativeTemplate({ user, onLinkClick }: CreativeTemplateProps) {
     <div 
       className="min-h-screen relative overflow-hidden"
       style={{
-        background: 'linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)',
-        fontFamily: theme.fontFamily
+        ...getThemeBackgroundStyle(theme, {
+          background: 'linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)',
+        }),
+        fontFamily: getThemeFontFamily(theme.fontFamily)
       }}
     >
       <style jsx>{`

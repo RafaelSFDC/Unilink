@@ -17,6 +17,10 @@ async function getUserData(clerkId: string) {
     where: { clerkId },
     include: {
       theme: true,
+      links: {
+        where: { isActive: true },
+        orderBy: { order: "asc" },
+      },
     },
   });
 
@@ -51,7 +55,7 @@ export default async function ThemePage() {
         </div>
       </div>
 
-      <div className="max-w-4xl">
+      <div className="max-w-7xl">
         <Card className="border-4 pt-0">
           <CardHeader className="bg-muted border-b-4 border-foreground mb-6 p-6">
             <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">

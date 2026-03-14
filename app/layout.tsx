@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Playfair_Display,
+  Plus_Jakarta_Sans,
+  Space_Grotesk,
+} from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { Toaster } from "@/components/ui/sonner";
@@ -19,6 +24,18 @@ const plusJakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Unilink - Seu link único para tudo",
   description: "Crie sua página de links personalizada com Unilink",
@@ -33,7 +50,7 @@ export default function RootLayout({
     <ClerkProvider localization={ptBR}>
       <html lang="pt-BR">
         <body
-          className={`${bricolage.variable} ${plusJakarta.variable} font-jakarta antialiased`}
+          className={`${bricolage.variable} ${plusJakarta.variable} ${spaceGrotesk.variable} ${playfair.variable} font-jakarta antialiased`}
         >
           <PostHogProvider>
             <PostHogPageView />

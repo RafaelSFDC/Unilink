@@ -238,7 +238,7 @@ interface SelectFieldProps {
         isTouched: boolean;
       };
     };
-    handleChange: (value: string) => void;
+    handleChange: (value: any) => void;
     handleBlur: () => void;
   };
   label: string;

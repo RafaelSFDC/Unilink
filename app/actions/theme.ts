@@ -3,6 +3,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { DEFAULT_THEME } from '@/lib/theme'
 
 interface UpdateThemeData {
   template?: string
@@ -14,6 +15,8 @@ interface UpdateThemeData {
   backgroundType: string
   gradientFrom?: string
   gradientTo?: string
+  motionPreset: string
+  interactionPreset: string
 }
 
 export async function updateTheme(userId: string, data: UpdateThemeData) {
@@ -45,6 +48,8 @@ export async function updateTheme(userId: string, data: UpdateThemeData) {
       backgroundType: data.backgroundType,
       gradientFrom: data.backgroundType === 'gradient' ? data.gradientFrom : null,
       gradientTo: data.backgroundType === 'gradient' ? data.gradientTo : null,
+      motionPreset: data.motionPreset,
+      interactionPreset: data.interactionPreset,
     }
 
     let theme
@@ -92,15 +97,17 @@ export async function resetTheme(userId: string) {
     }
 
     const defaultTheme = {
-      template: 'default',
-      backgroundColor: '#ffffff',
-      textColor: '#000000',
-      linkColor: '#1a73e8',
-      buttonStyle: 'rounded',
-      fontFamily: 'Inter',
-      backgroundType: 'solid',
-      gradientFrom: null,
-      gradientTo: null,
+      template: DEFAULT_THEME.template,
+      backgroundColor: DEFAULT_THEME.backgroundColor,
+      textColor: DEFAULT_THEME.textColor,
+      linkColor: DEFAULT_THEME.linkColor,
+      buttonStyle: DEFAULT_THEME.buttonStyle,
+      fontFamily: DEFAULT_THEME.fontFamily,
+      backgroundType: DEFAULT_THEME.backgroundType,
+      gradientFrom: DEFAULT_THEME.gradientFrom,
+      gradientTo: DEFAULT_THEME.gradientTo,
+      motionPreset: DEFAULT_THEME.motionPreset,
+      interactionPreset: DEFAULT_THEME.interactionPreset,
     }
 
     const theme = await prisma.theme.upsert({

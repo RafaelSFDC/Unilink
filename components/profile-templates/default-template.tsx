@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { Watermark } from "@/components/watermark";
 import { NewsletterBlock } from "@/components/newsletter-block";
+import { getThemeBackgroundStyle, getThemeFontFamily, resolveTheme, type ThemeSettings } from "@/lib/theme";
 
 interface User {
   id: string;
@@ -21,17 +22,7 @@ interface User {
     icon: string | null;
     order: number;
   }>;
-  theme: {
-    backgroundColor: string;
-    textColor: string;
-    linkColor: string;
-    buttonStyle: string;
-    fontFamily: string;
-    backgroundType: string;
-    backgroundImage: string | null;
-    gradientFrom: string | null;
-    gradientTo: string | null;
-  } | null;
+  theme: Partial<ThemeSettings> | Record<string, unknown> | null;
   isPro?: boolean;
 }
 
@@ -41,42 +32,7 @@ interface DefaultTemplateProps {
 }
 
 export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
-  const theme = user.theme || {
-    backgroundColor: "#ffffff",
-    textColor: "#000000",
-    linkColor: "#1a73e8",
-    buttonStyle: "rounded",
-    fontFamily: "Inter",
-    backgroundType: "solid",
-    backgroundImage: null,
-    gradientFrom: null,
-    gradientTo: null,
-  };
-
-  const getBackgroundStyle = () => {
-    if (
-      theme.backgroundType === "gradient" &&
-      theme.gradientFrom &&
-      theme.gradientTo
-    ) {
-      return {
-        background: `linear-gradient(135deg, ${theme.gradientFrom}, ${theme.gradientTo})`,
-      };
-    }
-
-    if (theme.backgroundType === "image" && theme.backgroundImage) {
-      return {
-        backgroundImage: `url(${theme.backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      };
-    }
-
-    return {
-      backgroundColor: theme.backgroundColor,
-    };
-  };
+  const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null);
 
   const getButtonStyle = () => {
     const baseStyle = {
@@ -111,9 +67,9 @@ export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
     <div
       className="min-h-screen flex items-center justify-center p-6"
       style={{
-        ...getBackgroundStyle(),
+        ...getThemeBackgroundStyle(theme, { backgroundColor: theme.backgroundColor }),
         color: theme.textColor,
-        fontFamily: theme.fontFamily,
+        fontFamily: getThemeFontFamily(theme.fontFamily),
       }}
     >
       <div className="max-w-md w-full bg-background/80 backdrop-blur-sm border-4 border-foreground p-8 shadow-neo-lg reveal">

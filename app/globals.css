@@ -7,6 +7,8 @@
   /* Typography */
   --font-display: var(--font-bricolage);
   --font-sans: var(--font-jakarta);
+  --font-editorial: var(--font-playfair);
+  --font-tech: var(--font-space);
 
   /* Colors - Electric Neo-Brutalism */
   --color-background: var(--background);

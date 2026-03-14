@@ -86,12 +86,14 @@ model Theme {
   textColor       String @default("#000000")
   linkColor       String @default("#1a73e8")
   buttonStyle     String @default("rounded") // rounded, square, pill
+  motionPreset    String @default("smooth") // steady, smooth, energetic
+  interactionPreset String @default("press") // press, lift, glide
 
   // Fonte
-  fontFamily String @default("Inter")
+  fontFamily String @default("jakarta")
 
   // Background
-  backgroundType  String  @default("solid") // solid, gradient, image
+  backgroundType  String  @default("template") // template, solid, gradient
   backgroundImage String?
   gradientFrom    String?
   gradientTo      String?

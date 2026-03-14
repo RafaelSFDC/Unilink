@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { ExternalLink, MapPin, Mail, Phone } from 'lucide-react'
+import { ExternalLink, MapPin, Mail } from 'lucide-react'
 import { Watermark } from '@/components/watermark'
 import { NewsletterBlock } from '@/components/newsletter-block'
+import { getThemeBackgroundStyle, getThemeFontFamily, resolveTheme, type ThemeSettings } from '@/lib/theme'
 
 interface User {
   id: string
@@ -21,17 +22,7 @@ interface User {
     icon: string | null
     order: number
   }>
-  theme: {
-    backgroundColor: string
-    textColor: string
-    linkColor: string
-    buttonStyle: string
-    fontFamily: string
-    backgroundType: string
-    backgroundImage: string | null
-    gradientFrom: string | null
-    gradientTo: string | null
-  } | null
+  theme: Partial<ThemeSettings> | Record<string, unknown> | null
   isPro?: boolean
 }
 
@@ -41,23 +32,14 @@ interface ProfessionalTemplateProps {
 }
 
 export function ProfessionalTemplate({ user, onLinkClick }: ProfessionalTemplateProps) {
-  const theme = user.theme || {
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-    linkColor: '#1a73e8',
-    buttonStyle: 'rounded',
-    fontFamily: 'Inter',
-    backgroundType: 'solid',
-    backgroundImage: null,
-    gradientFrom: null,
-    gradientTo: null,
-  }
+  const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null)
 
   return (
     <div 
       className="min-h-screen bg-gray-50"
       style={{
-        fontFamily: theme.fontFamily
+        ...getThemeBackgroundStyle(theme, { backgroundColor: '#f9fafb' }),
+        fontFamily: getThemeFontFamily(theme.fontFamily)
       }}
     >
       <div className="max-w-2xl mx-auto py-12 px-6">

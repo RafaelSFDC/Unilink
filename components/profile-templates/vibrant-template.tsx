@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 import { Watermark } from '@/components/watermark'
 import { NewsletterBlock } from '@/components/newsletter-block'
+import { getThemeBackgroundStyle, getThemeFontFamily, resolveTheme, type ThemeSettings } from '@/lib/theme'
 
 interface User {
   id: string
@@ -21,17 +22,7 @@ interface User {
     icon: string | null
     order: number
   }>
-  theme: {
-    backgroundColor: string
-    textColor: string
-    linkColor: string
-    buttonStyle: string
-    fontFamily: string
-    backgroundType: string
-    backgroundImage: string | null
-    gradientFrom: string | null
-    gradientTo: string | null
-  } | null
+  theme: Partial<ThemeSettings> | Record<string, unknown> | null
   isPro?: boolean
 }
 
@@ -41,17 +32,7 @@ interface VibrantTemplateProps {
 }
 
 export function VibrantTemplate({ user, onLinkClick }: VibrantTemplateProps) {
-  const theme = user.theme || {
-    backgroundColor: '#ffffff',
-    textColor: '#000000',
-    linkColor: '#1a73e8',
-    buttonStyle: 'rounded',
-    fontFamily: 'Inter',
-    backgroundType: 'solid',
-    backgroundImage: null,
-    gradientFrom: null,
-    gradientTo: null,
-  }
+  const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null)
 
   const vibrantColors = [
     'from-pink-500 to-violet-500',
@@ -66,10 +47,12 @@ export function VibrantTemplate({ user, onLinkClick }: VibrantTemplateProps) {
     <div 
       className="min-h-screen relative"
       style={{
-        background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3)',
+        ...getThemeBackgroundStyle(theme, {
+          background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3)',
+        }),
         backgroundSize: '400% 400%',
         animation: 'gradientShift 15s ease infinite',
-        fontFamily: theme.fontFamily
+        fontFamily: getThemeFontFamily(theme.fontFamily)
       }}
     >
       <style jsx>{`
