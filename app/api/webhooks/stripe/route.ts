@@ -21,16 +21,20 @@ export async function POST(req: Request) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
-  const session = event.data.object as Stripe.Checkout.Session;
-
   if (event.type === "checkout.session.completed") {
+    const session = event.data.object as Stripe.Checkout.Session;
+
+    if (!session.subscription || !session.metadata?.userId) {
+      return new NextResponse("Missing subscription metadata", { status: 400 });
+    }
+
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
-    );
+    ) as Stripe.Subscription;
 
-    if (!session?.metadata?.userId) {
-      return new NextResponse("User id is required", { status: 400 });
-    }
+    const periodEnd = (subscription as Stripe.Subscription & {
+      current_period_end: number;
+    }).current_period_end;
 
     await prisma.user.update({
       where: {
@@ -40,18 +44,28 @@ export async function POST(req: Request) {
         stripeSubscriptionId: subscription.id,
         stripeCustomerId: subscription.customer as string,
         stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
+        stripeCurrentPeriodEnd: new Date(periodEnd * 1000),
         plan: "PRO",
       },
     });
   }
 
   if (event.type === "invoice.payment_succeeded") {
+    const invoice = event.data.object as Stripe.Invoice & {
+      subscription?: string;
+    };
+
+    if (!invoice.subscription) {
+      return new NextResponse("Missing invoice subscription", { status: 400 });
+    }
+
     const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
+      invoice.subscription as string
+    ) as Stripe.Subscription;
+
+    const periodEnd = (subscription as Stripe.Subscription & {
+      current_period_end: number;
+    }).current_period_end;
 
     await prisma.user.update({
       where: {
@@ -59,9 +73,7 @@ export async function POST(req: Request) {
       },
       data: {
         stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
+        stripeCurrentPeriodEnd: new Date(periodEnd * 1000),
         plan: "PRO",
       },
     });

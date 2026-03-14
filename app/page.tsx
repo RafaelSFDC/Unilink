@@ -206,7 +206,7 @@ export default function Home() {
               </div>
               <ul className="space-y-4 mb-12 flex-1">
                 {[
-                  "Links Ilimitados",
+                  "Até 5 links",
                   "Templates Básicos",
                   "Analytics Essencial",
                   "QR Code Unilink",

@@ -87,7 +87,7 @@ export default async function DashboardPage() {
             asChild
             className="bg-black text-white hover:bg-zinc-800 border-4 border-white shadow-neo-sm h-14 px-8 text-lg font-black uppercase whitespace-nowrap"
           >
-            <a href="/dashboard/billing">Assinar por R$ 10</a>
+            <a href="/dashboard/billing">Assinar por R$ 10/mês</a>
           </Button>
         </div>
       )}

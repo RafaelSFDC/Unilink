@@ -44,7 +44,7 @@ export default function PricingPage() {
             
             <ul className="space-y-6 mb-12 flex-1">
               {[
-                "Links Ilimitados",
+                "Até 5 links",
                 "Temas Básicos",
                 "Analytics Essencial",
                 "QR Code para Impressão",

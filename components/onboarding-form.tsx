@@ -1,96 +1,118 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { createUser } from '@/app/actions/user'
-import { toast } from 'sonner'
+import { useRouter } from "next/navigation";
+import { useForm } from "@tanstack/react-form";
+import { Button } from "@/components/ui/button";
+import { TextField, TextareaField } from "@/components/ui/form-fields";
+import { createUser } from "@/app/actions/user";
+import { validateUsername } from "@/lib/form-utils";
+import { toast } from "sonner";
 
 interface OnboardingFormProps {
-  clerkId: string
-  email: string
-  firstName: string
-  lastName: string
-  imageUrl: string
+  clerkId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
 }
 
-export function OnboardingForm({ clerkId, email, firstName, lastName, imageUrl }: OnboardingFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+export function OnboardingForm({
+  clerkId,
+  email,
+  firstName,
+  lastName,
+  imageUrl,
+}: OnboardingFormProps) {
+  const router = useRouter();
 
-  async function handleSubmit(formData: FormData) {
-    setIsLoading(true)
-
-    try {
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      title: "",
+      bio: "",
+    },
+    onSubmit: async ({ value }) => {
       const result = await createUser({
         clerkId,
         email,
         firstName,
         lastName,
         imageUrl,
-        username: formData.get('username') as string,
-        bio: formData.get('bio') as string,
-        title: formData.get('title') as string,
-      })
+        username: value.username.trim(),
+        bio: value.bio.trim(),
+        title: value.title.trim(),
+      });
 
       if (result.success) {
-        toast.success('Perfil criado com sucesso!')
-        router.push('/dashboard')
-      } else {
-        // Mostrar erro específico retornado pela action
-        toast.error(result.error || 'Erro ao criar perfil')
+        toast.success("Perfil criado com sucesso!");
+        router.push("/dashboard");
+        return;
       }
-    } catch (error) {
-      console.error('Erro no formulário:', error)
-      toast.error('Erro inesperado ao criar perfil. Tente novamente.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+
+      toast.error(result.error || "Erro ao criar perfil");
+    },
+  });
 
   return (
-    <form action={handleSubmit} className="space-y-6">
-      <div>
-        <Label htmlFor="username">Nome de usuário</Label>
-        <Input
-          id="username"
-          name="username"
-          placeholder="seunome"
-          required
-          className="mt-1"
-        />
-        <p className="text-sm text-gray-500 mt-1">
-          Seu link será: unilink.com/seunome
-        </p>
-      </div>
+    <form
+      className="space-y-8"
+      onSubmit={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        void form.handleSubmit();
+      }}
+    >
+      <form.Field
+        name="username"
+        validators={{
+          onChange: ({ value }) => validateUsername(value),
+          onBlur: ({ value }) => validateUsername(value),
+        }}
+      >
+        {(field) => (
+          <TextField
+            field={field}
+            label="Nome de usuário"
+            placeholder="seunome"
+            description="Seu link será: unilink.com/seunome"
+            autoComplete="username"
+          />
+        )}
+      </form.Field>
 
-      <div>
-        <Label htmlFor="title">Título/Profissão</Label>
-        <Input
-          id="title"
-          name="title"
-          placeholder="Desenvolvedor, Designer, etc."
-          className="mt-1"
-        />
-      </div>
+      <form.Field name="title">
+        {(field) => (
+          <TextField
+            field={field}
+            label="Título/Profissão"
+            placeholder="Desenvolvedor, Designer, etc."
+            autoComplete="organization-title"
+          />
+        )}
+      </form.Field>
 
-      <div>
-        <Label htmlFor="bio">Bio</Label>
-        <Textarea
-          id="bio"
-          name="bio"
-          placeholder="Conte um pouco sobre você..."
-          rows={3}
-          className="mt-1"
-        />
-      </div>
+      <form.Field name="bio">
+        {(field) => (
+          <TextareaField
+            field={field}
+            label="Bio"
+            placeholder="Conte um pouco sobre você..."
+            rows={3}
+          />
+        )}
+      </form.Field>
 
-      <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300" disabled={isLoading}>
-        {isLoading ? 'Criando perfil...' : 'Criar meu perfil'}
-      </Button>
+      <form.Subscribe selector={(state) => state.isSubmitting}>
+        {(isSubmitting) => (
+          <Button
+            type="submit"
+            className="w-full h-14 text-lg uppercase font-black"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Criando perfil..." : "Criar meu perfil"}
+          </Button>
+        )}
+      </form.Subscribe>
     </form>
-  )
+  );
 }

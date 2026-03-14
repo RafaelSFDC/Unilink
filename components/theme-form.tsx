@@ -1,20 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  ColorField,
+  SelectField,
+} from "@/components/ui/form-fields";
 import { updateTheme } from "@/app/actions/theme";
-import { toast } from "sonner";
 import { TemplateSelector } from "@/components/template-selector";
 import { type TemplateId } from "@/components/profile-templates";
+import { validateRequired } from "@/lib/form-utils";
+import { toast } from "sonner";
 
 interface User {
   id: string;
@@ -42,12 +38,26 @@ interface ThemeFormProps {
   isPro: boolean;
 }
 
-export function ThemeForm({ user, isPro }: ThemeFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(
-    (user.theme?.template as TemplateId) || "default",
-  );
+const backgroundTypeOptions = [
+  { label: "Cor Sólida", value: "solid" },
+  { label: "Gradiente", value: "gradient" },
+];
 
+const buttonStyleOptions = [
+  { label: "Arredondado", value: "rounded" },
+  { label: "Quadrado", value: "square" },
+  { label: "Pílula", value: "pill" },
+];
+
+const fontFamilyOptions = [
+  { label: "Inter", value: "Inter" },
+  { label: "Roboto", value: "Roboto" },
+  { label: "Open Sans", value: "Open Sans" },
+  { label: "Poppins", value: "Poppins" },
+  { label: "Montserrat", value: "Montserrat" },
+];
+
+export function ThemeForm({ user, isPro }: ThemeFormProps) {
   const theme = user.theme || {
     template: "default",
     backgroundColor: "#ffffff",
@@ -57,61 +67,74 @@ export function ThemeForm({ user, isPro }: ThemeFormProps) {
     fontFamily: "Inter",
     backgroundType: "solid",
     backgroundImage: null,
-    gradientFrom: null,
-    gradientTo: null,
+    gradientFrom: "#3b82f6",
+    gradientTo: "#8b5cf6",
   };
 
-  async function handleSubmit(formData: FormData) {
-    setIsLoading(true);
-
-    try {
-      const data = {
-        template: selectedTemplate,
-        backgroundColor: formData.get("backgroundColor") as string,
-        textColor: formData.get("textColor") as string,
-        linkColor: formData.get("linkColor") as string,
-        buttonStyle: formData.get("buttonStyle") as string,
-        fontFamily: formData.get("fontFamily") as string,
-        backgroundType: formData.get("backgroundType") as string,
-        gradientFrom: formData.get("gradientFrom") as string,
-        gradientTo: formData.get("gradientTo") as string,
-      };
-
-      const result = await updateTheme(user.id, data);
+  const form = useForm({
+    defaultValues: {
+      template: (theme.template as TemplateId) || "default",
+      backgroundColor: theme.backgroundColor,
+      textColor: theme.textColor,
+      linkColor: theme.linkColor,
+      buttonStyle: theme.buttonStyle,
+      fontFamily: theme.fontFamily,
+      backgroundType: theme.backgroundType,
+      gradientFrom: theme.gradientFrom || "#3b82f6",
+      gradientTo: theme.gradientTo || "#8b5cf6",
+    },
+    onSubmit: async ({ value }) => {
+      const result = await updateTheme(user.id, {
+        template: value.template,
+        backgroundColor: value.backgroundColor,
+        textColor: value.textColor,
+        linkColor: value.linkColor,
+        buttonStyle: value.buttonStyle,
+        fontFamily: value.fontFamily,
+        backgroundType: value.backgroundType,
+        gradientFrom: value.gradientFrom,
+        gradientTo: value.gradientTo,
+      });
 
       if (result.success) {
         toast.success("Tema atualizado com sucesso!");
-      } else {
-        toast.error(result.error || "Erro ao atualizar tema");
+        return;
       }
-    } catch (error) {
-      toast.error("Erro inesperado ao atualizar tema");
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
-  const handleTemplateSelect = (templateId: TemplateId) => {
-    setSelectedTemplate(templateId);
-  };
+      toast.error(result.error || "Erro ao atualizar tema");
+    },
+  });
 
   const handlePreview = (templateId: TemplateId) => {
-    // Open preview in new tab
     window.open(`/${user.username}?preview=${templateId}`, "_blank");
   };
 
   return (
     <div className="space-y-12">
-      {/* Template Selector */}
-      <TemplateSelector
-        currentTemplate={selectedTemplate}
-        onTemplateSelect={handleTemplateSelect}
-        onPreview={handlePreview}
-        isPro={isPro}
-      />
+      <form.Field
+        name="template"
+        validators={{
+          onChange: ({ value }) => validateRequired(value, "Template é obrigatório"),
+        }}
+      >
+        {(field) => (
+          <TemplateSelector
+            currentTemplate={field.state.value as TemplateId}
+            onTemplateSelect={field.handleChange as (value: TemplateId) => void}
+            onPreview={handlePreview}
+            isPro={isPro}
+          />
+        )}
+      </form.Field>
 
-      {/* Theme Customization Form */}
-      <form action={handleSubmit} className="space-y-8">
+      <form
+        className="space-y-8"
+        onSubmit={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          void form.handleSubmit();
+        }}
+      >
         <div className="p-6 bg-muted border-4 border-foreground shadow-neo rotate-[0.5deg]">
           <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">
             Personalização Avançada
@@ -123,237 +146,107 @@ export function ThemeForm({ user, isPro }: ThemeFormProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div>
-              <Label
-                htmlFor="backgroundType"
-                className="text-xs font-black uppercase tracking-widest mb-2 block"
-              >
-                Tipo de Fundo
-              </Label>
-              <Select name="backgroundType" defaultValue={theme.backgroundType}>
-                <SelectTrigger className="h-12 border-2">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value="solid"
-                    className="font-bold uppercase text-xs"
-                  >
-                    Cor Sólida
-                  </SelectItem>
-                  <SelectItem
-                    value="gradient"
-                    className="font-bold uppercase text-xs"
-                  >
-                    Gradiente
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label
-                htmlFor="backgroundColor"
-                className="text-xs font-black uppercase tracking-widest mb-2 block"
-              >
-                Cor de Fundo
-              </Label>
-              <div className="flex items-center space-x-3">
-                <Input
-                  id="backgroundColor"
-                  name="backgroundColor"
-                  type="color"
-                  defaultValue={theme.backgroundColor}
-                  className="w-16 h-12 p-1 border-2"
+            <form.Field name="backgroundType">
+              {(field) => (
+                <SelectField
+                  field={field}
+                  label="Tipo de Fundo"
+                  options={backgroundTypeOptions}
                 />
-                <Input
-                  type="text"
-                  defaultValue={theme.backgroundColor}
-                  className="flex-1 h-12 border-2 uppercase font-mono"
+              )}
+            </form.Field>
+
+            <form.Field name="backgroundColor">
+              {(field) => (
+                <ColorField
+                  field={field}
+                  label="Cor de Fundo"
                   placeholder="#ffffff"
                 />
-              </div>
-            </div>
+              )}
+            </form.Field>
 
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label
-                  htmlFor="gradientFrom"
-                  className="text-xs font-black uppercase tracking-widest mb-2 block"
-                >
-                  Gradiente (Início)
-                </Label>
-                <div className="flex items-center space-x-2">
-                  <Input
-                    id="gradientFrom"
-                    name="gradientFrom"
-                    type="color"
-                    defaultValue={theme.gradientFrom || "#3b82f6"}
-                    className="w-12 h-12 p-1 border-2"
-                  />
-                  <Input
-                    type="text"
-                    defaultValue={theme.gradientFrom || "#3b82f6"}
-                    className="flex-1 h-12 border-2 uppercase font-mono text-xs"
+              <form.Field name="gradientFrom">
+                {(field) => (
+                  <ColorField
+                    field={field}
+                    label="Gradiente (Início)"
                     placeholder="#3b82f6"
+                    textInputClassName="text-xs"
                   />
-                </div>
-              </div>
+                )}
+              </form.Field>
 
-              <div>
-                <Label
-                  htmlFor="gradientTo"
-                  className="text-xs font-black uppercase tracking-widest mb-2 block"
-                >
-                  Gradiente (Fim)
-                </Label>
-                <div className="flex items-center space-x-2">
-                  <Input
-                    id="gradientTo"
-                    name="gradientTo"
-                    type="color"
-                    defaultValue={theme.gradientTo || "#8b5cf6"}
-                    className="w-12 h-12 p-1 border-2"
-                  />
-                  <Input
-                    type="text"
-                    defaultValue={theme.gradientTo || "#8b5cf6"}
-                    className="flex-1 h-12 border-2 uppercase font-mono text-xs"
+              <form.Field name="gradientTo">
+                {(field) => (
+                  <ColorField
+                    field={field}
+                    label="Gradiente (Fim)"
                     placeholder="#8b5cf6"
+                    textInputClassName="text-xs"
                   />
-                </div>
-              </div>
+                )}
+              </form.Field>
             </div>
           </div>
 
           <div className="space-y-6">
-            <div>
-              <Label
-                htmlFor="textColor"
-                className="text-xs font-black uppercase tracking-widest mb-2 block"
-              >
-                Cor do Texto
-              </Label>
-              <div className="flex items-center space-x-3">
-                <Input
-                  id="textColor"
-                  name="textColor"
-                  type="color"
-                  defaultValue={theme.textColor}
-                  className="w-16 h-12 p-1 border-2"
-                />
-                <Input
-                  type="text"
-                  defaultValue={theme.textColor}
-                  className="flex-1 h-12 border-2 uppercase font-mono"
+            <form.Field name="textColor">
+              {(field) => (
+                <ColorField
+                  field={field}
+                  label="Cor do Texto"
                   placeholder="#000000"
                 />
-              </div>
-            </div>
+              )}
+            </form.Field>
 
-            <div>
-              <Label
-                htmlFor="linkColor"
-                className="text-xs font-black uppercase tracking-widest mb-2 block"
-              >
-                Cor dos Elementos
-              </Label>
-              <div className="flex items-center space-x-3">
-                <Input
-                  id="linkColor"
-                  name="linkColor"
-                  type="color"
-                  defaultValue={theme.linkColor}
-                  className="w-16 h-12 p-1 border-2"
-                />
-                <Input
-                  type="text"
-                  defaultValue={theme.linkColor}
-                  className="flex-1 h-12 border-2 uppercase font-mono"
+            <form.Field name="linkColor">
+              {(field) => (
+                <ColorField
+                  field={field}
+                  label="Cor dos Elementos"
                   placeholder="#1a73e8"
                 />
-              </div>
-            </div>
+              )}
+            </form.Field>
 
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label
-                  htmlFor="buttonStyle"
-                  className="text-xs font-black uppercase tracking-widest mb-2 block"
-                >
-                  Estilo
-                </Label>
-                <Select name="buttonStyle" defaultValue={theme.buttonStyle}>
-                  <SelectTrigger className="h-12 border-2">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem
-                      value="rounded"
-                      className="font-bold uppercase text-xs"
-                    >
-                      Arredondado
-                    </SelectItem>
-                    <SelectItem
-                      value="square"
-                      className="font-bold uppercase text-xs"
-                    >
-                      Quadrado
-                    </SelectItem>
-                    <SelectItem
-                      value="pill"
-                      className="font-bold uppercase text-xs"
-                    >
-                      Pílula
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <form.Field name="buttonStyle">
+                {(field) => (
+                  <SelectField
+                    field={field}
+                    label="Estilo"
+                    options={buttonStyleOptions}
+                  />
+                )}
+              </form.Field>
 
-              <div>
-                <Label
-                  htmlFor="fontFamily"
-                  className="text-xs font-black uppercase tracking-widest mb-2 block"
-                >
-                  Fonte
-                </Label>
-                <Select name="fontFamily" defaultValue={theme.fontFamily}>
-                  <SelectTrigger className="h-12 border-2">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Inter" className="font-bold text-xs">
-                      Inter
-                    </SelectItem>
-                    <SelectItem value="Roboto" className="font-bold text-xs">
-                      Roboto
-                    </SelectItem>
-                    <SelectItem value="Open Sans" className="font-bold text-xs">
-                      Open Sans
-                    </SelectItem>
-                    <SelectItem value="Poppins" className="font-bold text-xs">
-                      Poppins
-                    </SelectItem>
-                    <SelectItem
-                      value="Montserrat"
-                      className="font-bold text-xs"
-                    >
-                      Montserrat
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <form.Field name="fontFamily">
+                {(field) => (
+                  <SelectField
+                    field={field}
+                    label="Fonte"
+                    options={fontFamilyOptions}
+                  />
+                )}
+              </form.Field>
             </div>
           </div>
         </div>
 
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="w-full h-16 text-2xl uppercase font-black tracking-tighter mt-8"
-        >
-          {isLoading ? "Salvando..." : "Salvar Tema"}
-        </Button>
+        <form.Subscribe selector={(state) => state.isSubmitting}>
+          {(isSubmitting) => (
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full h-16 text-2xl uppercase font-black tracking-tighter mt-8"
+            >
+              {isSubmitting ? "Salvando..." : "Salvar Tema"}
+            </Button>
+          )}
+        </form.Subscribe>
       </form>
     </div>
   );
