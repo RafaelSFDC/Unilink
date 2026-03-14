@@ -61,8 +61,8 @@ export default async function AnalyticsPage() {
   if (!isPro) {
     return (
       <div className="container mx-auto px-4 py-24 flex flex-col items-center justify-center">
-        <div className="max-w-2xl w-full bg-yellow-400 border-8 border-foreground p-12 shadow-neo-lg text-center rotate-1">
-          <div className="bg-white p-6 border-4 border-foreground shadow-neo w-fit mx-auto mb-8 -rotate-3">
+        <div className="max-w-2xl w-full bg-yellow-400 border-8 border-foreground p-12 shadow-neo-lg text-center rotate-1 transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+          <div className="bg-white p-6 border-4 border-foreground shadow-neo w-fit mx-auto mb-8 -rotate-3 transition-transform duration-100 hover:rotate-0">
             <Zap className="h-16 w-16 text-yellow-500 fill-yellow-400" />
           </div>
           <h1 className="text-5xl font-black uppercase tracking-tighter mb-6">
@@ -100,10 +100,10 @@ export default async function AnalyticsPage() {
 
       {/* Stats Cards (Misto de local e PostHog) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <Card className="bg-primary text-primary-foreground border-4 shadow-neo">
+        <Card className="group bg-primary text-primary-foreground border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <Users className="h-4 w-4" />
+              <Users className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
               Total de Visualizações
             </CardTitle>
           </CardHeader>
@@ -117,10 +117,10 @@ export default async function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-secondary border-4 shadow-neo">
+        <Card className="group bg-secondary border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <MousePointer className="h-4 w-4" />
+              <MousePointer className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
               Total de Cliques
             </CardTitle>
           </CardHeader>
@@ -134,10 +134,10 @@ export default async function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-background border-4 shadow-neo">
+        <Card className="group bg-background border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <TrendingUp className="h-4 w-4" />
+              <TrendingUp className="h-4 w-4 transition-transform duration-100 group-hover:-rotate-6" />
               Taxa de Conversão
             </CardTitle>
           </CardHeader>
@@ -165,7 +165,7 @@ export default async function AnalyticsPage() {
       ) : (
         <div className="space-y-12">
           {/* Chart Section */}
-          <div className="p-8 border-4 border-foreground bg-white shadow-neo">
+          <div className="p-8 border-4 border-foreground bg-white shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
             <h2 className="text-3xl font-black uppercase tracking-tighter mb-8 flex items-center justify-between">
               Visualizações Diárias (7 dias)
               <span className="text-xs p-2 bg-accent text-white border-2 border-foreground shadow-neo-sm">LIVES DATA</span>
@@ -174,7 +174,7 @@ export default async function AnalyticsPage() {
           </div>
           
           <div className="flex flex-col md:flex-row gap-8">
-             <Card className="flex-1 border-4 shadow-neo">
+             <Card className="flex-1 border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
                 <CardHeader>
                    <CardTitle className="uppercase font-black">Configuração do PostHog</CardTitle>
                    <CardDescription className="font-bold">Sua conta está integrada e recebendo eventos.</CardDescription>

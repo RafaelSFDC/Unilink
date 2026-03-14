@@ -47,7 +47,7 @@ export default async function LinksPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 relative">
-        <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-1 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-1 flex flex-col md:flex-row justify-between items-center gap-6 transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <div>
             <h1 className="text-5xl font-black uppercase tracking-tighter mb-2">
               Meus Links
@@ -89,7 +89,7 @@ export default async function LinksPage() {
       </div>
 
       {user.links.length === 0 ? (
-        <Card className="text-center p-12">
+        <Card className="text-center p-12 transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader>
             <Link className="h-20 w-20 text-muted-foreground mx-auto mb-6 opacity-20" />
             <CardTitle className="text-3xl font-black uppercase mb-4">

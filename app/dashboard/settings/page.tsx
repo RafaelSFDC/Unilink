@@ -46,8 +46,8 @@ export default async function SettingsPage() {
       </div>
 
       <div className="max-w-2xl space-y-10">
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-6">
+        <Card className="border-4 pt-0">
+          <CardHeader className="bg-muted border-b-4 border-foreground mb-6 p-6">
             <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
               <Settings className="h-6 w-6 text-primary" />
               Informações do Perfil
@@ -61,8 +61,8 @@ export default async function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-6">
+        <Card className="border-4 pt-0">
+          <CardHeader className="bg-muted border-b-4 border-foreground mb-6 p-6">
             <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
               <Link className="h-6 w-6 text-accent" />
               Link do Perfil

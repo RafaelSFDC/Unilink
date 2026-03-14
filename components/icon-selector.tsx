@@ -134,7 +134,7 @@ export function IconSelector({
                   </span>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80 border-4 border-foreground shadow-neo p-4">
+              <PopoverContent className="w-80 border-4 border-foreground bg-background shadow-neo p-4">
                 <div className="space-y-4">
                   <h4 className="font-black uppercase text-xs tracking-widest border-b-2 border-foreground pb-2">
                     Escolha um ícone

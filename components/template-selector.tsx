@@ -150,7 +150,7 @@ export function TemplateSelector({
       </div>
 
       {/* Template Features */}
-      <div className="bg-primary border-4 border-foreground p-8 shadow-neo-lg rotate-[-0.5deg]">
+      <div className="bg-primary border-4 border-foreground p-8 shadow-neo-lg rotate-[-0.5deg] transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
         <h4 className="text-2xl font-black uppercase text-white mb-4 tracking-tighter">
           Recursos dos Templates
         </h4>

@@ -35,8 +35,8 @@ export default function NewLinkPage() {
       </div>
 
       <div className="max-w-2xl">
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-6">
+        <Card className="border-4 pt-0">
+          <CardHeader className="bg-muted border-b-4 border-foreground mb-6 p-6">
             <CardTitle className="text-2xl font-black uppercase">
               Informações do Link
             </CardTitle>

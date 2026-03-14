@@ -135,7 +135,7 @@ export function ThemeForm({ user, isPro }: ThemeFormProps) {
           void form.handleSubmit();
         }}
       >
-        <div className="p-6 bg-muted border-4 border-foreground shadow-neo rotate-[0.5deg]">
+        <div className="p-6 bg-muted border-4 border-foreground shadow-neo rotate-[0.5deg] transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">
             Personalização Avançada
           </h3>

@@ -119,7 +119,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
           return (
             <Card
               key={link.id}
-              className="border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75"
+              className="group border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75"
             >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between gap-6">
@@ -128,11 +128,11 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                       <GripVertical className="h-6 w-6 text-foreground" />
                     </div>
 
-                    <div className="w-16 h-16 bg-secondary border-4 border-foreground flex items-center justify-center shadow-neo shrink-0">
+                    <div className="w-16 h-16 bg-secondary border-4 border-foreground flex items-center justify-center shadow-neo shrink-0 transition-transform duration-100 group-hover:-rotate-3">
                       {link.icon ? (
-                        <span className="text-3xl">{link.icon}</span>
+                        <span className="text-3xl transition-transform duration-100 group-hover:scale-110">{link.icon}</span>
                       ) : (
-                        <Link className="h-8 w-8 text-foreground" />
+                        <Link className="h-8 w-8 text-foreground transition-transform duration-100 group-hover:scale-110" />
                       )}
                     </div>
 
@@ -169,7 +169,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 bg-muted border-2 border-foreground p-2 shadow-neo-sm h-12">
+                    <div className="flex items-center gap-2 bg-muted border-2 border-foreground p-2 shadow-neo-sm h-12 transition-all duration-100 group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-none">
                       <span className="text-[10px] font-black uppercase tracking-tighter ml-1">
                         Status
                       </span>

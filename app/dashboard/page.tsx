@@ -69,9 +69,9 @@ export default async function DashboardPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       {!isPro && (
-        <div className="mb-8 bg-yellow-400 border-4 border-foreground p-6 shadow-neo rotate-1 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mb-8 bg-yellow-400 border-4 border-foreground p-6 shadow-neo rotate-1 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <div className="flex items-center gap-4">
-            <div className="bg-white p-3 border-4 border-foreground shadow-neo rotate-[-5deg]">
+            <div className="bg-white p-3 border-4 border-foreground shadow-neo rotate-[-5deg] transition-transform duration-100 hover:rotate-0">
               <Zap className="h-8 w-8 text-yellow-500 fill-yellow-400" />
             </div>
             <div>
@@ -105,36 +105,36 @@ export default async function DashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <Card className="bg-secondary">
+        <Card className="group bg-secondary transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-bold opacity-80">
               Total de Links
             </CardTitle>
-            <Link className="h-4 w-4" />
+            <Link className="h-4 w-4 transition-transform duration-100 group-hover:rotate-6" />
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-black">{user._count.links}</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-accent">
+        <Card className="group bg-accent transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-bold opacity-80">
               Total de Cliques
             </CardTitle>
-            <BarChart3 className="h-4 w-4" />
+            <BarChart3 className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-black">{totalClicks}</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-background">
+        <Card className="group bg-background transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-bold opacity-80">
               Perfil Público
             </CardTitle>
-            <Eye className="h-4 w-4" />
+            <Eye className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
           </CardHeader>
           <CardContent>
             <div className="text-4xl font-black uppercase">
@@ -146,10 +146,10 @@ export default async function DashboardPage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <Card className="hover:translate-x-1 hover:translate-y-1 hover:shadow-neo transition-all duration-75">
+        <Card className="group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
-              <Plus className="h-6 w-6 text-primary" />
+              <Plus className="h-6 w-6 text-primary transition-transform duration-100 group-hover:rotate-90" />
               Adicionar Link
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
@@ -163,10 +163,10 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="hover:translate-x-1 hover:translate-y-1 hover:shadow-neo transition-all duration-75">
+        <Card className="group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
-              <Palette className="h-6 w-6 text-secondary-foreground" />
+              <Palette className="h-6 w-6 text-secondary-foreground transition-transform duration-100 group-hover:rotate-12" />
               Customizar
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
@@ -180,10 +180,10 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="hover:translate-x-1 hover:translate-y-1 hover:shadow-neo transition-all duration-75">
+        <Card className="group hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
-              <Eye className="h-6 w-6 text-accent" />
+              <Eye className="h-6 w-6 text-accent transition-transform duration-100 group-hover:scale-110" />
               Ver Perfil
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
@@ -201,8 +201,8 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent Links */}
-      <Card className="border-4">
-        <CardHeader className="border-b-4 border-foreground mb-6 bg-muted">
+      <Card className="border-4 pt-0">
+        <CardHeader className="border-b-4 border-foreground mb-6 bg-muted p-6">
           <CardTitle className="flex items-center gap-4 text-3xl">
             <Link className="h-8 w-8 text-primary" />
             Links Recentes
@@ -227,11 +227,11 @@ export default async function DashboardPage() {
               {user.links.slice(0, 5).map((link) => (
                 <div
                   key={link.id}
-                  className="flex items-center justify-between p-6 border-4 border-foreground bg-background shadow-neo"
+                  className="group flex items-center justify-between p-6 border-4 border-foreground bg-background shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="w-14 h-14 bg-secondary border-2 border-foreground flex items-center justify-center shadow-neo">
-                      <Link className="h-7 w-7 text-foreground" />
+                    <div className="w-14 h-14 bg-secondary border-2 border-foreground flex items-center justify-center shadow-neo transition-transform duration-100 group-hover:-rotate-3">
+                      <Link className="h-7 w-7 text-foreground transition-transform duration-100 group-hover:scale-110" />
                     </div>
                     <div>
                       <h4 className="text-xl font-black uppercase tracking-tight">

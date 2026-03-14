@@ -216,7 +216,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
               <div className="space-y-3">
                 <div
                   className={cn(
-                    "text-sm p-4 border-2 shadow-neo-sm transition-all duration-300 rotate-[-0.5deg]",
+                    "text-sm p-4 border-2 shadow-neo-sm transition-all duration-150 rotate-[-0.5deg] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none",
                     usernameStatus.checking && "bg-blue-100 border-blue-500",
                     usernameStatus.available === true &&
                       "bg-green-100 border-green-500",
@@ -295,7 +295,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
       </form>
 
       <div className="pt-8 border-t-4 border-foreground border-dashed">
-        <div className="bg-muted border-4 border-foreground p-8 shadow-neo-lg rotate-[0.5deg]">
+        <div className="bg-muted border-4 border-foreground p-8 shadow-neo-lg rotate-[0.5deg] transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
           <div className="flex items-center justify-between gap-8">
             <div className="flex-1">
               <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">
@@ -305,7 +305,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
                 QUANDO ATIVO, SEU PERFIL FICARÁ VISÍVEL PARA TODO O MUNDO
               </p>
             </div>
-            <div className="flex items-center gap-4 bg-background border-2 border-foreground p-3 shadow-neo">
+            <div className="flex items-center gap-4 bg-background border-2 border-foreground p-3 shadow-neo transition-all duration-100 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
               <span className="text-xs font-black uppercase tracking-widest">
                 {isPublic ? "ATIVO" : "PRIVADO"}
               </span>

@@ -52,8 +52,8 @@ export default async function ThemePage() {
       </div>
 
       <div className="max-w-4xl">
-        <Card className="border-4">
-          <CardHeader className="bg-muted border-b-4 border-foreground mb-6">
+        <Card className="border-4 pt-0">
+          <CardHeader className="bg-muted border-b-4 border-foreground mb-6 p-6">
             <CardTitle className="flex items-center gap-4 text-2xl uppercase font-black">
               <Palette className="h-6 w-6 text-primary" />
               Configurações de Tema
