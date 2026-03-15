@@ -1,164 +1,115 @@
-# Unilink - Seu link único para tudo
+# Unilink
 
-Uma aplicação moderna de linktree construída com Next.js 15, Clerk para autenticação e Prisma ORM para gerenciamento de banco de dados.
+Plataforma de link-in-bio construída com Next.js para criadores, profissionais e marcas centralizarem links, personalizarem a página pública e acompanharem métricas de acesso.
 
-## 🚀 Funcionalidades
+## Visão Geral
 
-- **Landing Page Moderna** - Design profissional com gradientes e animações
-- **Autenticação segura** com Clerk
-- **Perfis personalizáveis** com temas customizados
-- **Gerenciamento de links** com drag & drop
-- **Analytics detalhados** de visualizações e cliques
-- **Páginas públicas** otimizadas para SEO
-- **Interface responsiva** com Tailwind CSS
-- **Componentes modernos** com shadcn/ui
-- **Depoimentos e estatísticas** para credibilidade
-- **Header sticky** com backdrop blur
-- **Seções de features** com hover effects
+O Unilink combina:
 
-## 🛠️ Tecnologias
+- página pública por username
+- dashboard autenticado
+- personalização de tema e template
+- analytics internos e integração com PostHog
+- billing com Stripe e Mercado Pago
 
-- **Framework**: Next.js 15 com App Router
-- **Autenticação**: Clerk
-- **Banco de dados**: PostgreSQL com Prisma ORM
-- **Estilização**: Tailwind CSS 4
-- **Componentes**: shadcn/ui
-- **Ícones**: Lucide React
-- **Tipagem**: TypeScript
-- **Gerenciador de pacotes**: Yarn
+Hoje o projeto já está funcional para desenvolvimento local e possui base técnica validada com:
 
-## 📦 Instalação
+- `pnpm run lint`
+- `pnpm run type-check`
+- `pnpm run build`
 
-1. Clone o repositório:
-```bash
-git clone <url-do-repositorio>
-cd unilink
+## Stack
+
+- Next.js 15 com App Router
+- React 19
+- TypeScript
+- Prisma + PostgreSQL
+- Clerk para autenticação
+- Tailwind CSS 4 + shadcn/ui
+- Stripe
+- Mercado Pago
+- PostHog
+
+## Estrutura Rápida
+
+```text
+app/          rotas, layouts, páginas e server actions
+components/   componentes de UI e blocos de produto
+lib/          integrações, helpers e regras compartilhadas
+prisma/       schema do banco
+docs/         documentação técnica e operacional
 ```
 
-2. Instale as dependências:
+## Documentação
+
+- [docs/README.md](./docs/README.md)
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- [docs/SETUP.md](./docs/SETUP.md)
+- [docs/BILLING.md](./docs/BILLING.md)
+- [docs/ANALYTICS.md](./docs/ANALYTICS.md)
+- [docs/PRODUCT_LIMITS.md](./docs/PRODUCT_LIMITS.md)
+- [docs/TEMPLATES.md](./docs/TEMPLATES.md)
+- [docs/TECHNICAL_AUDIT.md](./docs/TECHNICAL_AUDIT.md)
+
+## Como Rodar
+
+1. Instale as dependências:
+
 ```bash
-yarn install
+pnpm install
 ```
 
-3. Configure as variáveis de ambiente:
+2. Crie o arquivo de ambiente:
+
 ```bash
 cp .env.example .env
 ```
 
-Preencha as variáveis no arquivo `.env`:
-```env
-# Clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
+3. Configure as variáveis obrigatórias no `.env`.
 
-# Database
-DATABASE_URL=your_postgresql_connection_string
-```
-
-4. Configure o banco de dados:
-```bash
-npx prisma generate
-npx prisma migrate dev --name init
-```
-
-5. Execute o servidor de desenvolvimento:
-```bash
-yarn dev
-```
-
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
-
-## 🗄️ Estrutura do Banco de Dados
-
-### Modelos principais:
-
-- **User**: Informações do usuário sincronizadas com Clerk
-- **Link**: Links do usuário com título, URL, descrição e ícone
-- **Theme**: Configurações de tema personalizadas
-- **Click**: Registro de cliques para analytics
-- **Analytics**: Métricas diárias de visualizações e cliques
-
-## 🎨 Funcionalidades Principais
-
-### Dashboard
-- Visão geral com estatísticas
-- Gerenciamento de links
-- Personalização de tema
-- Analytics detalhados
-- Configurações do perfil
-
-### Perfil Público
-- Página otimizada para compartilhamento
-- Tema personalizado aplicado
-- Tracking de cliques e visualizações
-- SEO otimizado
-
-### Personalização
-- Cores customizáveis
-- Diferentes estilos de botão
-- Suporte a gradientes
-- Múltiplas fontes
-
-## 🚀 Deploy
-
-### Vercel (Recomendado)
-
-1. Conecte seu repositório ao Vercel
-2. Configure as variáveis de ambiente
-3. Deploy automático a cada push
-
-### Outras plataformas
-
-O projeto é compatível com qualquer plataforma que suporte Next.js:
-- Netlify
-- Railway
-- Render
-- AWS Amplify
-
-## 📝 Scripts Disponíveis
+4. Gere o Prisma Client:
 
 ```bash
-# Desenvolvimento
-yarn dev
-
-# Build para produção
-yarn build
-
-# Iniciar servidor de produção
-yarn start
-
-# Linting
-yarn lint
-
-# Verificação de tipos
-npx tsc --noEmit
-
-# Prisma
-npx prisma generate
-npx prisma migrate dev
-npx prisma studio
+pnpm db:generate
 ```
 
-## 🤝 Contribuição
+5. Suba o schema no banco:
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+```bash
+pnpm db:push
+```
 
-## 📄 Licença
+6. Rode a aplicação:
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+```bash
+pnpm dev
+```
 
-## 🆘 Suporte
+## Scripts
 
-Se você encontrar algum problema ou tiver dúvidas:
+```bash
+pnpm dev
+pnpm build
+pnpm start
+pnpm lint
+pnpm type-check
+pnpm db:generate
+pnpm db:push
+pnpm db:migrate
+pnpm db:studio
+pnpm db:reset
+```
 
-1. Verifique as [Issues existentes](../../issues)
-2. Crie uma nova issue se necessário
-3. Consulte a documentação das tecnologias utilizadas
+## Estado Atual
 
----
+- ESLint configurado e passando
+- TypeScript passando
+- Build de produção passando
+- `.env.example` disponível
+- documentação técnica consolidada em `docs/`
 
-Feito com ❤️ usando Next.js, Clerk e Prisma
+## Próximos Passos Recomendados
+
+- padronizar de vez a matriz Free vs PRO em produto e copy
+- revisar a experiência de analytics para deixar origem e janela das métricas mais claras
+- continuar a expansão da documentação da página `/docs` para refletir o conteúdo técnico real

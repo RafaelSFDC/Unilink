@@ -29,7 +29,7 @@ Documentar o estado atual da aplicacao e registrar, de forma pratica, as inconsi
 
 - `pnpm run type-check`: OK
 - `pnpm run build`: OK
-- `pnpm run lint`: falha por ausencia de configuracao ESLint no projeto
+- `pnpm run lint`: OK
 
 ## Correcoes feitas nesta revisao
 
@@ -85,17 +85,17 @@ Arquivos impactados:
 
 ### Qualidade de engenharia
 
-1. Existe script de `lint`, mas nao existe setup de ESLint no repositorio.
-2. A pagina `app/dashboard/analytics/page.tsx` entrega `123 kB` de JS proprio na rota, sugerindo oportunidade de reduzir bundle, principalmente por conta do grafico.
-3. O projeto tem paginas institucionais e de ajuda, mas sem uma documentacao operacional central para onboarding tecnico, arquitetura e troubleshooting.
+1. A pagina `app/dashboard/analytics/page.tsx` entrega `123 kB` de JS proprio na rota, sugerindo oportunidade de reduzir bundle, principalmente por conta do grafico.
+2. O projeto tinha lacunas de documentacao operacional; esta revisao iniciou a consolidacao em `docs/`.
+3. A pagina `/docs` do produto continua sendo institucional e ainda nao espelha toda a documentacao tecnica escrita no repositório.
 
 ## Riscos e oportunidades priorizados
 
 ### P0
 
-1. Configurar ESLint de verdade e fechar uma baseline minima de qualidade para CI.
-2. Padronizar a definicao de features Free vs PRO em codigo, UI e documentacao.
-3. Corrigir dados historicos de analytics gerados antes da normalizacao da data diaria.
+1. Padronizar a definicao de features Free vs PRO em codigo, UI e documentacao.
+2. Corrigir dados historicos de analytics gerados antes da normalizacao da data diaria.
+3. Manter `lint`, `type-check` e `build` como baseline obrigatoria local.
 
 ### P1
 
@@ -137,7 +137,7 @@ Sugestao de estrutura para a proxima etapa:
 ## Proximos passos recomendados
 
 1. Configurar ESLint e CI minima (`type-check`, `build`, `lint`).
-2. Atualizar `README.md` e `SETUP.md` para `pnpm`, variaveis reais e fluxo atual.
+2. Manter `README.md` e `docs/` sincronizados com a implementacao real.
 3. Corrigir o posicionamento da pagina `/docs`: documentacao real ou pagina de central de ajuda mais honesta.
 4. Executar saneamento no banco para agregar analytics antigos por dia.
 5. Revisar a experiencia de analytics para deixar fonte, periodo e significado de cada metrica absolutamente claros.
