@@ -101,6 +101,9 @@ export default async function DashboardPage() {
           <p className="text-primary-foreground/90 font-bold text-lg uppercase tracking-tight">
             Gerencie seus links, publique sua pagina e acompanhe seu crescimento
           </p>
+          <p className="mt-4 text-sm font-bold uppercase tracking-wide text-primary-foreground/70 break-all">
+            Perfil publico: /{user.username}
+          </p>
         </div>
       </div>
 
@@ -154,7 +157,7 @@ export default async function DashboardPage() {
               Adicionar Link
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
-              Adicione um novo link ao seu perfil
+              Adicione seus destinos principais e coloque a pagina no ar
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -171,7 +174,7 @@ export default async function DashboardPage() {
               Customizar
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
-              Customize o visual do seu perfil
+              Escolha o visual da pagina e refine sua identidade
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -188,7 +191,7 @@ export default async function DashboardPage() {
               Ver Perfil
             </CardTitle>
             <CardDescription className="font-bold text-foreground/70 uppercase text-xs">
-              Veja como os outros visualizam você
+              Abra sua pagina publica e confira o resultado final
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -211,7 +214,7 @@ export default async function DashboardPage() {
         </CardHeader>
         <CardContent>
           {user.links.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="text-center py-12 space-y-6">
               <Link className="h-20 w-20 text-muted-foreground mx-auto mb-6 opacity-20" />
               <h3 className="text-2xl font-black uppercase mb-4">
                 Nenhum link ainda
@@ -219,9 +222,14 @@ export default async function DashboardPage() {
               <p className="text-lg font-bold text-muted-foreground mb-8">
                 ADICIONE SEU PRIMEIRO LINK PARA COLOCAR SUA PAGINA NO AR
               </p>
-              <Button asChild className="h-16 px-10 text-xl">
-                <NextLink href="/dashboard/links/new">Adicionar Primeiro Link</NextLink>
-              </Button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button asChild className="h-16 px-10 text-xl">
+                  <NextLink href="/dashboard/links/new">Adicionar Primeiro Link</NextLink>
+                </Button>
+                <Button asChild variant="outline" className="h-16 px-10 text-xl">
+                  <NextLink href="/dashboard/theme">Escolher Visual</NextLink>
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-6 pt-4">

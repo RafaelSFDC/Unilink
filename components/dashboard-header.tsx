@@ -1,5 +1,6 @@
 "use client";
 
+import NextLink from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Link } from "lucide-react";
@@ -11,7 +12,10 @@ export function DashboardHeader() {
       <SidebarTrigger className="-ml-1 border-2 border-foreground shadow-neo" />
 
       {/* Logo */}
-      <div className="flex items-center space-x-3 flex-1">
+      <NextLink
+        href="/dashboard"
+        className="flex items-center space-x-3 flex-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40"
+      >
         <div className="relative flex-shrink-0">
           <Link className="h-7 w-7 text-primary" />
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent border-2 border-foreground shadow-neo"></div>
@@ -19,7 +23,7 @@ export function DashboardHeader() {
         <h1 className="text-2xl font-black uppercase tracking-tighter">
           Unilink
         </h1>
-      </div>
+      </NextLink>
 
       {/* User Button */}
       <div className="flex items-center">

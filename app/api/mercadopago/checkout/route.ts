@@ -24,9 +24,8 @@ export async function GET() {
       return new NextResponse("User not found", { status: 404 });
     }
 
-    // Se já é PRO, poderíamos redirecionar para a página de billing
-    // O Mercado Pago não tem um "Customer Portal" igual ao Stripe,
-    // então apenas redirecionamos se já for PRO.
+    // O Mercado Pago entra como fluxo secundário.
+    // Se o usuário já é PRO, mantemos a pessoa na página de billing.
     if (dbUser.plan === 'PRO') {
       return NextResponse.json({ url: settingsUrl });
     }
@@ -37,8 +36,8 @@ export async function GET() {
         items: [
           {
             id: 'unilink_pro_monthly',
-            title: 'Unilink PRO - Vitalício',
-            description: "Acesso ilimitado a templates, analytics e remoção de marca d'água.",
+            title: 'Unilink PRO - Pagamento alternativo',
+            description: "Acesso ao Unilink PRO via Mercado Pago como alternativa ao Stripe.",
             quantity: 1,
             unit_price: 10.00,
             currency_id: 'BRL'

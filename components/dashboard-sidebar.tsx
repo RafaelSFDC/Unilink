@@ -1,5 +1,6 @@
 "use client";
 
+import NextLink from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -94,7 +95,11 @@ export function DashboardSidebar() {
                           : "hover:bg-gray-50 dark:hover:bg-gray-950/20"
                       }
                     >
-                      <a href={item.url} className="flex items-center justify-between w-full">
+                      <NextLink
+                        href={item.url}
+                        className="flex items-center justify-between w-full"
+                        aria-current={isActive ? "page" : undefined}
+                      >
                         <div className="flex items-center gap-2">
                           <item.icon
                             className={`h-4 w-4 ${isActive ? item.color : "text-gray-600 dark:text-gray-400"}`}
@@ -103,12 +108,12 @@ export function DashboardSidebar() {
                             {item.title}
                           </span>
                         </div>
-                        {item.title === "Analytics" && (
+                        {item.isPro && (
                           <span className="bg-yellow-400 text-black text-[10px] font-black px-1.5 py-0.5 border-2 border-foreground shadow-neo-sm rotate-2">
                             PRO
                           </span>
                         )}
-                      </a>
+                      </NextLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );

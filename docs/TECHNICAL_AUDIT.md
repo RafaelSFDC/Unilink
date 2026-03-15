@@ -64,7 +64,7 @@ Arquivos impactados:
 - `app/actions/analytics.ts`
 - `app/[username]/page.tsx`
 
-## Inconsistencias confirmadas
+## Inconsistencias confirmadas durante a auditoria original
 
 ### Documentacao
 
@@ -89,55 +89,34 @@ Arquivos impactados:
 2. O projeto tinha lacunas de documentacao operacional; esta revisao iniciou a consolidacao em `docs/`.
 3. A pagina `/docs` do produto continua sendo institucional e ainda nao espelha toda a documentacao tecnica escrita no repositório.
 
+## Status apos o fechamento das fases 0 a 8
+
+Os principais problemas de alinhamento de produto, docs, billing, templates, analytics e polimento foram tratados neste ciclo. O foco agora sai de "organizar a base" e passa para "validar em operacao e evoluir com seguranca".
+
 ## Riscos e oportunidades priorizados
 
 ### P0
 
-1. Padronizar a definicao de features Free vs PRO em codigo, UI e documentacao.
-2. Corrigir dados historicos de analytics gerados antes da normalizacao da data diaria.
+1. Executar validacao manual da jornada principal e do billing com ambiente real.
+2. Revisar e, se necessario, sanear dados historicos de analytics gerados antes da normalizacao diaria.
 3. Manter `lint`, `type-check` e `build` como baseline obrigatoria local.
 
 ### P1
 
-1. Transformar `/docs` em documentacao real ou reduzir a promessa da pagina para nao criar falso positivo de maturidade.
-2. Criar uma fonte unica de verdade para capabilities do produto:
-   - planos
-   - limites
-   - provedores de pagamento
-   - integracoes opcionais
-3. Revisar analytics para separar claramente:
-   - metricas internas
-   - metricas PostHog
-   - janela temporal de cada card
+1. Revisar a pagina `/docs` e a landing para remover qualquer promessa residual fora da oferta atual.
+2. Reduzir bundle e custo de renderizacao da rota de analytics.
+3. Evoluir observabilidade operacional para billing, webhooks e falhas de integracao.
 
 ### P2
 
-1. Fazer code-splitting do grafico e dependencias pesadas de analytics.
-2. Introduzir observabilidade operacional:
-   - paginas de erro mais claras
-   - logs estruturados para billing/webhooks
-   - fallback UX quando PostHog ou pagamentos nao estiverem configurados
-3. Consolidar documentacao em uma pasta `docs/` com:
-   - arquitetura
-   - setup
-   - variaveis de ambiente
-   - billing
-   - analytics
-
-## Proposta de documentacao enxuta
-
-Sugestao de estrutura para a proxima etapa:
-
-- `docs/ARCHITECTURE.md`
-- `docs/SETUP.md`
-- `docs/BILLING.md`
-- `docs/ANALYTICS.md`
-- `docs/PRODUCT_LIMITS.md`
+1. Aprofundar a experiencia de analytics com insights por link e comparativos mais uteis.
+2. Reavaliar o papel do Mercado Pago se a demanda comercial justificar paridade maior com Stripe.
+3. Expandir a documentacao operacional com runbooks de suporte e incidentes.
 
 ## Proximos passos recomendados
 
-1. Configurar ESLint e CI minima (`type-check`, `build`, `lint`).
-2. Manter `README.md` e `docs/` sincronizados com a implementacao real.
-3. Corrigir o posicionamento da pagina `/docs`: documentacao real ou pagina de central de ajuda mais honesta.
-4. Executar saneamento no banco para agregar analytics antigos por dia.
-5. Revisar a experiencia de analytics para deixar fonte, periodo e significado de cada metrica absolutamente claros.
+1. Seguir `docs/CONTINUITY_BACKLOG.md` como backlog pos-roadmap.
+2. Executar as validacoes manuais ainda pendentes e registrar o resultado.
+3. Manter `README.md` e `docs/` sincronizados com a implementacao real.
+4. Revisar a experiencia de analytics com foco em performance e interpretacao.
+5. Evoluir observabilidade operacional antes de ampliar o escopo do produto.

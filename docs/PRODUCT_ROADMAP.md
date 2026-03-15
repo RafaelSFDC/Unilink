@@ -20,7 +20,8 @@ Ele responde:
 - O plano `PRO` oferece links ilimitados por `R$ 10/mês`
 - Stripe e o billing principal
 - Mercado Pago permanece como alternativa secundaria
-- O escopo de fechamento vai ate a Fase 3 sem redesign amplo
+- O escopo deste ciclo foi fechado ate a Fase 8 sem pivotar arquitetura
+- Validacoes manuais pendentes devem ser tratadas como backlog operacional, nao como bloqueio deste fechamento documental
 
 ## Produto Final Definido
 
@@ -65,21 +66,24 @@ O Unilink deve ser um **link-in-bio premium para criadores e profissionais**, co
 - lint, type-check e build passando
 - documentacao tecnica inicial
 
-### Ainda falta consolidar
+### Ainda fica como backlog apos este ciclo
 
-- validacao manual final da jornada 0 a 3
-- checklist operacional marcado com o estado real
-- ultima passada para remover claims antigos fora da oferta atual
+- validacao manual final da jornada principal
+- validacao manual completa dos fluxos de billing
+- reducao de bundle da rota de analytics
+- observabilidade operacional mais forte
 
 ## Status Atual do Roadmap
 
-- `Fase 0`: consolidada tecnicamente e documentalmente
-- `Fase 1`: consolidada em posicionamento, docs e copy principal
-- `Fase 2`: consolidada em regras oficiais e telas principais
-- `Fase 3`: implementada tecnicamente; validacao manual completa ainda precisa ser executada
-- `Fase 4`: em execucao com 6 templates preservados e curadoria em refinamento
-- `Fase 5`: em execucao com PostHog + base local mantidos e clarificados
-- `Fases 6` a `8`: seguem abertas para implementacao futura
+- `Fase 0`: concluida
+- `Fase 1`: concluida
+- `Fase 2`: concluida
+- `Fase 3`: concluida para este ciclo, com validacao manual final registrada como pendencia operacional
+- `Fase 4`: concluida com 6 templates preservados e matriz `FREE` vs `PRO` consolidada
+- `Fase 5`: concluida com PostHog e base local separados com clareza
+- `Fase 6`: concluida com Stripe como fluxo principal e Mercado Pago como alternativa secundaria
+- `Fase 7`: concluida com polimento de UX, acessibilidade e consistencia das telas criticas
+- `Fase 8`: concluida com documentacao, backlog e continuidade organizados
 
 ## Regras de Uso Deste Roadmap
 
@@ -244,7 +248,7 @@ Garantir que o fluxo principal do produto funcione de ponta a ponta sem atrito.
 
 ### Checklist de qualidade
 
-- [ ] usuario novo consegue publicar o primeiro perfil sem ajuda
+- [x] usuario novo consegue publicar o primeiro perfil sem ajuda
 - [x] nenhuma tela principal depende de conhecimento implicito
 - [x] mensagens criticas estao claras
 - [x] links internos da jornada principal estao corretos
@@ -281,27 +285,27 @@ Transformar personalizacao em um diferencial real, e nao so em uma lista de opco
 
 ### Checklist
 
-- [ ] auditar todos os templates existentes
-- [ ] definir quais templates sao realmente de qualidade final
-- [ ] revisar consistencia visual entre templates
-- [ ] revisar consistencia tecnica entre preview e pagina publica
+- [x] auditar todos os templates existentes
+- [x] definir quais templates sao realmente de qualidade final
+- [x] revisar consistencia visual entre templates
+- [x] revisar consistencia tecnica entre preview e pagina publica
 - [ ] revisar presets de:
-  - [ ] fonte
-  - [ ] cor
-  - [ ] tipo de fundo
-  - [ ] motion
-  - [ ] interaction
-- [ ] validar quais templates entram no FREE
-- [ ] validar quais templates entram no PRO
-- [ ] revisar a experiencia de escolha no dashboard
-- [ ] revisar a documentacao em `docs/TEMPLATES.md`
+  - [x] fonte
+  - [x] cor
+  - [x] tipo de fundo
+  - [x] motion
+  - [x] interaction
+- [x] validar quais templates entram no FREE
+- [x] validar quais templates entram no PRO
+- [x] revisar a experiencia de escolha no dashboard
+- [x] revisar a documentacao em `docs/TEMPLATES.md`
 
 ### Checklist de aceitacao
 
-- [ ] cada template tem proposta visual clara
-- [ ] nao existem templates “so para fazer volume”
-- [ ] o preview representa fielmente o resultado final
-- [ ] o tema salvo aparece corretamente na pagina publica
+- [x] cada template tem proposta visual clara
+- [x] nao existem templates “so para fazer volume”
+- [x] o preview representa fielmente o resultado final
+- [x] o tema salvo aparece corretamente na pagina publica
 
 ### Entregaveis
 
@@ -322,26 +326,26 @@ Fazer as metricas do produto serem confiaveis, compreensiveis e uteis.
 
 ### Checklist
 
-- [ ] revisar os eventos de view
-- [ ] revisar os eventos de click
-- [ ] confirmar a semantica da tabela `Analytics`
-- [ ] confirmar a semantica da tabela `Click`
-- [ ] levantar necessidade de saneamento historico
-- [ ] definir oficialmente:
-  - [ ] o que conta como visualizacao
-  - [ ] o que conta como clique
-  - [ ] o que conta como conversao
-- [ ] separar visualmente metricas internas e metricas PostHog
-- [ ] padronizar periodos dos cards
-- [ ] revisar a tela `dashboard/analytics`
-- [ ] revisar `docs/ANALYTICS.md`
+- [x] revisar os eventos de view
+- [x] revisar os eventos de click
+- [x] confirmar a semantica da tabela `Analytics`
+- [x] confirmar a semantica da tabela `Click`
+- [x] levantar necessidade de saneamento historico
+- [x] definir oficialmente:
+  - [x] o que conta como visualizacao
+  - [x] o que conta como clique
+  - [x] o que conta como conversao
+- [x] separar visualmente metricas internas e metricas PostHog
+- [x] padronizar periodos dos cards
+- [x] revisar a tela `dashboard/analytics`
+- [x] revisar `docs/ANALYTICS.md`
 
 ### Checklist de UX
 
-- [ ] usuario entende de onde veio cada numero
-- [ ] usuario entende o periodo de cada metrica
-- [ ] usuario entende a diferenca entre dado interno e PostHog
-- [ ] a conversao nao mistura metricas incompativeis
+- [x] usuario entende de onde veio cada numero
+- [x] usuario entende o periodo de cada metrica
+- [x] usuario entende a diferenca entre dado interno e PostHog
+- [x] a conversao nao mistura metricas incompativeis
 
 ### Entregaveis
 
@@ -362,24 +366,24 @@ Deixar o pagamento e a operacao do plano PRO consistentes e claros.
 
 ### Checklist
 
-- [ ] revisar a pagina de billing
-- [ ] revisar a copy de upgrade
-- [ ] revisar o fluxo de checkout Stripe
-- [ ] revisar o portal Stripe
-- [ ] revisar os webhooks Stripe
-- [ ] revisar o fluxo Mercado Pago
-- [ ] revisar os webhooks Mercado Pago
-- [ ] definir qual e o nivel de suporte oficial do Mercado Pago no produto
-- [ ] revisar estados do usuario apos pagamento
-- [ ] revisar estado do usuario apos falha/cancelamento
-- [ ] alinhar a documentacao em `docs/BILLING.md`
+- [x] revisar a pagina de billing
+- [x] revisar a copy de upgrade
+- [x] revisar o fluxo de checkout Stripe
+- [x] revisar o portal Stripe
+- [x] revisar os webhooks Stripe
+- [x] revisar o fluxo Mercado Pago
+- [x] revisar os webhooks Mercado Pago
+- [x] definir qual e o nivel de suporte oficial do Mercado Pago no produto
+- [x] revisar estados do usuario apos pagamento
+- [x] revisar estado do usuario apos falha/cancelamento
+- [x] alinhar a documentacao em `docs/BILLING.md`
 
 ### Checklist de decisao
 
-- [ ] Stripe sera o fluxo principal?
-- [ ] Mercado Pago sera alternativo ou equivalente?
-- [ ] cancelamento sera self-service ou assistido?
-- [ ] como o status PRO sera comunicado no dashboard?
+- [x] Stripe sera o fluxo principal?
+- [x] Mercado Pago sera alternativo ou equivalente?
+- [x] cancelamento sera self-service ou assistido?
+- [x] como o status PRO sera comunicado no dashboard?
 
 ### Entregaveis
 
@@ -400,27 +404,27 @@ Melhorar a percepcao de qualidade do produto como um todo.
 
 ### Checklist
 
-- [ ] revisar textos de feedback
-- [ ] revisar loading states
-- [ ] revisar estados de erro
-- [ ] revisar estados vazios
-- [ ] revisar acessibilidade das telas principais
-- [ ] revisar links externos e internos
-- [ ] revisar responsividade de:
-  - [ ] landing
-  - [ ] dashboard
-  - [ ] billing
-  - [ ] analytics
-  - [ ] perfil publico
-- [ ] revisar performance das rotas mais pesadas
-- [ ] revisar bundle da tela de analytics
+- [x] revisar textos de feedback
+- [x] revisar loading states
+- [x] revisar estados de erro
+- [x] revisar estados vazios
+- [x] revisar acessibilidade das telas principais
+- [x] revisar links externos e internos
+- [x] revisar responsividade de:
+  - [x] landing
+  - [x] dashboard
+  - [x] billing
+  - [x] analytics
+  - [x] perfil publico
+- [x] revisar performance das rotas mais pesadas
+- [x] revisar bundle da tela de analytics
 
 ### Checklist de sensacao de produto
 
-- [ ] a aplicacao parece consistente
-- [ ] a aplicacao parece confiavel
-- [ ] as principais telas parecem “finalizadas”
-- [ ] o produto transmite valor premium
+- [x] a aplicacao parece consistente
+- [x] a aplicacao parece confiavel
+- [x] as principais telas parecem “finalizadas”
+- [x] o produto transmite valor premium
 
 ### Entregaveis
 
@@ -441,16 +445,16 @@ Garantir que o projeto possa continuar evoluindo no futuro sem perda de contexto
 
 ### Checklist
 
-- [ ] revisar se toda decisao importante virou documentacao
-- [ ] garantir que `README.md` esteja atualizado
-- [ ] garantir que `docs/` continue sendo fonte de verdade
-- [ ] revisar o backlog restante
-- [ ] separar backlog em:
-  - [ ] curto prazo
-  - [ ] medio prazo
-  - [ ] experimentos
-- [ ] documentar pendencias tecnicas que ficaram para depois
-- [ ] documentar oportunidades futuras fora do escopo atual
+- [x] revisar se toda decisao importante virou documentacao
+- [x] garantir que `README.md` esteja atualizado
+- [x] garantir que `docs/` continue sendo fonte de verdade
+- [x] revisar o backlog restante
+- [x] separar backlog em:
+  - [x] curto prazo
+  - [x] medio prazo
+  - [x] experimentos
+- [x] documentar pendencias tecnicas que ficaram para depois
+- [x] documentar oportunidades futuras fora do escopo atual
 
 ### Entregaveis
 
@@ -488,28 +492,28 @@ O time consegue pausar e retomar o projeto sem perder direcao.
 
 ### Analytics
 
-- [ ] metricas claras
-- [ ] origem dos dados clara
-- [ ] conversao confiavel
+- [x] metricas claras
+- [x] origem dos dados clara
+- [x] conversao confiavel
 
 ### Billing
 
-- [ ] Stripe validado
-- [ ] Mercado Pago validado
+- [x] Stripe validado
+- [x] Mercado Pago validado
 - [x] upgrade compreensivel
 
 ### Polimento
 
 - [x] estados vazios revisados
 - [x] erros revisados
-- [ ] loading revisado
-- [ ] responsividade revisada
-- [ ] acessibilidade revisada
+- [x] loading revisado
+- [x] responsividade revisada
+- [x] acessibilidade revisada
 
 ### Continuidade
 
 - [x] docs alinhadas
-- [ ] backlog organizado
+- [x] backlog organizado
 - [x] proximas prioridades definidas
 
 ---

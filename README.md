@@ -60,6 +60,7 @@ docs/         documentacao tecnica e operacional
 - [docs/ANALYTICS.md](./docs/ANALYTICS.md)
 - [docs/PRODUCT_LIMITS.md](./docs/PRODUCT_LIMITS.md)
 - [docs/PRODUCT_ROADMAP.md](./docs/PRODUCT_ROADMAP.md)
+- [docs/CONTINUITY_BACKLOG.md](./docs/CONTINUITY_BACKLOG.md)
 - [docs/TEMPLATES.md](./docs/TEMPLATES.md)
 - [docs/TECHNICAL_AUDIT.md](./docs/TECHNICAL_AUDIT.md)
 
@@ -119,6 +120,6 @@ pnpm db:reset
 - Build de producao passando
 - `.env.example` disponivel
 - documentacao tecnica consolidada em `docs/`
-- fases `0` e `1` consolidadas em documentacao
-- fase `2` alinhada entre regras e telas principais
-- fase `3` implementada no fluxo principal e pendente apenas de validacao manual assistida
+- fases `0` a `7` consolidadas neste ciclo
+- fase `8` fechada com backlog, dividas tecnicas e continuidade organizados
+- validacoes manuais finais seguem documentadas como pendencias operacionais

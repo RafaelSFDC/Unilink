@@ -75,6 +75,7 @@ MERCADOPAGO_ACCESS_TOKEN=
 - Mercado Pago hoje promove o usuario para `PRO`, mas nao possui um portal equivalente ao Stripe
 - a modelagem principal de billing persistida esta mais orientada ao Stripe
 - o produto deve comunicar isso com clareza em pricing, billing e documentacao
+- a tela de billing deve explicitar que Stripe e o fluxo principal e Mercado Pago e uma alternativa secundaria
 
 ## Regras Importantes
 
@@ -84,6 +85,7 @@ MERCADOPAGO_ACCESS_TOKEN=
 - o caminho padrao de upgrade deve priorizar Stripe
 - Mercado Pago pode continuar disponivel sem prometer equivalencia total ao Stripe nesta fase
 - `docs/PRODUCT_LIMITS.md` e a fonte de verdade para beneficios do `FREE` e do `PRO`
+- cancelamento e renovacao do Stripe devem refletir no status salvo do usuario via webhook
 
 ## Debitos Tecnicos Conhecidos
 

@@ -9,22 +9,67 @@ import { Badge } from "@/components/ui/badge";
 
 interface BillingPageProps {
   isPro: boolean;
+  billingProvider: "stripe" | "mercadopago" | "free";
+  stripeCurrentPeriodEnd: string | null;
+  isStripeConfigured: boolean;
+  isMercadoPagoConfigured: boolean;
 }
 
-export default function BillingPage({ isPro }: BillingPageProps) {
+export default function BillingPage({
+  isPro,
+  billingProvider,
+  stripeCurrentPeriodEnd,
+  isStripeConfigured,
+  isMercadoPagoConfigured,
+}: BillingPageProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMercadoPagoLoading, setIsMercadoPagoLoading] = useState(false);
+
+  const renewalDate = stripeCurrentPeriodEnd
+    ? new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "medium",
+      }).format(new Date(stripeCurrentPeriodEnd))
+    : null;
 
   const onSubscribeStripe = async () => {
     try {
       setIsLoading(true);
       const response = await fetch("/api/stripe/checkout");
+      if (!response.ok) {
+        throw new Error("stripe_checkout_failed");
+      }
       const data = await response.json();
+
+      if (!data.url) {
+        throw new Error("stripe_url_missing");
+      }
 
       window.location.href = data.url;
     } catch {
       toast.error("Algo deu errado com Stripe. Tente novamente.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const onSubscribeMercadoPago = async () => {
+    try {
+      setIsMercadoPagoLoading(true);
+      const response = await fetch("/api/mercadopago/checkout");
+      if (!response.ok) {
+        throw new Error("mercadopago_checkout_failed");
+      }
+      const data = await response.json();
+
+      if (!data.url) {
+        throw new Error("mercadopago_url_missing");
+      }
+
+      window.location.href = data.url;
+    } catch {
+      toast.error("Algo deu errado com Mercado Pago. Tente novamente.");
+    } finally {
+      setIsMercadoPagoLoading(false);
     }
   };
 
@@ -46,7 +91,13 @@ export default function BillingPage({ isPro }: BillingPageProps) {
             <Zap className="w-10 h-10 text-white fill-current" />
             <div>
               <div className="font-black uppercase text-2xl tracking-tighter">PLANO PRO ATIVO</div>
-              <div className="font-bold opacity-80 uppercase text-xs">STATUS: EM DIA</div>
+              <div className="font-bold opacity-80 uppercase text-xs">
+                {billingProvider === "stripe"
+                  ? renewalDate
+                    ? `RENOVACAO VIA STRIPE EM ${renewalDate}`
+                    : "GESTAO VIA STRIPE"
+                  : "ATIVADO VIA MERCADO PAGO"}
+              </div>
             </div>
           </div>
         ) : (
@@ -59,6 +110,17 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           </div>
         )}
       </div>
+
+      {!isStripeConfigured && !isMercadoPagoConfigured ? (
+        <div className="border-4 border-red-600 bg-red-50 p-6 shadow-neo max-w-4xl">
+          <h2 className="text-2xl font-black uppercase tracking-tighter text-red-700 mb-2">
+            Billing indisponivel neste ambiente
+          </h2>
+          <p className="font-bold uppercase text-sm text-red-700/80">
+            Nenhum provedor de pagamento esta configurado agora. Configure Stripe ou Mercado Pago para habilitar assinaturas reais.
+          </p>
+        </div>
+      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl">
         {/* Basic Card for Free Users or downgrade info */}
@@ -121,11 +183,46 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           <Button 
             className={`h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo ${isPro ? "bg-white text-primary hover:bg-zinc-200" : "bg-primary text-white hover:bg-primary/90"}`}
             onClick={onSubscribeStripe}
-            disabled={isLoading}
+            disabled={isLoading || !isStripeConfigured}
           >
-            {isLoading ? "CARREGANDO..." : isPro ? "GERENCIAR NO STRIPE" : "ASSINAR COM STRIPE"}
+            {!isStripeConfigured
+              ? "STRIPE INDISPONIVEL"
+              : isLoading
+                ? "CARREGANDO..."
+                : isPro && billingProvider === "stripe"
+                  ? "GERENCIAR NO STRIPE"
+                  : "ASSINAR COM STRIPE"}
           </Button>
+
+          {!isPro && (
+            <Button
+              variant="outline"
+              className="mt-4 h-14 text-lg font-black uppercase border-4 border-foreground shadow-neo"
+              onClick={onSubscribeMercadoPago}
+              disabled={isMercadoPagoLoading || !isMercadoPagoConfigured}
+            >
+              {!isMercadoPagoConfigured
+                ? "MERCADO PAGO INDISPONIVEL"
+                : isMercadoPagoLoading
+                  ? "ABRINDO MERCADO PAGO..."
+                  : "ALTERNATIVA VIA MERCADO PAGO"}
+            </Button>
+          )}
         </div>
+      </div>
+
+      <div className="border-4 border-foreground bg-muted p-6 shadow-neo max-w-4xl">
+        <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">
+          Como o billing funciona hoje
+        </h2>
+        <p className="font-bold uppercase text-sm opacity-70 mb-4">
+          Stripe e o fluxo principal. Mercado Pago entra como alternativa secundaria.
+        </p>
+        <ul className="space-y-2 text-sm font-bold uppercase opacity-80">
+          <li>Stripe e o caminho padrao para checkout e gestao do plano.</li>
+          <li>Mercado Pago pode promover para PRO, mas nao oferece portal equivalente nesta fase.</li>
+          <li>O plano PRO libera templates premium, analytics avancados e personalizacao extra.</li>
+        </ul>
       </div>
 
       {/* Trust Badges */}

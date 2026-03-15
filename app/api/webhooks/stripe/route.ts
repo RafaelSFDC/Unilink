@@ -5,6 +5,12 @@ import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
 
+function getSubscriptionPeriodEnd(subscription: Stripe.Subscription) {
+  return (subscription as Stripe.Subscription & {
+    current_period_end: number;
+  }).current_period_end;
+}
+
 export async function POST(req: Request) {
   const stripe = getStripe();
   const body = await req.text();
@@ -34,10 +40,7 @@ export async function POST(req: Request) {
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
     ) as Stripe.Subscription;
-
-    const periodEnd = (subscription as Stripe.Subscription & {
-      current_period_end: number;
-    }).current_period_end;
+    const periodEnd = getSubscriptionPeriodEnd(subscription);
 
     await prisma.user.update({
       where: {
@@ -65,10 +68,7 @@ export async function POST(req: Request) {
     const subscription = await stripe.subscriptions.retrieve(
       invoice.subscription as string
     ) as Stripe.Subscription;
-
-    const periodEnd = (subscription as Stripe.Subscription & {
-      current_period_end: number;
-    }).current_period_end;
+    const periodEnd = getSubscriptionPeriodEnd(subscription);
 
     await prisma.user.update({
       where: {
@@ -78,6 +78,45 @@ export async function POST(req: Request) {
         stripePriceId: subscription.items.data[0].price.id,
         stripeCurrentPeriodEnd: new Date(periodEnd * 1000),
         plan: "PRO",
+      },
+    });
+  }
+
+  if (event.type === "customer.subscription.updated") {
+    const subscription = event.data.object as Stripe.Subscription;
+    const periodEnd = getSubscriptionPeriodEnd(subscription);
+    const inactiveStatuses = new Set(["canceled", "unpaid", "incomplete_expired"]);
+
+    await prisma.user.updateMany({
+      where: {
+        stripeSubscriptionId: subscription.id,
+      },
+      data: inactiveStatuses.has(subscription.status)
+        ? {
+            plan: "FREE",
+            stripePriceId: null,
+            stripeCurrentPeriodEnd: null,
+          }
+        : {
+            plan: "PRO",
+            stripePriceId: subscription.items.data[0]?.price.id ?? null,
+            stripeCurrentPeriodEnd: new Date(periodEnd * 1000),
+          },
+    });
+  }
+
+  if (event.type === "customer.subscription.deleted") {
+    const subscription = event.data.object as Stripe.Subscription;
+
+    await prisma.user.updateMany({
+      where: {
+        stripeSubscriptionId: subscription.id,
+      },
+      data: {
+        plan: "FREE",
+        stripePriceId: null,
+        stripeSubscriptionId: null,
+        stripeCurrentPeriodEnd: null,
       },
     });
   }

@@ -1,6 +1,7 @@
 'use client'
 
 import { trackClick } from '@/app/actions/analytics'
+import { startTransition } from 'react'
 import type { CSSProperties } from 'react'
 import { getThemeButtonRadius, getThemeFontFamily, resolveTheme, type ThemeSettings } from '@/lib/theme'
 import {
@@ -46,11 +47,15 @@ export function ProfilePage({ user, preview = false }: ProfilePageProps) {
       return
     }
 
-    // Track click
-    await trackClick(linkId)
+    const openedWindow = window.open(url, '_blank', 'noopener,noreferrer')
 
-    // Open link
-    window.open(url, '_blank', 'noopener,noreferrer')
+    startTransition(() => {
+      void trackClick(linkId)
+    })
+
+    if (!openedWindow) {
+      window.location.href = url
+    }
   }
 
   // Render the appropriate template based on user's choice
@@ -105,6 +110,11 @@ export function ProfilePage({ user, preview = false }: ProfilePageProps) {
           will-change: transform;
         }
 
+        [data-profile-theme-shell='true'] button:focus-visible {
+          outline: 4px solid var(--profile-link-color);
+          outline-offset: 4px;
+        }
+
         [data-profile-theme-shell='true'][data-interaction-preset='press'] button:hover,
         [data-profile-theme-shell='true'][data-interaction-preset='press'] button:focus-visible {
           transform: translate(4px, 4px) !important;
@@ -139,6 +149,16 @@ export function ProfilePage({ user, preview = false }: ProfilePageProps) {
         [data-profile-theme-shell='true'][data-motion-preset='energetic'] button:hover,
         [data-profile-theme-shell='true'][data-motion-preset='energetic'] button:focus-visible {
           filter: saturate(1.08);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          [data-profile-theme-shell='true'] *,
+          [data-profile-theme-shell='true'] *::before,
+          [data-profile-theme-shell='true'] *::after {
+            animation: none !important;
+            transition-duration: 1ms !important;
+            scroll-behavior: auto !important;
+          }
         }
       `}</style>
     </div>

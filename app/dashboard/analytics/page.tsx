@@ -134,7 +134,7 @@ export default async function AnalyticsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             <Card className="group bg-primary text-primary-foreground border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
               <CardHeader className="pb-2">
                 <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
@@ -180,7 +180,7 @@ export default async function AnalyticsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
             <Card className="group bg-secondary border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
               <CardHeader className="pb-2">
                 <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
@@ -260,6 +260,9 @@ export default async function AnalyticsPage() {
           <h2 className="text-3xl font-black uppercase mb-4">Sem dados de tendência</h2>
           <p className="text-lg font-bold opacity-60 uppercase">
             Aguardando primeiras interacoes via PostHog para gerar o grafico de tendencias.
+          </p>
+          <p className="mt-4 text-sm font-bold uppercase opacity-50">
+            As metricas internas continuam disponiveis acima.
           </p>
         </Card>
       ) : (
