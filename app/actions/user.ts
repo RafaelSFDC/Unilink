@@ -1,5 +1,6 @@
 'use server'
 
+import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 
@@ -78,8 +79,24 @@ export async function createUser(data: CreateUserData) {
 
 export async function updateUser(userId: string, data: Partial<CreateUserData>) {
   try {
+    const { userId: clerkId } = await auth()
+    if (!clerkId) {
+      return { success: false, error: 'Não autorizado' }
+    }
+
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        id: userId,
+        clerkId,
+      },
+    })
+
+    if (!existingUser) {
+      return { success: false, error: 'Usuário não encontrado' }
+    }
+
     const user = await prisma.user.update({
-      where: { id: userId },
+      where: { id: existingUser.id },
       data: {
         username: data.username,
         firstName: data.firstName,
@@ -101,8 +118,16 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
 
 export async function toggleUserVisibility(userId: string) {
   try {
+    const { userId: clerkId } = await auth()
+    if (!clerkId) {
+      return { success: false, error: 'Não autorizado' }
+    }
+
     const user = await prisma.user.findUnique({
-      where: { id: userId }
+      where: {
+        id: userId,
+        clerkId,
+      }
     })
 
     if (!user) {

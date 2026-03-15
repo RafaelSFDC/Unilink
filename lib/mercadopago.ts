@@ -1,12 +1,33 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 
-if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
-  console.warn('MERCADOPAGO_ACCESS_TOKEN is not defined in environment variables');
+let mpConfigInstance: MercadoPagoConfig | null = null;
+let mpPreferenceInstance: Preference | null = null;
+
+function getMercadoPagoToken() {
+  const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+
+  if (!accessToken) {
+    throw new Error('MERCADOPAGO_ACCESS_TOKEN is not defined');
+  }
+
+  return accessToken;
 }
 
-export const mpConfig = new MercadoPagoConfig({
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '',
-  options: { timeout: 5000 }
-});
+export function getMercadoPagoConfig() {
+  if (!mpConfigInstance) {
+    mpConfigInstance = new MercadoPagoConfig({
+      accessToken: getMercadoPagoToken(),
+      options: { timeout: 5000 }
+    });
+  }
 
-export const mpPreference = new Preference(mpConfig);
+  return mpConfigInstance;
+}
+
+export function getMercadoPagoPreference() {
+  if (!mpPreferenceInstance) {
+    mpPreferenceInstance = new Preference(getMercadoPagoConfig());
+  }
+
+  return mpPreferenceInstance;
+}

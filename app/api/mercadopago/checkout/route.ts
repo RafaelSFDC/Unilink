@@ -1,13 +1,14 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { mpPreference } from "@/lib/mercadopago";
+import { getMercadoPagoPreference } from "@/lib/mercadopago";
 import { absoluteUrl } from "@/lib/utils";
 
 const settingsUrl = absoluteUrl("/dashboard/billing");
 
 export async function GET() {
   try {
+    const mpPreference = getMercadoPagoPreference();
     const { userId } = await auth();
     const user = await currentUser();
 

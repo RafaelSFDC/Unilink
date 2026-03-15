@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { Payment } from 'mercadopago';
-import { mpConfig } from '@/lib/mercadopago';
+import { getMercadoPagoConfig } from '@/lib/mercadopago';
 
 export async function POST(req: Request) {
   try {
+    const mpConfig = getMercadoPagoConfig();
     const body = await req.json();
     const { action, data } = body;
 

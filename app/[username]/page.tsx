@@ -36,6 +36,12 @@ async function getUserByUsername(username: string) {
   }
 }
 
+function getAnalyticsDate(date = new Date()) {
+  const normalizedDate = new Date(date)
+  normalizedDate.setHours(0, 0, 0, 0)
+  return normalizedDate
+}
+
 export async function generateMetadata({ params }: ProfilePageProps) {
   const { username } = await params
   const user = await getUserByUsername(username)
@@ -67,11 +73,12 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
   }
 
   // Incrementar visualização
+  const analyticsDate = getAnalyticsDate()
   await prisma.analytics.upsert({
     where: {
       userId_date: {
         userId: user.id,
-        date: new Date()
+        date: analyticsDate
       }
     },
     update: {
@@ -81,7 +88,7 @@ export default async function UserProfilePage({ params }: ProfilePageProps) {
     },
     create: {
       userId: user.id,
-      date: new Date(),
+      date: analyticsDate,
       totalViews: 1,
       totalClicks: 0
     }

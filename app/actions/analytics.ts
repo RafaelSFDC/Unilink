@@ -1,10 +1,18 @@
 'use server'
 
+import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { headers } from 'next/headers'
 
+function getAnalyticsDate(date = new Date()) {
+  const normalizedDate = new Date(date)
+  normalizedDate.setHours(0, 0, 0, 0)
+  return normalizedDate
+}
+
 export async function trackClick(linkId: string) {
   try {
+    const analyticsDate = getAnalyticsDate()
     const headersList = await headers()
     const userAgent = headersList.get('user-agent') || ''
     const forwarded = headersList.get('x-forwarded-for')
@@ -30,7 +38,7 @@ export async function trackClick(linkId: string) {
         where: {
           userId_date: {
             userId: link.userId,
-            date: new Date()
+            date: analyticsDate
           }
         },
         update: {
@@ -40,7 +48,7 @@ export async function trackClick(linkId: string) {
         },
         create: {
           userId: link.userId,
-          date: new Date(),
+          date: analyticsDate,
           totalViews: 0,
           totalClicks: 1
         }
@@ -56,12 +64,29 @@ export async function trackClick(linkId: string) {
 
 export async function getAnalytics(userId: string, days: number = 30) {
   try {
+    const { userId: clerkId } = await auth()
+    if (!clerkId) {
+      return { success: false, error: 'Não autorizado' }
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+        clerkId,
+      },
+      select: { id: true }
+    })
+
+    if (!user) {
+      return { success: false, error: 'Usuário não encontrado' }
+    }
+
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - days)
 
     const analytics = await prisma.analytics.findMany({
       where: {
-        userId,
+        userId: user.id,
         date: {
           gte: startDate
         }
@@ -79,7 +104,7 @@ export async function getAnalytics(userId: string, days: number = 30) {
       by: ['linkId'],
       where: {
         link: {
-          userId
+          userId: user.id
         },
         clickedAt: {
           gte: startDate
