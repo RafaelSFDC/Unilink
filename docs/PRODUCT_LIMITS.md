@@ -1,5 +1,17 @@
 # Limites e Regras de Produto
 
+## Direção Oficial do Produto
+
+O Unilink será tratado oficialmente como um produto focado em:
+
+- criadores como público principal
+- profissionais criativos e marcas pessoais como público secundário
+- design e personalização como diferencial principal
+- analytics úteis como diferencial secundário
+- Stripe como billing principal
+- Mercado Pago como billing secundário
+- `R$ 10/mês` como preço de referência atual do plano `PRO`
+
 ## Planos
 
 Atualmente o produto trabalha com dois estados:
@@ -7,24 +19,32 @@ Atualmente o produto trabalha com dois estados:
 - `FREE`
 - `PRO`
 
-## Regras de Links
+## Matriz Oficial de Oferta
 
 ### FREE
 
 - até 5 links
+- perfil público por username
+- personalização essencial
+- templates básicos
+- analytics essenciais
+- marca Unilink visível
 
 ### PRO
 
 - links ilimitados
-
-## Recursos Relacionados ao PRO
-
-Hoje a experiência e a copy do produto indicam PRO para:
-
 - templates premium
-- analytics mais avançados
+- analytics avançados
 - remoção da marca Unilink
 - recursos extras de personalização
+- experiência de upgrade prioritária
+
+## Regras de Billing
+
+- Stripe deve ser tratado como fluxo padrão de checkout e gestão do plano
+- Mercado Pago permanece como alternativa secundária nesta fase
+- Mercado Pago não precisa replicar toda a experiência de portal do Stripe agora
+- toda copy comercial deve refletir essa diferença de maturidade entre as integrações
 
 ## Fonte Técnica Atual
 
@@ -38,14 +58,12 @@ As validações mais claras hoje estão em:
 
 ## Observação Importante
 
-Ainda existe variação entre:
+Este arquivo deve ser tratado como a fonte única de verdade para:
 
-- landing
-- billing
-- dashboard
-- documentação antiga
-
-Por isso, este arquivo deve ser tratado como a referência atual até que os textos da interface sejam harmonizados.
+- limites do plano `FREE`
+- benefícios do plano `PRO`
+- direção oficial de billing
+- critérios de alinhamento entre interface e documentação
 
 ## Username e Perfil Público
 

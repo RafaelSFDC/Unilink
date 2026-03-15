@@ -2,154 +2,169 @@
 
 ## Objetivo
 
-Este documento existe para servir como guia de execução completo do projeto, do estado atual até um produto final consistente.
+Este documento existe para servir como guia de execucao completo do projeto, do estado atual ate um produto final consistente.
 
 Ele responde:
 
 - qual produto estamos construindo
 - em que ordem devemos trabalhar
 - o que precisa ser feito em cada etapa
-- quando cada etapa pode ser considerada concluída
+- quando cada etapa pode ser considerada concluida
+
+## Decisoes Oficiais Desta Etapa
+
+- O Unilink e um link-in-bio premium para criadores
+- O diferencial principal do produto e design + personalizacao
+- O diferencial secundario e analytics uteis
+- O plano `FREE` permite ate 5 links
+- O plano `PRO` oferece links ilimitados por `R$ 10/mês`
+- Stripe e o billing principal
+- Mercado Pago permanece como alternativa secundaria
+- O escopo de fechamento vai ate a Fase 3 sem redesign amplo
 
 ## Produto Final Definido
 
-### Visão do produto
+### Visao do produto
 
 O Unilink deve ser um **link-in-bio premium para criadores e profissionais**, com:
 
-- setup rápido
-- página pública forte visualmente
+- setup rapido
+- pagina publica forte visualmente
 - gerenciamento simples de links
-- personalização real
-- analytics úteis
+- personalizacao real
+- analytics uteis
 - plano PRO com valor claro
 
 ### Proposta de valor
 
-**"A forma mais rápida de publicar uma página de links bonita, personalizável e orientada a performance."**
+**"A forma mais rapida de publicar uma pagina de links bonita, personalizavel e orientada a performance."**
 
-### Público principal
+### Publico principal
 
-- criadores de conteúdo
+- criadores de conteudo
 - freelancers
 - designers
-- músicos
+- musicos
 - marcas pessoais
 
 ## Estado Atual Resumido
 
-### Já temos
+### Ja temos
 
-- autenticação com Clerk
+- autenticacao com Clerk
 - onboarding
 - dashboard
-- perfil público por username
+- perfil publico por username
 - CRUD de links
 - sistema de templates
 - temas personalizados
 - billing com Stripe
-- billing básico com Mercado Pago
+- billing basico com Mercado Pago
 - analytics internos
-- integração com PostHog
+- integracao com PostHog
 - lint, type-check e build passando
-- documentação técnica inicial
+- documentacao tecnica inicial
 
 ### Ainda falta consolidar
 
-- posicionamento final do produto
-- matriz FREE vs PRO oficial
-- copy consistente
-- analytics coerentes na interface
-- billing mais redondo
-- polimento de UX
-- processo de continuidade mais claro
+- validacao manual final da jornada 0 a 3
+- checklist operacional marcado com o estado real
+- ultima passada para remover claims antigos fora da oferta atual
+
+## Status Atual do Roadmap
+
+- `Fase 0`: consolidada tecnicamente e documentalmente
+- `Fase 1`: consolidada em posicionamento, docs e copy principal
+- `Fase 2`: consolidada em regras oficiais e telas principais
+- `Fase 3`: implementada tecnicamente; validacao manual completa ainda precisa ser executada
+- `Fases 4` a `8`: seguem abertas para implementacao futura
 
 ## Regras de Uso Deste Roadmap
 
-- só avançar de fase quando os critérios de saída estiverem atendidos
-- registrar decisões de produto quando houver mudanças de escopo
+- so avancar de fase quando os criterios de saida estiverem atendidos
+- registrar decisoes de produto quando houver mudancas de escopo
 - manter `README.md` e `docs/` alinhados conforme o projeto evoluir
 - usar este arquivo como checklist operacional principal
 
-## Sequência de Execução
+## Sequencia de Execucao
 
-1. Fase 0: Preparação e alinhamento
-2. Fase 1: Definição oficial do produto
-3. Fase 2: Estruturação dos planos e monetização
-4. Fase 3: Núcleo do fluxo do usuário
+1. Fase 0: Preparacao e alinhamento
+2. Fase 1: Definicao oficial do produto
+3. Fase 2: Estruturacao dos planos e monetizacao
+4. Fase 3: Nucleo do fluxo do usuario
 5. Fase 4: Tema, templates e identidade visual
-6. Fase 5: Analytics e inteligência do produto
-7. Fase 6: Billing e operação comercial
+6. Fase 5: Analytics e inteligencia do produto
+7. Fase 6: Billing e operacao comercial
 8. Fase 7: Polimento final de UX e confiabilidade
-9. Fase 8: Organização para continuidade
+9. Fase 8: Organizacao para continuidade
 
 ---
 
-## Fase 0: Preparação e Alinhamento
+## Fase 0: Preparacao e Alinhamento
 
 ### Objetivo
 
-Criar uma base estável de trabalho para que o roadmap possa ser executado sem confusão.
+Criar uma base estavel de trabalho para que o roadmap possa ser executado sem confusao.
 
 ### Checklist
 
-- [ ] confirmar que `lint`, `type-check` e `build` continuam passando antes de cada ciclo grande
-- [ ] manter `README.md` como porta de entrada do projeto
-- [ ] manter `docs/README.md` como índice oficial de documentação
-- [ ] definir este arquivo como roadmap principal do time
-- [ ] registrar em algum lugar as decisões de produto que surgirem durante a execução
+- [x] confirmar que `lint`, `type-check` e `build` continuam passando antes de cada ciclo grande
+- [x] manter `README.md` como porta de entrada do projeto
+- [x] manter `docs/README.md` como indice oficial de documentacao
+- [x] definir este arquivo como roadmap principal do time
+- [x] registrar em algum lugar as decisoes de produto que surgirem durante a execucao
 
-### Entregáveis
+### Entregaveis
 
 - base documental unificada
-- baseline técnica estável
-- referência clara do plano de execução
+- baseline tecnica estavel
+- referencia clara do plano de execucao
 
-### Critério de saída
+### Criterio de saida
 
-O time sabe onde está a documentação, onde está o roadmap e quais checks mínimos precisam passar antes de avançar.
+O time sabe onde esta a documentacao, onde esta o roadmap e quais checks minimos precisam passar antes de avancar.
 
 ---
 
-## Fase 1: Definição Oficial do Produto
+## Fase 1: Definicao Oficial do Produto
 
 ### Objetivo
 
-Definir exatamente o que o Unilink é, para quem serve e por que alguém pagaria por ele.
+Definir exatamente o que o Unilink e, para quem serve e por que alguem pagaria por ele.
 
 ### Checklist
 
-- [ ] definir uma frase oficial de posicionamento
-- [ ] definir a persona principal
-- [ ] definir a persona secundária
-- [ ] escolher o foco principal do produto:
-  - [ ] criadores
+- [x] definir uma frase oficial de posicionamento
+- [x] definir a persona principal
+- [x] definir a persona secundaria
+- [x] escolher o foco principal do produto:
+  - [x] criadores
   - [ ] profissionais independentes
   - [ ] marcas pessoais
-- [ ] definir a promessa principal da landing page
-- [ ] definir os três maiores diferenciais do produto
-- [ ] decidir o que o produto não vai tentar ser agora
-- [ ] documentar essa definição em `docs/PRODUCT_LIMITS.md` ou documento complementar
+- [x] definir a promessa principal da landing page
+- [x] definir os tres maiores diferenciais do produto
+- [x] decidir o que o produto nao vai tentar ser agora
+- [x] documentar essa definicao em `docs/PRODUCT_LIMITS.md` ou documento complementar
 
 ### Perguntas que precisam ser respondidas
 
-- por que alguém escolheria o Unilink em vez de um concorrente genérico?
-- o principal diferencial é design, analytics ou simplicidade?
-- o produto quer vender “presença digital bonita” ou “performance e conversão”?
+- por que alguem escolheria o Unilink em vez de um concorrente generico?
+- o principal diferencial e design, analytics ou simplicidade?
+- o produto quer vender “presenca digital bonita” ou “performance e conversao”?
 
-### Entregáveis
+### Entregaveis
 
-- visão final do produto
+- visao final do produto
 - proposta de valor final
 - escopo claramente delimitado
 
-### Critério de saída
+### Criterio de saida
 
-Qualquer pessoa do time consegue explicar o produto em 30 segundos sem contradição.
+Qualquer pessoa do time consegue explicar o produto em 30 segundos sem contradicao.
 
 ---
 
-## Fase 2: Estruturação dos Planos e Monetização
+## Fase 2: Estruturacao dos Planos e Monetizacao
 
 ### Objetivo
 
@@ -157,42 +172,42 @@ Definir oficialmente o que pertence ao FREE e o que pertence ao PRO.
 
 ### Checklist
 
-- [ ] listar todas as funcionalidades atuais do produto
-- [ ] marcar o que é FREE
-- [ ] marcar o que é PRO
-- [ ] definir os limites objetivos do plano FREE
-- [ ] definir os ganhos objetivos do plano PRO
-- [ ] revisar o preço atual e confirmar se `R$ 10/mês` continua fazendo sentido
-- [ ] alinhar a matriz de planos nestes pontos:
-  - [ ] landing
-  - [ ] página de pricing
-  - [ ] billing
-  - [ ] dashboard
-  - [ ] documentação
-- [ ] revisar `docs/PRODUCT_LIMITS.md` como fonte oficial
+- [x] listar todas as funcionalidades atuais do produto
+- [x] marcar o que e FREE
+- [x] marcar o que e PRO
+- [x] definir os limites objetivos do plano FREE
+- [x] definir os ganhos objetivos do plano PRO
+- [x] revisar o preco atual e confirmar se `R$ 10/mês` continua fazendo sentido
+- [x] alinhar a matriz de planos nestes pontos:
+  - [x] landing
+  - [x] pagina de pricing
+  - [x] billing
+  - [x] dashboard
+  - [x] documentacao
+- [x] revisar `docs/PRODUCT_LIMITS.md` como fonte oficial
 
-### Checklist de decisão de features
+### Checklist de decisao de features
 
-- [ ] links ilimitados
-- [ ] templates premium
-- [ ] analytics avançados
-- [ ] remoção de marca
-- [ ] features de personalização extra
-- [ ] suporte prioritário
+- [x] links ilimitados
+- [x] templates premium
+- [x] analytics avancados
+- [x] remocao de marca
+- [x] features de personalizacao extra
+- [ ] suporte prioritario
 
-### Entregáveis
+### Entregaveis
 
 - matriz FREE vs PRO consolidada
 - copy coerente sobre planos
-- base de monetização mais previsível
+- base de monetizacao mais previsivel
 
-### Critério de saída
+### Criterio de saida
 
-Não existe mais divergência entre código, UI e docs sobre o que cada plano oferece.
+Nao existe mais divergencia entre codigo, UI e docs sobre o que cada plano oferece.
 
 ---
 
-## Fase 3: Núcleo do Fluxo do Usuário
+## Fase 3: Nucleo do Fluxo do Usuario
 
 ### Objetivo
 
@@ -200,46 +215,59 @@ Garantir que o fluxo principal do produto funcione de ponta a ponta sem atrito.
 
 ### Fluxo alvo
 
-1. usuário entra
+1. usuario entra
 2. autentica
 3. passa pelo onboarding
 4. configura perfil
 5. cria links
-6. personaliza a página
+6. personaliza a pagina
 7. publica
 8. compartilha
 
 ### Checklist
 
-- [ ] revisar a experiência de login
-- [ ] revisar a criação do usuário local no onboarding
-- [ ] revisar a validação de username
-- [ ] revisar o redirecionamento após onboarding
-- [ ] revisar o dashboard inicial
-- [ ] revisar a criação de links
-- [ ] revisar a edição de links
-- [ ] revisar a exclusão de links
-- [ ] revisar a ativação/inativação de links
-- [ ] revisar a visibilidade pública do perfil
-- [ ] revisar o fluxo do perfil público no navegador
-- [ ] revisar os estados vazios principais
-- [ ] revisar mensagens de erro do fluxo principal
+- [x] revisar a experiencia de login
+- [x] revisar a criacao do usuario local no onboarding
+- [x] revisar a validacao de username
+- [x] revisar o redirecionamento apos onboarding
+- [x] revisar o dashboard inicial
+- [x] revisar a criacao de links
+- [x] revisar a edicao de links
+- [x] revisar a exclusao de links
+- [x] revisar a ativacao/inativacao de links
+- [x] revisar a visibilidade publica do perfil
+- [x] revisar o fluxo do perfil publico no navegador
+- [x] revisar os estados vazios principais
+- [x] revisar mensagens de erro do fluxo principal
 
 ### Checklist de qualidade
 
-- [ ] usuário novo consegue publicar o primeiro perfil sem ajuda
-- [ ] nenhuma tela principal depende de conhecimento implícito
-- [ ] mensagens críticas estão claras
-- [ ] links internos da jornada principal estão corretos
+- [ ] usuario novo consegue publicar o primeiro perfil sem ajuda
+- [x] nenhuma tela principal depende de conhecimento implicito
+- [x] mensagens criticas estao claras
+- [x] links internos da jornada principal estao corretos
 
-### Entregáveis
+### Entregaveis
 
-- jornada principal confiável
-- menos atrito de onboarding até publicação
+- jornada principal confiavel
+- menos atrito de onboarding ate publicacao
 
-### Critério de saída
+### Criterio de saida
 
-Um usuário novo consegue sair do zero e colocar seu perfil no ar sem bloqueios.
+Um usuario novo consegue sair do zero e colocar seu perfil no ar sem bloqueios.
+
+### Validacao Manual Obrigatoria
+
+1. login sem usuario local redireciona para `/onboarding`
+2. onboarding cria usuario e tema padrao e leva ao `/dashboard`
+3. onboarding bloqueia username indisponivel com mensagem clara
+4. settings permite trocar username valido e bloqueia conflito
+5. alternar perfil publico faz `/{username}` aparecer e sumir corretamente
+6. usuario `FREE` cria ate 5 links e recebe bloqueio no sexto
+7. usuario cria, edita, remove, ativa e desativa links sem quebrar a lista
+8. reordenacao reflete no dashboard e na pagina publica
+9. pagina publica mostra apenas links ativos e respeita a ordem
+10. navegacao dashboard -> links/settings/theme/perfil publico nao tem becos sem saida
 
 ---
 
@@ -247,14 +275,14 @@ Um usuário novo consegue sair do zero e colocar seu perfil no ar sem bloqueios.
 
 ### Objetivo
 
-Transformar personalização em um diferencial real, e não só em uma lista de opções.
+Transformar personalizacao em um diferencial real, e nao so em uma lista de opcoes.
 
 ### Checklist
 
 - [ ] auditar todos os templates existentes
-- [ ] definir quais templates são realmente de qualidade final
-- [ ] revisar consistência visual entre templates
-- [ ] revisar consistência técnica entre preview e página pública
+- [ ] definir quais templates sao realmente de qualidade final
+- [ ] revisar consistencia visual entre templates
+- [ ] revisar consistencia tecnica entre preview e pagina publica
 - [ ] revisar presets de:
   - [ ] fonte
   - [ ] cor
@@ -263,102 +291,102 @@ Transformar personalização em um diferencial real, e não só em uma lista de 
   - [ ] interaction
 - [ ] validar quais templates entram no FREE
 - [ ] validar quais templates entram no PRO
-- [ ] revisar a experiência de escolha no dashboard
-- [ ] revisar a documentação em `docs/TEMPLATES.md`
+- [ ] revisar a experiencia de escolha no dashboard
+- [ ] revisar a documentacao em `docs/TEMPLATES.md`
 
-### Checklist de aceitação
+### Checklist de aceitacao
 
 - [ ] cada template tem proposta visual clara
-- [ ] não existem templates “só para fazer volume”
+- [ ] nao existem templates “so para fazer volume”
 - [ ] o preview representa fielmente o resultado final
-- [ ] o tema salvo aparece corretamente na página pública
+- [ ] o tema salvo aparece corretamente na pagina publica
 
-### Entregáveis
+### Entregaveis
 
-- biblioteca de templates confiável
-- personalização com valor perceptível
+- biblioteca de templates confiavel
+- personalizacao com valor perceptivel
 
-### Critério de saída
+### Criterio de saida
 
 Os templates passam a ser um motivo real para usar e pagar pelo produto.
 
 ---
 
-## Fase 5: Analytics e Inteligência do Produto
+## Fase 5: Analytics e Inteligencia do Produto
 
 ### Objetivo
 
-Fazer as métricas do produto serem confiáveis, compreensíveis e úteis.
+Fazer as metricas do produto serem confiaveis, compreensiveis e uteis.
 
 ### Checklist
 
 - [ ] revisar os eventos de view
 - [ ] revisar os eventos de click
-- [ ] confirmar a semântica da tabela `Analytics`
-- [ ] confirmar a semântica da tabela `Click`
-- [ ] levantar necessidade de saneamento histórico
+- [ ] confirmar a semantica da tabela `Analytics`
+- [ ] confirmar a semantica da tabela `Click`
+- [ ] levantar necessidade de saneamento historico
 - [ ] definir oficialmente:
-  - [ ] o que conta como visualização
+  - [ ] o que conta como visualizacao
   - [ ] o que conta como clique
-  - [ ] o que conta como conversão
-- [ ] separar visualmente métricas internas e métricas PostHog
-- [ ] padronizar períodos dos cards
+  - [ ] o que conta como conversao
+- [ ] separar visualmente metricas internas e metricas PostHog
+- [ ] padronizar periodos dos cards
 - [ ] revisar a tela `dashboard/analytics`
 - [ ] revisar `docs/ANALYTICS.md`
 
 ### Checklist de UX
 
-- [ ] usuário entende de onde veio cada número
-- [ ] usuário entende o período de cada métrica
-- [ ] usuário entende a diferença entre dado interno e PostHog
-- [ ] a conversão não mistura métricas incompatíveis
+- [ ] usuario entende de onde veio cada numero
+- [ ] usuario entende o periodo de cada metrica
+- [ ] usuario entende a diferenca entre dado interno e PostHog
+- [ ] a conversao nao mistura metricas incompativeis
 
-### Entregáveis
+### Entregaveis
 
-- analytics confiáveis
-- dashboard de métricas mais claro
+- analytics confiaveis
+- dashboard de metricas mais claro
 
-### Critério de saída
+### Criterio de saida
 
-As métricas passam a ser interpretáveis sem ambiguidade.
+As metricas passam a ser interpretaveis sem ambiguidade.
 
 ---
 
-## Fase 6: Billing e Operação Comercial
+## Fase 6: Billing e Operacao Comercial
 
 ### Objetivo
 
-Deixar o pagamento e a operação do plano PRO consistentes e claros.
+Deixar o pagamento e a operacao do plano PRO consistentes e claros.
 
 ### Checklist
 
-- [ ] revisar a página de billing
+- [ ] revisar a pagina de billing
 - [ ] revisar a copy de upgrade
 - [ ] revisar o fluxo de checkout Stripe
 - [ ] revisar o portal Stripe
 - [ ] revisar os webhooks Stripe
 - [ ] revisar o fluxo Mercado Pago
 - [ ] revisar os webhooks Mercado Pago
-- [ ] definir qual é o nível de suporte oficial do Mercado Pago no produto
-- [ ] revisar estados do usuário após pagamento
-- [ ] revisar estado do usuário após falha/cancelamento
-- [ ] alinhar a documentação em `docs/BILLING.md`
+- [ ] definir qual e o nivel de suporte oficial do Mercado Pago no produto
+- [ ] revisar estados do usuario apos pagamento
+- [ ] revisar estado do usuario apos falha/cancelamento
+- [ ] alinhar a documentacao em `docs/BILLING.md`
 
-### Checklist de decisão
+### Checklist de decisao
 
-- [ ] Stripe será o fluxo principal?
-- [ ] Mercado Pago será alternativo ou equivalente?
-- [ ] cancelamento será self-service ou assistido?
-- [ ] como o status PRO será comunicado no dashboard?
+- [ ] Stripe sera o fluxo principal?
+- [ ] Mercado Pago sera alternativo ou equivalente?
+- [ ] cancelamento sera self-service ou assistido?
+- [ ] como o status PRO sera comunicado no dashboard?
 
-### Entregáveis
+### Entregaveis
 
-- monetização mais confiável
+- monetizacao mais confiavel
 - billing mais coerente com a proposta comercial
 
-### Critério de saída
+### Criterio de saida
 
-O usuário entende como assinar, o que recebe e como seu plano é gerenciado.
+O usuario entende como assinar, o que recebe e como seu plano e gerenciado.
 
 ---
 
@@ -366,7 +394,7 @@ O usuário entende como assinar, o que recebe e como seu plano é gerenciado.
 
 ### Objetivo
 
-Melhorar a percepção de qualidade do produto como um todo.
+Melhorar a percepcao de qualidade do produto como um todo.
 
 ### Checklist
 
@@ -381,29 +409,29 @@ Melhorar a percepção de qualidade do produto como um todo.
   - [ ] dashboard
   - [ ] billing
   - [ ] analytics
-  - [ ] perfil público
+  - [ ] perfil publico
 - [ ] revisar performance das rotas mais pesadas
 - [ ] revisar bundle da tela de analytics
 
-### Checklist de sensação de produto
+### Checklist de sensacao de produto
 
-- [ ] a aplicação parece consistente
-- [ ] a aplicação parece confiável
+- [ ] a aplicacao parece consistente
+- [ ] a aplicacao parece confiavel
 - [ ] as principais telas parecem “finalizadas”
 - [ ] o produto transmite valor premium
 
-### Entregáveis
+### Entregaveis
 
-- UX mais sólida
-- percepção de qualidade maior
+- UX mais solida
+- percepcao de qualidade maior
 
-### Critério de saída
+### Criterio de saida
 
 O produto parece coeso e bem acabado de ponta a ponta.
 
 ---
 
-## Fase 8: Organização para Continuidade
+## Fase 8: Organizacao para Continuidade
 
 ### Objetivo
 
@@ -411,26 +439,26 @@ Garantir que o projeto possa continuar evoluindo no futuro sem perda de contexto
 
 ### Checklist
 
-- [ ] revisar se toda decisão importante virou documentação
+- [ ] revisar se toda decisao importante virou documentacao
 - [ ] garantir que `README.md` esteja atualizado
 - [ ] garantir que `docs/` continue sendo fonte de verdade
 - [ ] revisar o backlog restante
 - [ ] separar backlog em:
   - [ ] curto prazo
-  - [ ] médio prazo
+  - [ ] medio prazo
   - [ ] experimentos
-- [ ] documentar pendências técnicas que ficaram para depois
+- [ ] documentar pendencias tecnicas que ficaram para depois
 - [ ] documentar oportunidades futuras fora do escopo atual
 
-### Entregáveis
+### Entregaveis
 
 - projeto documentado
-- backlog pós-lançamento mais claro
-- menor dependência de memória do time
+- backlog pos-lancamento mais claro
+- menor dependencia de memoria do time
 
-### Critério de saída
+### Criterio de saida
 
-O time consegue pausar e retomar o projeto sem perder direção.
+O time consegue pausar e retomar o projeto sem perder direcao.
 
 ---
 
@@ -438,70 +466,67 @@ O time consegue pausar e retomar o projeto sem perder direção.
 
 ### Produto
 
-- [ ] visão do produto definida
-- [ ] persona principal definida
-- [ ] proposta de valor definida
-- [ ] escopo do produto definido
+- [x] visao do produto definida
+- [x] persona principal definida
+- [x] proposta de valor definida
+- [x] escopo do produto definido
 
 ### Planos
 
-- [ ] FREE definido
-- [ ] PRO definido
-- [ ] copy de monetização alinhada
+- [x] FREE definido
+- [x] PRO definido
+- [x] copy de monetizacao alinhada
 
-### Experiência principal
+### Experiencia principal
 
-- [ ] onboarding confiável
-- [ ] links confiáveis
-- [ ] perfil público confiável
-- [ ] personalização confiável
+- [x] onboarding confiavel
+- [x] links confiaveis
+- [x] perfil publico confiavel
+- [ ] personalizacao confiavel
 
 ### Analytics
 
-- [ ] métricas claras
+- [ ] metricas claras
 - [ ] origem dos dados clara
-- [ ] conversão confiável
+- [ ] conversao confiavel
 
 ### Billing
 
 - [ ] Stripe validado
 - [ ] Mercado Pago validado
-- [ ] upgrade compreensível
+- [x] upgrade compreensivel
 
 ### Polimento
 
-- [ ] estados vazios revisados
-- [ ] erros revisados
+- [x] estados vazios revisados
+- [x] erros revisados
 - [ ] loading revisado
 - [ ] responsividade revisada
 - [ ] acessibilidade revisada
 
 ### Continuidade
 
-- [ ] docs alinhadas
+- [x] docs alinhadas
 - [ ] backlog organizado
-- [ ] próximas prioridades definidas
+- [x] proximas prioridades definidas
 
 ---
 
 ## Ordem Recomendada de Trabalho
 
-Se for executar sem paralelizar muita coisa, a ordem recomendada é:
+Se for executar sem paralelizar muita coisa, a ordem recomendada e:
 
-1. Fase 1
-2. Fase 2
-3. Fase 3
-4. Fase 4
-5. Fase 5
-6. Fase 6
-7. Fase 7
-8. Fase 8
+1. Fase 4
+2. Fase 5
+3. Fase 6
+4. Fase 7
+5. Fase 8
 
-## Observação Final
+## Observacao Final
 
-Se em algum momento surgir dúvida de prioridade, a regra deve ser:
+Se em algum momento surgir duvida de prioridade, a regra deve ser:
 
 1. primeiro clareza de produto
 2. depois fluxo principal
-3. depois monetização e analytics
-4. por fim polimento e expansão
+3. depois monetizacao e analytics
+4. por fim polimento e expansao

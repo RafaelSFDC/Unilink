@@ -53,7 +53,7 @@ export default async function LinksPage() {
               Meus Links
             </h1>
             <p className="text-foreground/80 font-bold text-lg uppercase tracking-tight">
-              {isPro ? 'Links Ilimitados' : `${user.links.length}/5 Links Utilizados`}
+              {isPro ? 'Links ilimitados e ordem livre para sua pagina' : `${user.links.length}/5 links utilizados no plano free`}
             </p>
           </div>
 
@@ -96,7 +96,7 @@ export default async function LinksPage() {
               Nenhum link ainda
             </CardTitle>
             <CardDescription className="text-lg font-bold text-muted-foreground mb-8">
-              Comece adicionando seu primeiro link para compartilhar com o mundo
+              Comece adicionando seu primeiro link para publicar sua pagina e compartilhar com o mundo
             </CardDescription>
           </CardHeader>
           <CardContent>

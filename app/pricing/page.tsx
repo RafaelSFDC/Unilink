@@ -20,11 +20,11 @@ export default function PricingPage() {
             PLANOS E PREÇOS
           </Badge>
           <h1 className="text-6xl lg:text-8xl font-black uppercase tracking-tighter italic mb-8 leading-[0.9]">
-            INVISTA NO SEU <br />
-            <span className="bg-primary text-white px-4 shadow-neo-lg inline-block rotate-1 mt-2">SUCESSO</span>
+            SUA PÁGINA DE <br />
+            <span className="bg-primary text-white px-4 shadow-neo-lg inline-block rotate-1 mt-2">CRIADOR</span>
           </h1>
           <p className="text-2xl font-bold uppercase opacity-70 tracking-tighter">
-            Comece grátis e evolua para o PRO quando estiver pronto para dominar seu nicho.
+            Comece grátis, publique sua presença digital e evolua para o PRO quando quiser mais design, personalização e analytics.
           </p>
         </div>
 
@@ -40,16 +40,17 @@ export default function PricingPage() {
                 <span className="text-7xl font-black italic">R$ 0</span>
                 <span className="text-xl font-bold opacity-40 uppercase">/mês</span>
               </div>
-              <p className="mt-4 font-bold text-lg opacity-60">Ideal para quem está começando sua jornada digital.</p>
+              <p className="mt-4 font-bold text-lg opacity-60">Ideal para tirar sua página do papel e publicar seus links com rapidez.</p>
             </div>
             
             <ul className="space-y-6 mb-12 flex-1">
               {[
                 "Até 5 links",
-                "Temas Básicos",
+                "Templates Básicos",
+                "Personalização Essencial",
                 "Analytics Essencial",
-                "QR Code para Impressão",
-                "Suporte via Comunidade"
+                "Perfil Público por Username",
+                "Marca Unilink Visível"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-4 text-xl font-bold">
                   <CheckCircle className="w-7 h-7 text-emerald-500 stroke-3 flex-shrink-0" />
@@ -78,17 +79,17 @@ export default function PricingPage() {
                 <span className="text-7xl font-black italic">R$ 10</span>
                 <span className="text-xl font-bold opacity-70 uppercase">/mês</span>
               </div>
-              <p className="mt-4 font-bold text-lg opacity-80">Para criadores sérios que buscam autoridade e dados.</p>
+              <p className="mt-4 font-bold text-lg opacity-80">Para criadores que querem mais controle visual, mais dados e uma presença mais premium.</p>
             </div>
             
             <ul className="space-y-6 mb-12 flex-1">
               {[
                 "Tudo do plano Grátis",
-                "Temas de Elite (Premium)",
-                "Deep Analytics Completo",
+                "Links Ilimitados",
+                "Templates Premium",
+                "Analytics Avançados",
                 "Remover Marca Unilink",
-                "SEO & Pixels de Rastreamento",
-                "Suporte Prioritário VIP"
+                "Mais Recursos de Personalização"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-4 text-xl font-bold">
                   <Zap className="w-7 h-7 text-yellow-400 fill-current flex-shrink-0" />

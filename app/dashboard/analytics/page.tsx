@@ -70,7 +70,7 @@ export default async function AnalyticsPage() {
             Recurso Exclusivo PRO
           </h1>
           <p className="text-xl font-bold mb-10 opacity-90 uppercase">
-            Desbloqueie estatísticas detalhadas do PostHog, gráficos de tendências e veja exatamente como seu público interage com seu perfil.
+            Desbloqueie analytics avançados, tendências de visualização e uma leitura mais clara de como seu público interage com seu perfil.
           </p>
           <Button
             asChild
@@ -94,7 +94,7 @@ export default async function AnalyticsPage() {
             Analytics PRO
           </h1>
           <p className="text-foreground/90 font-bold text-lg uppercase tracking-tight">
-            Dados em tempo real via PostHog para seu perfil: unilink.com/{user.username}
+            Leituras de performance do seu perfil com dados do PostHog e métricas internas: unilink.com/{user.username}
           </p>
         </div>
       </div>
@@ -105,7 +105,7 @@ export default async function AnalyticsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <Users className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
-              Total de Visualizações
+              Views do Perfil
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -113,7 +113,7 @@ export default async function AnalyticsPage() {
               {analyticsData?.totalViews || internalStats?.views || 0}
             </div>
             <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Últimos 7 dias (PostHog)
+              Últimos 7 dias via PostHog
             </p>
           </CardContent>
         </Card>
@@ -122,7 +122,7 @@ export default async function AnalyticsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <MousePointer className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
-              Total de Cliques
+              Cliques em Links
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -130,7 +130,7 @@ export default async function AnalyticsPage() {
               {internalStats?.clicks || 0}
             </div>
             <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Acumulado no banco
+              Acumulado no banco local
             </p>
           </CardContent>
         </Card>
@@ -139,7 +139,7 @@ export default async function AnalyticsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
               <TrendingUp className="h-4 w-4 transition-transform duration-100 group-hover:-rotate-6" />
-              Taxa de Conversão
+              Conversão Estimada
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -149,7 +149,7 @@ export default async function AnalyticsPage() {
                 : "0%"}
             </div>
             <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Conversão média
+              Base local de views e cliques
             </p>
           </CardContent>
         </Card>
@@ -178,11 +178,11 @@ export default async function AnalyticsPage() {
              <Card className="flex-1 border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
                 <CardHeader>
                    <CardTitle className="uppercase font-black">Configuração do PostHog</CardTitle>
-                   <CardDescription className="font-bold">Sua conta está integrada e recebendo eventos.</CardDescription>
+                   <CardDescription className="font-bold">Sua conta está integrada e esta tela combina tendências do PostHog com métricas internas.</CardDescription>
                 </CardHeader>
                 <CardContent>
                    <p className="text-sm opacity-70 mb-4 font-medium italic">
-                     * Os dados de clique por link continuam sendo processados localmente para garantir performance extrema em links curtos.
+                     * Os períodos e origens importam: views de tendência vêm do PostHog, enquanto cliques e conversão continuam sendo processados localmente.
                    </p>
                    <Button variant="outline" className="border-2 font-black uppercase">
                       <ExternalLink className="mr-2 h-4 w-4" />

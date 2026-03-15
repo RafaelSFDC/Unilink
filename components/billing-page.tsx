@@ -54,7 +54,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
             <Star className="w-10 h-10 text-foreground" />
             <div>
               <div className="font-black uppercase text-2xl tracking-tighter">PLANO FREE</div>
-              <div className="font-bold opacity-80 uppercase text-xs">LIMITE DE 5 LINKS</div>
+              <div className="font-bold opacity-80 uppercase text-xs">ATÉ 5 LINKS E BASE ESSENCIAL</div>
             </div>
           </div>
         )}
@@ -69,7 +69,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           </div>
           
           <ul className="space-y-4 mb-10 flex-1">
-            {["Até 5 links", "Temas Básicos", "Analytics Essencial", "QR Code Unilink"].map((item, i) => (
+            {["Até 5 links", "Templates Básicos", "Personalização Essencial", "Analytics Essencial", "Marca Unilink Visível"].map((item, i) => (
               <li key={i} className="flex items-center gap-3 font-bold text-lg">
                 <Check className="h-6 w-6 text-emerald-500 stroke-[4px]" />
                 {item}
@@ -105,11 +105,11 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           
           <ul className="space-y-4 mb-10 flex-1">
             {[
-              "Templates de Elite (PRO)",
-              "Deep Analytics (Fontes & Cliques)",
+              "Links Ilimitados",
+              "Templates Premium",
+              "Analytics Avançados",
               "Remover Marca Unilink",
-              "SEO Otimizado & Pixels",
-              "Suporte Prioritário VIP"
+              "Mais Recursos de Personalização"
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-3 font-bold text-lg">
                 <Zap className={`h-6 w-6 fill-current ${isPro ? "text-yellow-400" : "text-primary"}`} />
@@ -134,7 +134,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
           <Shield className="w-5 h-5" /> PAGAMENTO 100% SEGURO
         </div>
         <div className="flex items-center gap-3 font-black uppercase text-sm opacity-60">
-          <CreditCard className="w-5 h-5" /> CHECKOUT SEGURO VIA STRIPE
+          <CreditCard className="w-5 h-5" /> STRIPE COMO FLUXO PRINCIPAL
         </div>
       </div>
     </div>

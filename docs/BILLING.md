@@ -1,13 +1,19 @@
 # Billing
 
-## Visão Geral
+## Visao Geral
 
-O projeto possui duas integrações de pagamento:
+O projeto possui duas integracoes de pagamento:
 
 - Stripe
 - Mercado Pago
 
-Ambas são opcionais no sentido de configuração local, mas necessárias para fluxos reais de cobrança.
+Ambas sao opcionais no sentido de configuracao local, mas necessarias para fluxos reais de cobranca.
+
+Direcao oficial desta fase:
+
+- Stripe e o fluxo principal de cobranca e gestao do plano `PRO`
+- Mercado Pago e um fluxo alternativo e secundario
+- a experiencia comercial do produto deve se orientar primeiro pelo Stripe
 
 ## Stripe
 
@@ -20,13 +26,13 @@ Ambas são opcionais no sentido de configuração local, mas necessárias para f
 
 ### Fluxo
 
-1. usuário acessa billing no dashboard
+1. usuario acessa billing no dashboard
 2. front chama `GET /api/stripe/checkout`
-3. se já existir `stripeCustomerId`, abre portal de billing
-4. caso contrário, cria uma sessão de checkout de assinatura
-5. webhook confirma pagamento e atualiza o usuário
+3. se ja existir `stripeCustomerId`, abre portal de billing
+4. caso contrario, cria uma sessao de checkout de assinatura
+5. webhook confirma pagamento e atualiza o usuario
 
-### Campos atualizados no usuário
+### Campos atualizados no usuario
 
 - `stripeCustomerId`
 - `stripeSubscriptionId`
@@ -34,7 +40,7 @@ Ambas são opcionais no sentido de configuração local, mas necessárias para f
 - `stripeCurrentPeriodEnd`
 - `plan`
 
-### Variáveis
+### Variaveis
 
 ```env
 STRIPE_SECRET_KEY=
@@ -51,13 +57,13 @@ STRIPE_WEBHOOK_SECRET=
 
 ### Fluxo
 
-1. usuário acessa billing
+1. usuario acessa billing
 2. front chama `GET /api/mercadopago/checkout`
-3. backend cria uma preferência
+3. backend cria uma preferencia
 4. pagamento aprovado dispara webhook
-5. usuário é promovido para `PRO`
+5. usuario e promovido para `PRO`
 
-### Variável
+### Variavel
 
 ```env
 MERCADOPAGO_ACCESS_TOKEN=
@@ -65,18 +71,21 @@ MERCADOPAGO_ACCESS_TOKEN=
 
 ## Estado Atual do Produto
 
-- Stripe está mais completo que Mercado Pago
-- Mercado Pago hoje promove o usuário para `PRO`, mas não possui um portal equivalente ao Stripe
-- a modelagem principal de billing persistida está mais orientada ao Stripe
+- Stripe esta mais completo que Mercado Pago
+- Mercado Pago hoje promove o usuario para `PRO`, mas nao possui um portal equivalente ao Stripe
+- a modelagem principal de billing persistida esta mais orientada ao Stripe
+- o produto deve comunicar isso com clareza em pricing, billing e documentacao
 
 ## Regras Importantes
 
-- clientes de pagamento são lazy-loaded para evitar quebra em tempo de import
-- validação de assinatura usa o plano e o período atual do Stripe
-- o valor exibido no produto hoje é `R$ 10/mês`
+- clientes de pagamento sao lazy-loaded para evitar quebra em tempo de import
+- validacao de assinatura usa o plano e o periodo atual do Stripe
+- o valor exibido no produto hoje e `R$ 10/mês`
+- o caminho padrao de upgrade deve priorizar Stripe
+- Mercado Pago pode continuar disponivel sem prometer equivalencia total ao Stripe nesta fase
+- `docs/PRODUCT_LIMITS.md` e a fonte de verdade para beneficios do `FREE` e do `PRO`
 
-## Débitos Técnicos Conhecidos
+## Debitos Tecnicos Conhecidos
 
-- falta centralizar a definição de planos e benefícios em uma única fonte de verdade
-- Mercado Pago ainda não possui ciclo de assinatura tão robusto quanto o Stripe dentro da modelagem atual
-- a copy de billing ainda varia em algumas telas
+- Mercado Pago ainda nao possui ciclo de assinatura tao robusto quanto o Stripe dentro da modelagem atual
+- a validacao manual do fluxo completo de cobranca ainda precisa ser repetida ao fechar a Fase 6

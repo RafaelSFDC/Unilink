@@ -1,18 +1,29 @@
 # Unilink
 
-Plataforma de link-in-bio construída com Next.js para criadores, profissionais e marcas centralizarem links, personalizarem a página pública e acompanharem métricas de acesso.
+Link-in-bio premium para criadores que querem publicar uma pagina bonita, personalizavel e pronta para converter atencao em acao.
 
-## Visão Geral
+## Visao Geral
 
 O Unilink combina:
 
-- página pública por username
+- pagina publica por username
 - dashboard autenticado
-- personalização de tema e template
-- analytics internos e integração com PostHog
+- personalizacao de tema e template
+- analytics internos e integracao com PostHog
 - billing com Stripe e Mercado Pago
 
-Hoje o projeto já está funcional para desenvolvimento local e possui base técnica validada com:
+Direcao oficial deste ciclo:
+
+- publico principal: criadores
+- publico secundario: profissionais criativos e marcas pessoais
+- diferencial principal: design + personalizacao
+- diferencial secundario: analytics uteis
+- Stripe como fluxo principal de billing
+- Mercado Pago como alternativa secundaria
+- `FREE` com ate 5 links
+- `PRO` com links ilimitados por `R$ 10/mês`
+
+Hoje o projeto ja esta funcional para desenvolvimento local e possui base tecnica validada com:
 
 - `pnpm run lint`
 - `pnpm run type-check`
@@ -24,23 +35,23 @@ Hoje o projeto já está funcional para desenvolvimento local e possui base téc
 - React 19
 - TypeScript
 - Prisma + PostgreSQL
-- Clerk para autenticação
+- Clerk para autenticacao
 - Tailwind CSS 4 + shadcn/ui
 - Stripe
 - Mercado Pago
 - PostHog
 
-## Estrutura Rápida
+## Estrutura Rapida
 
 ```text
-app/          rotas, layouts, páginas e server actions
+app/          rotas, layouts, paginas e server actions
 components/   componentes de UI e blocos de produto
-lib/          integrações, helpers e regras compartilhadas
+lib/          integracoes, helpers e regras compartilhadas
 prisma/       schema do banco
-docs/         documentação técnica e operacional
+docs/         documentacao tecnica e operacional
 ```
 
-## Documentação
+## Documentacao
 
 - [docs/README.md](./docs/README.md)
 - [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
@@ -48,12 +59,13 @@ docs/         documentação técnica e operacional
 - [docs/BILLING.md](./docs/BILLING.md)
 - [docs/ANALYTICS.md](./docs/ANALYTICS.md)
 - [docs/PRODUCT_LIMITS.md](./docs/PRODUCT_LIMITS.md)
+- [docs/PRODUCT_ROADMAP.md](./docs/PRODUCT_ROADMAP.md)
 - [docs/TEMPLATES.md](./docs/TEMPLATES.md)
 - [docs/TECHNICAL_AUDIT.md](./docs/TECHNICAL_AUDIT.md)
 
 ## Como Rodar
 
-1. Instale as dependências:
+1. Instale as dependencias:
 
 ```bash
 pnpm install
@@ -65,7 +77,7 @@ pnpm install
 cp .env.example .env
 ```
 
-3. Configure as variáveis obrigatórias no `.env`.
+3. Configure as variaveis obrigatorias no `.env`.
 
 4. Gere o Prisma Client:
 
@@ -79,7 +91,7 @@ pnpm db:generate
 pnpm db:push
 ```
 
-6. Rode a aplicação:
+6. Rode a aplicacao:
 
 ```bash
 pnpm dev
@@ -104,12 +116,9 @@ pnpm db:reset
 
 - ESLint configurado e passando
 - TypeScript passando
-- Build de produção passando
-- `.env.example` disponível
-- documentação técnica consolidada em `docs/`
-
-## Próximos Passos Recomendados
-
-- padronizar de vez a matriz Free vs PRO em produto e copy
-- revisar a experiência de analytics para deixar origem e janela das métricas mais claras
-- continuar a expansão da documentação da página `/docs` para refletir o conteúdo técnico real
+- Build de producao passando
+- `.env.example` disponivel
+- documentacao tecnica consolidada em `docs/`
+- fases `0` e `1` consolidadas em documentacao
+- fase `2` alinhada entre regras e telas principais
+- fase `3` implementada no fluxo principal e pendente apenas de validacao manual assistida

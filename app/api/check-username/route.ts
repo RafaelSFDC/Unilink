@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@clerk/nextjs/server'
+import { validateUsername } from '@/lib/form-utils'
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,10 +11,18 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url)
-    const username = searchParams.get('username')
+    const username = searchParams.get('username')?.trim().toLowerCase()
 
     if (!username) {
       return NextResponse.json({ error: 'Username é obrigatório' }, { status: 400 })
+    }
+
+    const usernameError = validateUsername(username)
+    if (usernameError) {
+      return NextResponse.json({
+        available: false,
+        message: usernameError,
+      })
     }
 
     // Verificar se o username já existe (excluindo o usuário atual)

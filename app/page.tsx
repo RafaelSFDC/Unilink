@@ -26,28 +26,28 @@ export default function Home() {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <Header />
 
-      {/* Hero Section */}
       <main className="container mx-auto px-4 relative z-10">
         <section className="py-24 lg:py-48 text-left border-b-8 border-foreground">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="reveal animate-stagger-1">
               <Badge className="mb-8 px-6 py-2 bg-yellow-400 text-foreground border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1">
-                <Sparkles className="w-4 h-4 mr-2 fill-current" />A PLATAFORMA
-                #1 PARA CRIADORES BRUTAIS
+                <Sparkles className="w-4 h-4 mr-2 fill-current" />PRESENCA DIGITAL PARA CRIADORES
               </Badge>
 
               <h1 className="text-7xl sm:text-8xl lg:text-[10rem] font-black leading-[0.8] mb-10 tracking-tighter uppercase italic">
-                CRIE SEU
+                PUBLIQUE SUA
                 <br />
                 <span className="bg-primary text-white px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic">
-                  IMPÉRIO
+                  PAGINA
                 </span>
               </h1>
 
               <p className="text-2xl lg:text-3xl font-bold mb-14 max-w-2xl leading-[1.1] uppercase tracking-tighter opacity-80">
-                Uma página única de alta performance. <br />
-                Design Neo-Brutalista impactante. <br />
-                Analytics real para quem quer crescer.
+                Uma pagina de links bonita, personalizavel e pronta para publicar.
+                <br />
+                Design forte para criadores.
+                <br />
+                Analytics uteis para acompanhar crescimento.
               </p>
 
               <div className="flex flex-wrap gap-8 items-center">
@@ -61,14 +61,6 @@ export default function Home() {
                       <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
                     </Button>
                   </SignInButton>
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-accent border-4 border-foreground shadow-neo-sm flex items-center justify-center group-hover:rotate-12 transition-transform">
-                      <Zap className="w-6 h-6 text-white fill-current" />
-                    </div>
-                    <span className="font-black uppercase tracking-tighter text-lg underline underline-offset-8 decoration-4 decoration-primary">
-                      VER DEMO AO VIVO
-                    </span>
-                  </div>
                 </SignedOut>
 
                 <SignedIn>
@@ -94,9 +86,9 @@ export default function Home() {
                   <div className="w-24 h-24 bg-primary border-4 border-foreground shadow-neo mb-10 mx-auto rounded-full" />
                   <div className="space-y-6">
                     {[
-                      { label: "MEUS CURSOS", color: "bg-emerald-400" },
-                      { label: "YOUTUBE CHANNEL", color: "bg-red-400" },
-                      { label: "NEWSLETTER PRO", color: "bg-yellow-400" },
+                      { label: "MEU PORTFOLIO", color: "bg-emerald-400" },
+                      { label: "ULTIMO VIDEO", color: "bg-red-400" },
+                      { label: "AGENDA E CONTATO", color: "bg-yellow-400" },
                     ].map((link, i) => (
                       <div
                         key={i}
@@ -112,32 +104,31 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Grid */}
         <section className="py-32 border-b-8 border-foreground relative">
           <div className="absolute top-0 left-0 -translate-y-1/2 bg-foreground text-background px-8 py-3 font-black text-2xl uppercase tracking-tighter -rotate-1">
-            FEATURES BRUTAIS
+            DIFERENCIAIS
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 pt-12">
             {[
               {
                 icon: Palette,
-                title: "Templates Elite",
-                desc: "Esqueça o básico. Nossos templates Neo-Brutalistas são desenhados para capturar atenção imediata.",
+                title: "Templates Premium",
+                desc: "Visuais marcantes para criadores que querem uma pagina com mais personalidade e presenca.",
                 color: "bg-emerald-400 text-black",
                 badge: "PRO",
               },
               {
                 icon: BarChart3,
-                title: "Deep Analytics",
-                desc: "De onde vêm? Quanto tempo ficam? Qual link converte mais? Dados crus para quem joga sério.",
+                title: "Analytics Uteis",
+                desc: "Acompanhe views, cliques e sinais importantes para entender o desempenho da sua pagina.",
                 color: "bg-primary text-white",
                 badge: "PRO",
               },
               {
                 icon: MousePointer,
-                title: "Links Sem Limite",
-                desc: "Adicione quantos destinos quiser. Organize com drag-and-drop intuitivo em segundos.",
+                title: "Publicacao Rapida",
+                desc: "Configure username, adicione ate 5 links no FREE e publique sua pagina em poucos minutos.",
                 color: "bg-accent text-white",
                 badge: "FREE",
               },
@@ -171,10 +162,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing Section */}
         <section className="py-32 border-b-8 border-foreground bg-accent/5 relative overflow-hidden">
           <div className="absolute top-0 right-0 translate-y-[-50%] bg-primary text-white px-8 py-3 font-black text-2xl uppercase tracking-tighter rotate-2 z-20">
-            PREÇOS TRANSPARENTES
+            PRECOS TRANSPARENTES
           </div>
 
           <div className="text-center mb-20">
@@ -182,27 +172,27 @@ export default function Home() {
               ESCOLHA SEU PLANO
             </h2>
             <p className="text-xl font-bold uppercase opacity-60">
-              Sem taxas escondidas. Comece grátis ou voe com o PRO.
+              Comece gratis, publique sua pagina e evolua para o PRO quando quiser mais personalizacao e analytics.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto px-4">
-            {/* Free Plan */}
             <div className="bg-white border-8 border-foreground shadow-neo p-10 flex flex-col hover:-rotate-1 transition-transform">
               <div className="mb-8">
                 <h3 className="text-4xl font-black uppercase tracking-tighter mb-2">
-                  GRÁTIS
+                  GRATIS
                 </h3>
                 <div className="text-6xl font-black">
-                  R$ 0<span className="text-lg opacity-40">/mês</span>
+                  R$ 0<span className="text-lg opacity-40">/mes</span>
                 </div>
               </div>
               <ul className="space-y-4 mb-12 flex-1">
                 {[
-                  "Até 5 links",
-                  "Templates Básicos",
+                  "Ate 5 links",
+                  "Templates Basicos",
+                  "Personalizacao Essencial",
                   "Analytics Essencial",
-                  "QR Code Unilink",
+                  "Marca Unilink Visivel",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -218,11 +208,10 @@ export default function Home() {
                 className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo group"
                 asChild
               >
-                <Link href="/onboarding">COMEÇAR GRÁTIS</Link>
+                <Link href="/onboarding">COMEÇAR GRATIS</Link>
               </Button>
             </div>
 
-            {/* PRO Plan */}
             <div className="bg-primary text-white border-8 border-foreground shadow-neo-lg p-10 flex flex-col relative rotate-2 hover:rotate-0 transition-transform">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-6 py-2 border-4 border-foreground font-black uppercase text-sm shadow-neo z-10 animate-bounce">
                 MAIS POPULAR
@@ -232,16 +221,17 @@ export default function Home() {
                   PRO
                 </h3>
                 <div className="text-6xl font-black">
-                  R$ 10<span className="text-lg opacity-70">/mês</span>
+                  R$ 10<span className="text-lg opacity-70">/mes</span>
                 </div>
               </div>
               <ul className="space-y-4 mb-12 flex-1">
                 {[
-                  "Tudo do plano Grátis",
-                  "Templates de Elite (PRO)",
-                  "Deep Analytics Completo",
-                  "Remover Logo Unilink",
-                  "Suporte Prioritário",
+                  "Tudo do plano Gratis",
+                  "Links Ilimitados",
+                  "Templates Premium",
+                  "Analytics Avancados",
+                  "Remover Marca Unilink",
+                  "Personalizacao Extra",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -262,7 +252,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials */}
         <section className="py-32">
           <div className="flex flex-col md:flex-row items-center justify-between mb-20 gap-8">
             <h2 className="text-5xl lg:text-8xl font-black uppercase tracking-tighter italic">
@@ -278,21 +267,21 @@ export default function Home() {
                 name: "Maria Santos",
                 role: "Influencer Digital",
                 quote:
-                  "O Unilink mudou como apresento meus produtos. O design brutalista converte muito mais que os antigos link-in-bios.",
+                  "O Unilink mudou como apresento meus produtos. A pagina ficou mais bonita e muito mais facil de compartilhar.",
                 avatarColor: "bg-emerald-400",
               },
               {
                 name: "Carlos Lima",
-                role: "Músico & Produtor",
+                role: "Musico e Produtor",
                 quote:
-                  "Direto ao ponto. Meus fãs amam a facilidade e eu amo ver de onde eles vêm com o Deep Analytics.",
+                  "Direto ao ponto. Consegui reunir meus principais links em uma pagina com cara de produto profissional.",
                 avatarColor: "bg-red-400",
               },
               {
                 name: "Ana Costa",
                 role: "Content Creator",
                 quote:
-                  "A personalização é o diferencial. Todo mundo pergunta onde fiz minha página. Sou PRO e recomendo!",
+                  "A personalizacao e o diferencial. Minha pagina ficou com mais identidade sem complicar meu fluxo.",
                 avatarColor: "bg-yellow-400",
               },
             ].map((t, i) => (
@@ -321,7 +310,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Final CTA */}
         <section className="py-32">
           <div className="bg-primary p-12 lg:p-32 border-8 border-foreground shadow-neo-lg text-center reveal relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none overflow-hidden">
@@ -333,13 +321,13 @@ export default function Home() {
             </div>
 
             <Badge className="bg-white text-primary border-4 border-foreground font-black uppercase text-lg mb-8 px-8 py-2 relative z-10 shadow-neo">
-              COMECE GRÁTIS EM 30 SEGUNDOS
+              COMECE GRATIS EM POUCOS PASSOS
             </Badge>
 
             <h2 className="text-6xl lg:text-[10rem] text-white font-black uppercase leading-[0.8] mb-12 tracking-tighter italic relative z-10">
-              DOMINE SEU
+              PUBLIQUE SUA
               <br />
-              ESPAÇO
+              PAGINA
             </h2>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 relative z-10">
@@ -351,7 +339,7 @@ export default function Home() {
                 <Link href="/onboarding">CRIAR MEU PERFIL</Link>
               </Button>
               <div className="text-white font-black text-xl uppercase tracking-tighter opacity-80">
-                Junte-se a +10k criadores
+                Pronto para sair do zero sem complicacao
               </div>
             </div>
           </div>

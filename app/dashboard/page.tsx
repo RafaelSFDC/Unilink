@@ -80,7 +80,7 @@ export default async function DashboardPage() {
                 Faça o upgrade para o PRO
               </h2>
               <p className="font-bold text-xs uppercase opacity-80">
-                Desbloqueie templates premium, analytics detalhado e muito mais!
+                Desbloqueie links ilimitados, templates premium e analytics avancados.
               </p>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default async function DashboardPage() {
             Dashboard
           </h1>
           <p className="text-primary-foreground/90 font-bold text-lg uppercase tracking-tight">
-            Gerencie seus links e domine suas estatísticas
+            Gerencie seus links, publique sua pagina e acompanhe seu crescimento
           </p>
         </div>
       </div>
@@ -217,7 +217,7 @@ export default async function DashboardPage() {
                 Nenhum link ainda
               </h3>
               <p className="text-lg font-bold text-muted-foreground mb-8">
-                COMECE ADICIONANDO SEU PRIMEIRO LINK
+                ADICIONE SEU PRIMEIRO LINK PARA COLOCAR SUA PAGINA NO AR
               </p>
               <Button asChild className="h-16 px-10 text-xl">
                 <NextLink href="/dashboard/links/new">Adicionar Primeiro Link</NextLink>

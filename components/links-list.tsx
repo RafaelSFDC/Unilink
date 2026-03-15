@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -30,10 +30,13 @@ import {
   GripVertical,
   Eye,
   EyeOff,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import {
   toggleLinkStatus,
   deleteLink,
+  reorderLinks,
 } from "@/app/actions/links";
 import { toast } from "sonner";
 
@@ -59,6 +62,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
     {},
   );
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReordering, startReordering] = useTransition();
 
   const setLinkLoading = (linkId: string, loading: boolean) => {
     setLoadingStates((prev) => ({ ...prev, [linkId]: loading }));
@@ -111,10 +115,46 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
     setDeleteDialogOpen(true);
   };
 
+  const moveLink = (linkId: string, direction: "up" | "down") => {
+    const currentIndex = links.findIndex((link) => link.id === linkId);
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= links.length) {
+      return;
+    }
+
+    const previousLinks = links;
+    const nextLinks = [...links];
+    const [movedLink] = nextLinks.splice(currentIndex, 1);
+    nextLinks.splice(targetIndex, 0, movedLink);
+    setLinks(nextLinks);
+
+    startReordering(async () => {
+      const result = await reorderLinks(nextLinks.map((link) => link.id));
+
+      if (!result.success) {
+        setLinks(previousLinks);
+        toast.error(result.error || "Erro ao reordenar links");
+        return;
+      }
+
+      toast.success("Ordem dos links atualizada");
+    });
+  };
+
   return (
     <>
       <div className="space-y-6">
-        {links.map((link) => {
+        {links.map((link, index) => {
+          const controlsDisabled =
+            loadingStates[link.id] ||
+            Object.values(loadingStates).some(Boolean) ||
+            isDeleting ||
+            isReordering;
+
           return (
             <Card
               key={link.id}
@@ -123,7 +163,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between gap-6">
                   <div className="flex items-center space-x-6 flex-1 min-w-0">
-                    <div className="cursor-move p-2 border-2 border-foreground bg-muted shadow-neo-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all">
+                    <div className="p-2 border-2 border-foreground bg-muted shadow-neo-sm">
                       <GripVertical className="h-6 w-6 text-foreground" />
                     </div>
 
@@ -167,7 +207,30 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="w-12 h-12 border-2"
+                        disabled={controlsDisabled || index === 0}
+                        onClick={() => moveLink(link.id, "up")}
+                      >
+                        <ArrowUp className="h-5 w-5" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="w-12 h-12 border-2"
+                        disabled={controlsDisabled || index === links.length - 1}
+                        onClick={() => moveLink(link.id, "down")}
+                      >
+                        <ArrowDown className="h-5 w-5" />
+                      </Button>
+                    </div>
+
                     <div className="flex items-center gap-2 bg-muted border-2 border-foreground p-2 shadow-neo-sm h-12 transition-all duration-100 group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-none">
                       <span className="text-[10px] font-black uppercase tracking-tighter ml-1">
                         Status
@@ -175,10 +238,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                       <Switch
                         checked={link.isActive}
                         onCheckedChange={() => handleToggleStatus(link.id)}
-                        disabled={
-                          loadingStates[link.id] ||
-                          Object.values(loadingStates).some(Boolean)
-                        }
+                        disabled={controlsDisabled}
                       />
                     </div>
 
@@ -203,10 +263,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                           variant="outline"
                           size="icon"
                           className="w-12 h-12 border-2"
-                          disabled={
-                            loadingStates[link.id] ||
-                            Object.values(loadingStates).some(Boolean)
-                          }
+                          disabled={controlsDisabled}
                         >
                           <MoreVertical className="h-5 w-5" />
                         </Button>
@@ -227,10 +284,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
                         <DropdownMenuItem
                           onClick={() => openDeleteDialog(link.id)}
                           className="font-black uppercase text-xs text-red-600 focus:bg-red-600 focus:text-white p-3 cursor-pointer"
-                          disabled={
-                            loadingStates[link.id] ||
-                            Object.values(loadingStates).some(Boolean)
-                          }
+                          disabled={controlsDisabled}
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
                           Remover

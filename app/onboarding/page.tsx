@@ -1,6 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { OnboardingForm } from '@/components/onboarding-form'
+import { prisma } from '@/lib/prisma'
 
 export default async function OnboardingPage() {
   const { userId } = await auth()
@@ -8,6 +9,15 @@ export default async function OnboardingPage() {
 
   if (!userId || !user) {
     redirect('/sign-in')
+  }
+
+  const existingUser = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    select: { id: true },
+  })
+
+  if (existingUser) {
+    redirect('/dashboard')
   }
 
   return (
@@ -18,7 +28,7 @@ export default async function OnboardingPage() {
             Bem-vindo ao Unilink!
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Vamos configurar seu perfil em alguns passos simples
+            Vamos colocar sua página de links no ar em poucos passos
           </p>
         </div>
 

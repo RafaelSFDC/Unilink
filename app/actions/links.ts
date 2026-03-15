@@ -3,6 +3,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { isValidHttpUrl, validateRequired } from '@/lib/form-utils'
 
 interface CreateLinkData {
   title: string
@@ -27,6 +28,25 @@ export async function createLink(data: CreateLinkData) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
+    const title = data.title.trim()
+    const url = data.url.trim()
+    const description = data.description?.trim() || null
+    const icon = data.icon?.trim() || null
+
+    const titleError = validateRequired(title, 'Titulo e obrigatorio')
+    if (titleError) {
+      return { success: false, error: titleError }
+    }
+
+    const urlError = validateRequired(url, 'URL e obrigatoria')
+    if (urlError) {
+      return { success: false, error: urlError }
+    }
+
+    if (!isValidHttpUrl(url)) {
+      return { success: false, error: 'URL invalida. Use http:// ou https://.' }
+    }
+
     // Verificar limite de links para usuários Free
     const DAY_IN_MS = 86_400_000;
     const isPro = 
@@ -36,7 +56,7 @@ export async function createLink(data: CreateLinkData) {
     if (!isPro && user.links.length >= 5) {
       return { 
         success: false, 
-        error: 'Limite de links atingido. Assine o plano PRO para links ilimitados!' 
+        error: 'Voce atingiu o limite de 5 links do plano FREE. Faca upgrade para o PRO e desbloqueie links ilimitados.' 
       }
     }
 
@@ -47,10 +67,10 @@ export async function createLink(data: CreateLinkData) {
 
     const link = await prisma.link.create({
       data: {
-        title: data.title,
-        url: data.url,
-        description: data.description || null,
-        icon: data.icon || null,
+        title,
+        url,
+        description,
+        icon,
         order: maxOrder + 1,
         userId: user.id
       }
@@ -92,13 +112,38 @@ export async function updateLink(linkId: string, data: Partial<CreateLinkData>) 
       return { success: false, error: 'Link não encontrado' }
     }
 
+    const nextTitle = data.title?.trim()
+    const nextUrl = data.url?.trim()
+    const nextDescription = data.description === undefined
+      ? undefined
+      : data.description.trim() || null
+    const nextIcon = data.icon === undefined ? undefined : data.icon.trim() || null
+
+    if (nextTitle !== undefined) {
+      const titleError = validateRequired(nextTitle, 'Titulo e obrigatorio')
+      if (titleError) {
+        return { success: false, error: titleError }
+      }
+    }
+
+    if (nextUrl !== undefined) {
+      const urlError = validateRequired(nextUrl, 'URL e obrigatoria')
+      if (urlError) {
+        return { success: false, error: urlError }
+      }
+
+      if (!isValidHttpUrl(nextUrl)) {
+        return { success: false, error: 'URL invalida. Use http:// ou https://.' }
+      }
+    }
+
     const link = await prisma.link.update({
       where: { id: linkId },
       data: {
-        title: data.title,
-        url: data.url,
-        description: data.description,
-        icon: data.icon,
+        title: nextTitle,
+        url: nextUrl,
+        description: nextDescription,
+        icon: nextIcon,
       }
     })
 
@@ -207,6 +252,29 @@ export async function reorderLinks(linkIds: string[]) {
 
     if (!user) {
       return { success: false, error: 'Usuário não encontrado' }
+    }
+
+    const uniqueLinkIds = [...new Set(linkIds)]
+    if (uniqueLinkIds.length === 0) {
+      return { success: false, error: 'Nenhum link foi enviado para reordenacao.' }
+    }
+
+    if (uniqueLinkIds.length !== linkIds.length) {
+      return { success: false, error: 'A lista enviada para reordenacao contem IDs duplicados.' }
+    }
+
+    const ownedLinks = await prisma.link.findMany({
+      where: {
+        id: { in: uniqueLinkIds },
+        userId: user.id,
+      },
+      select: {
+        id: true,
+      },
+    })
+
+    if (ownedLinks.length !== uniqueLinkIds.length) {
+      return { success: false, error: 'Nao foi possivel validar a ordem dos links enviados.' }
     }
 
     // Atualizar a ordem dos links

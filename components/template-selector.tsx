@@ -54,7 +54,7 @@ export function TemplateSelector({
           Escolha um Template
         </h3>
         <p className="text-sm font-bold uppercase opacity-60">
-          Selecione um design para seu perfil público
+          Escolha o visual que melhor representa sua página pública
         </p>
       </div>
 
@@ -165,7 +165,7 @@ export function TemplateSelector({
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               2
             </span>
-            Personalizáveis com suas cores e fontes
+            Personalizáveis com suas cores, fontes e presets
           </li>
           <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
@@ -177,7 +177,7 @@ export function TemplateSelector({
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               4
             </span>
-            Otimizados para performance e SEO
+            Otimizados para presença pública e performance
           </li>
         </ul>
       </div>

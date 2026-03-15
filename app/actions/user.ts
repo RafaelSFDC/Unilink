@@ -3,6 +3,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { validateRequired, validateUsername } from '@/lib/form-utils'
 
 interface CreateUserData {
   clerkId: string
@@ -17,9 +18,36 @@ interface CreateUserData {
 
 export async function createUser(data: CreateUserData) {
   try {
+    const { userId: sessionClerkId } = await auth()
+    if (!sessionClerkId || sessionClerkId !== data.clerkId) {
+      return { success: false, error: 'Sessao invalida. Entre novamente para continuar.' }
+    }
+
+    const normalizedUsername = data.username.trim().toLowerCase()
+    const usernameError = validateUsername(normalizedUsername)
+    if (usernameError) {
+      return { success: false, error: usernameError }
+    }
+
+    const email = data.email.trim().toLowerCase()
+    const firstName = data.firstName.trim()
+    const lastName = data.lastName.trim()
+    const nameError = validateRequired(firstName, 'Nome e obrigatorio')
+    if (nameError) {
+      return { success: false, error: nameError }
+    }
+
+    const existingByClerkId = await prisma.user.findUnique({
+      where: { clerkId: sessionClerkId }
+    })
+
+    if (existingByClerkId) {
+      return { success: false, error: 'Seu perfil ja existe. Acesse o dashboard para continuar.' }
+    }
+
     // Verificar se o username já existe
     const existingUser = await prisma.user.findUnique({
-      where: { username: data.username }
+      where: { username: normalizedUsername }
     })
 
     if (existingUser) {
@@ -28,7 +56,7 @@ export async function createUser(data: CreateUserData) {
 
     // Verificar se o email já existe
     const existingEmail = await prisma.user.findUnique({
-      where: { email: data.email }
+      where: { email }
     })
 
     if (existingEmail) {
@@ -38,14 +66,14 @@ export async function createUser(data: CreateUserData) {
     // Criar o usuário
     const user = await prisma.user.create({
       data: {
-        clerkId: data.clerkId,
-        email: data.email,
-        username: data.username,
-        firstName: data.firstName,
-        lastName: data.lastName,
+        clerkId: sessionClerkId,
+        email,
+        username: normalizedUsername,
+        firstName,
+        lastName: lastName || null,
         imageUrl: data.imageUrl,
-        bio: data.bio || null,
-        title: data.title || null,
+        bio: data.bio?.trim() || null,
+        title: data.title?.trim() || null,
       }
     })
 
@@ -95,19 +123,39 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
       return { success: false, error: 'Usuário não encontrado' }
     }
 
+    const nextUsername = data.username?.trim().toLowerCase()
+    if (nextUsername) {
+      const usernameError = validateUsername(nextUsername)
+      if (usernameError) {
+        return { success: false, error: usernameError }
+      }
+
+      const conflictingUser = await prisma.user.findUnique({
+        where: { username: nextUsername },
+      })
+
+      if (conflictingUser && conflictingUser.id !== existingUser.id) {
+        return { success: false, error: 'Nome de usuario ja esta em uso' }
+      }
+    }
+
     const user = await prisma.user.update({
       where: { id: existingUser.id },
       data: {
-        username: data.username,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        bio: data.bio,
-        title: data.title,
+        username: nextUsername,
+        firstName: data.firstName?.trim(),
+        lastName: data.lastName?.trim() || null,
+        bio: data.bio?.trim() || null,
+        title: data.title?.trim() || null,
         imageUrl: data.imageUrl,
       }
     })
 
     revalidatePath('/dashboard')
+    revalidatePath('/dashboard/settings')
+    if (existingUser.username !== user.username) {
+      revalidatePath(`/${existingUser.username}`)
+    }
     revalidatePath(`/${user.username}`)
     return { success: true, user }
   } catch (error) {
@@ -142,6 +190,7 @@ export async function toggleUserVisibility(userId: string) {
     })
 
     revalidatePath('/dashboard')
+    revalidatePath('/dashboard/settings')
     revalidatePath(`/${updatedUser.username}`)
     return { success: true, user: updatedUser }
   } catch (error) {

@@ -5,15 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   BookOpen,
-  Code,
-  Database,
+  CreditCard,
+  BarChart3,
   Zap,
   ArrowRight,
   ExternalLink,
   FileText,
   Settings,
   Palette,
-  BarChart3,
 } from "lucide-react";
 
 export default function DocsPage() {
@@ -33,13 +32,13 @@ export default function DocsPage() {
             GUIA PARA
             <br />
             <span className="bg-primary text-white px-6 shadow-neo-lg rotate-2 inline-block mt-4 not-italic border-4 border-foreground">
-              DEVELOPERS
+              O PRODUTO
             </span>
           </h1>
 
           <p className="text-2xl lg:text-3xl font-bold max-w-3xl leading-tight uppercase tracking-tighter opacity-80">
-            GUIAS COMPLETOS, REFERÊNCIAS DE API E TUTORIAIS PARA DESENVOLVEDORES
-            E USUÁRIOS AVANÇADOS.
+            GUIAS DE PRODUTO, OPERAÇÃO, BILLING, ANALYTICS E CONFIGURAÇÃO PARA
+            MANTER O UNILINK ALINHADO E EVOLUINDO SEM CONFUSÃO.
           </p>
         </section>
 
@@ -97,7 +96,7 @@ export default function DocsPage() {
                   variant="ghost"
                   className="p-0 h-auto font-black uppercase tracking-widest text-primary hover:bg-transparent group italic underline decoration-4 underline-offset-4"
                 >
-                  VER TUTORIAL{" "}
+                  VER GUIA{" "}
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform stroke-4" />
                 </Button>
               </Card>
@@ -200,18 +199,18 @@ export default function DocsPage() {
           </div>
         </section>
 
-        {/* API documentation */}
+        {/* Product operations */}
         <section className="mb-24">
           <div className="flex items-center gap-6 mb-12">
             <div className="w-20 h-20 bg-gray-800 border-4 border-foreground shadow-neo flex items-center justify-center -rotate-3">
-              <Code className="w-10 h-10 text-white stroke-3" />
+              <FileText className="w-10 h-10 text-white stroke-3" />
             </div>
             <div>
               <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">
-                API & INTEGRAÇÕES
+                OPERAÇÃO DO PRODUTO
               </h2>
               <p className="text-xl font-bold uppercase tracking-tight opacity-70 leading-none">
-                PARA INTEGRAÇÕES MAIS COMPLEXAS
+                BILLING, ANALYTICS E FONTES DE VERDADE
               </p>
             </div>
           </div>
@@ -220,46 +219,46 @@ export default function DocsPage() {
             <Card className="border-4 border-foreground shadow-neo bg-gray-900 text-white rounded-none p-10 hover:rotate-1 transition-transform">
               <div className="flex items-center gap-6 mb-8">
                 <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center -rotate-6">
-                  <Code className="w-8 h-8 text-gray-900 stroke-3" />
+                  <CreditCard className="w-8 h-8 text-gray-900 stroke-3" />
                 </div>
                 <h3 className="text-3xl font-black uppercase tracking-tighter italic">
-                  REST API
+                  BILLING PRO
                 </h3>
               </div>
               <p className="text-lg font-bold uppercase tracking-tight opacity-70 mb-8 leading-tight">
-                ACESSE E GERENCIE SEUS DADOS PROGRAMATICAMENTE COM NOSSA API
-                REST COMPLETA.
+                ENTENDA O FLUXO DE UPGRADE, O PAPEL DO STRIPE COMO PADRÃO E COMO
+                O MERCADO PAGO ENTRA COMO ALTERNATIVA SECUNDÁRIA.
               </p>
               <Button
                 variant="outline"
                 size="lg"
                 className="border-4 border-white bg-transparent text-white font-black hover:bg-white hover:text-gray-900 uppercase tracking-widest h-16 w-full shadow-neo transition-all"
               >
-                <Code className="w-6 h-6 mr-3" />
-                VER DOCS DE API
+                <CreditCard className="w-6 h-6 mr-3" />
+                VER BILLING
               </Button>
             </Card>
 
             <Card className="border-4 border-foreground shadow-neo bg-blue-100 rounded-none p-10 hover:-rotate-1 transition-transform">
               <div className="flex items-center gap-6 mb-8">
                 <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center rotate-6">
-                  <Database className="w-8 h-8 text-blue-400 stroke-3" />
+                  <BarChart3 className="w-8 h-8 text-blue-400 stroke-3" />
                 </div>
                 <h3 className="text-3xl font-black uppercase tracking-tighter italic">
-                  WEBHOOKS
+                  ANALYTICS
                 </h3>
               </div>
               <p className="text-lg font-bold uppercase tracking-tight opacity-70 mb-8 leading-tight">
-                RECEBA NOTIFICAÇÕES EM TEMPO REAL SOBRE CLIQUES E VISUALIZAÇÕES
-                DIRETAMENTE NO SEU SERVIDOR.
+                ENTENDA A DIFERENÇA ENTRE MÉTRICAS INTERNAS E POSTHOG, E COMO
+                INTERPRETAR VIEWS, CLIQUES E CONVERSÃO SEM AMBIGUIDADE.
               </p>
               <Button
                 variant="outline"
                 size="lg"
                 className="border-4 border-foreground bg-white text-foreground font-black hover:bg-foreground hover:text-white uppercase tracking-widest h-16 w-full shadow-neo transition-all"
               >
-                <Database className="w-6 h-6 mr-3" />
-                CONFIGURAR WEBHOOKS
+                <BarChart3 className="w-6 h-6 mr-3" />
+                VER ANALYTICS
               </Button>
             </Card>
           </div>
@@ -284,7 +283,7 @@ export default function DocsPage() {
               {
                 title: "EXEMPLOS",
                 desc: "SNIPPETS PRÁTICOS DE CÓDIGO.",
-                icon: Code,
+                icon: Settings,
                 color: "text-emerald-500",
               },
               {

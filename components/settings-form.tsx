@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { Check, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { TextField, TextareaField } from "@/components/ui/form-fields";
 import { Switch } from "@/components/ui/switch";
 import { toggleUserVisibility, updateUser } from "@/app/actions/user";
 import { validateRequired, validateUsername } from "@/lib/form-utils";
+import { useUsernameAvailability } from "@/hooks/use-username-availability";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -30,14 +31,8 @@ export function SettingsForm({ user }: SettingsFormProps) {
   const [isPublic, setIsPublic] = useState(user.isPublic);
   const [isTogglingVisibility, setIsTogglingVisibility] = useState(false);
   const [usernameToCheck, setUsernameToCheck] = useState(user.username);
-  const [usernameStatus, setUsernameStatus] = useState<{
-    checking: boolean;
-    available: boolean | null;
-    message: string;
-  }>({
-    checking: false,
-    available: null,
-    message: "",
+  const usernameStatus = useUsernameAvailability(usernameToCheck, {
+    currentUsername: user.username,
   });
 
   const form = useForm({
@@ -49,6 +44,11 @@ export function SettingsForm({ user }: SettingsFormProps) {
       bio: user.bio || "",
     },
     onSubmit: async ({ value }) => {
+      if (usernameStatus.available === false) {
+        toast.error(usernameStatus.message || "Escolha outro username para continuar.");
+        return;
+      }
+
       const result = await updateUser(user.id, {
         username: value.username.trim(),
         firstName: value.firstName.trim(),
@@ -66,53 +66,6 @@ export function SettingsForm({ user }: SettingsFormProps) {
     },
   });
 
-  useEffect(() => {
-    const normalized = usernameToCheck.trim();
-
-    if (!normalized || normalized === user.username) {
-      setUsernameStatus({
-        checking: false,
-        available: null,
-        message: "",
-      });
-      return;
-    }
-
-    if (validateUsername(normalized)) {
-      setUsernameStatus({
-        checking: false,
-        available: false,
-        message: "Formato de username inválido",
-      });
-      return;
-    }
-
-    const timeoutId = setTimeout(async () => {
-      setUsernameStatus((prev) => ({ ...prev, checking: true }));
-
-      try {
-        const response = await fetch(
-          `/api/check-username?username=${encodeURIComponent(normalized)}`,
-        );
-        const data = await response.json();
-
-        setUsernameStatus({
-          checking: false,
-          available: data.available,
-          message: data.message,
-        });
-      } catch {
-        setUsernameStatus({
-          checking: false,
-          available: false,
-          message: "Erro ao verificar disponibilidade",
-        });
-      }
-    }, 400);
-
-    return () => clearTimeout(timeoutId);
-  }, [user.username, usernameToCheck]);
-
   async function handleToggleVisibility() {
     setIsTogglingVisibility(true);
 
@@ -122,7 +75,9 @@ export function SettingsForm({ user }: SettingsFormProps) {
       if (result.success) {
         setIsPublic(!isPublic);
         toast.success(
-          !isPublic ? "Perfil tornado público" : "Perfil tornado privado",
+          !isPublic
+            ? "Perfil publico ativado. Sua pagina ja pode ser acessada."
+            : "Perfil privado. Sua pagina deixou de aparecer publicamente.",
         );
         return;
       }
@@ -143,12 +98,12 @@ export function SettingsForm({ user }: SettingsFormProps) {
   ) : usernameStatus.available === true ? (
     <div className="flex items-center gap-1.5 bg-green-500 border-2 border-foreground px-2 py-1 shadow-neo-sm">
       <Check className="h-3 w-3 text-white" />
-      <span className="text-[10px] text-white font-black uppercase">Ok</span>
+      <span className="text-[10px] text-white font-black uppercase">Livre</span>
     </div>
   ) : usernameStatus.available === false ? (
     <div className="flex items-center gap-1.5 bg-red-500 border-2 border-foreground px-2 py-1 shadow-neo-sm">
       <X className="h-3 w-3 text-white" />
-      <span className="text-[10px] text-white font-black uppercase">Busy</span>
+      <span className="text-[10px] text-white font-black uppercase">Rever</span>
     </div>
   ) : null;
 
@@ -264,7 +219,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
             <TextField
               field={field}
               label="Título/Profissão"
-              placeholder="Desenvolvedor, Designer, etc."
+              placeholder="Criador, designer, musico, etc."
               autoComplete="organization-title"
             />
           )}
@@ -275,7 +230,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
             <TextareaField
               field={field}
               label="Bio"
-              placeholder="Conte um pouco sobre você..."
+              placeholder="Conte em poucas linhas quem voce e, o que cria e o que as pessoas vao encontrar no seu perfil."
               rows={3}
             />
           )}
