@@ -34,35 +34,6 @@ interface DefaultTemplateProps {
 export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
   const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null);
 
-  const getButtonStyle = () => {
-    const baseStyle = {
-      backgroundColor: theme.linkColor,
-      color: theme.backgroundColor,
-      border: "none",
-      padding: "12px 24px",
-      margin: "8px 0",
-      width: "100%",
-      fontSize: "16px",
-      fontWeight: "500",
-      cursor: "pointer",
-      transition: "all 0.2s ease",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "8px",
-      textDecoration: "none",
-    };
-
-    switch (theme.buttonStyle) {
-      case "square":
-        return { ...baseStyle, borderRadius: "4px" };
-      case "pill":
-        return { ...baseStyle, borderRadius: "50px" };
-      default:
-        return { ...baseStyle, borderRadius: "8px" };
-    }
-  };
-
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6"
@@ -105,7 +76,7 @@ export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
 
         {/* Links */}
         <div className="space-y-6">
-          {user.links.map((link, i) => (
+          {user.links.map((link) => (
             <button
               key={link.id}
               onClick={() => onLinkClick(link.id, link.url)}

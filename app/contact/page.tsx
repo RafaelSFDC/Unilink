@@ -16,7 +16,6 @@ import {
   MessageCircle,
   Phone,
   MapPin,
-  Clock,
   Send,
   Twitter,
   Instagram,

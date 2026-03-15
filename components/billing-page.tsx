@@ -21,7 +21,7 @@ export default function BillingPage({ isPro }: BillingPageProps) {
       const data = await response.json();
 
       window.location.href = data.url;
-    } catch (error) {
+    } catch {
       toast.error("Algo deu errado com Stripe. Tente novamente.");
     } finally {
       setIsLoading(false);

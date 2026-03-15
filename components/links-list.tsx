@@ -34,7 +34,6 @@ import {
 import {
   toggleLinkStatus,
   deleteLink,
-  reorderLinks,
 } from "@/app/actions/links";
 import { toast } from "sonner";
 
@@ -79,7 +78,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
       } else {
         toast.error(result.error || "Erro ao atualizar link");
       }
-    } catch (error) {
+    } catch {
       toast.error("Erro inesperado");
     } finally {
       setLinkLoading(linkId, false);
@@ -98,7 +97,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
       } else {
         toast.error(result.error || "Erro ao remover link");
       }
-    } catch (error) {
+    } catch {
       toast.error("Erro inesperado");
     } finally {
       setIsDeleting(false);
@@ -115,7 +114,7 @@ export function LinksList({ links: initialLinks }: LinksListProps) {
   return (
     <>
       <div className="space-y-6">
-        {links.map((link, index) => {
+        {links.map((link) => {
           return (
             <Card
               key={link.id}

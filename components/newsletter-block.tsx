@@ -35,7 +35,7 @@ export function NewsletterBlock({
       
       setIsSubscribed(true);
       toast.success("Inscrito com sucesso!");
-    } catch (error) {
+    } catch {
       toast.error("Erro ao assinar. Tente novamente.");
     } finally {
       setIsLoading(false);

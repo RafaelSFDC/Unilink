@@ -2,7 +2,6 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
