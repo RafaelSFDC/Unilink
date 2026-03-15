@@ -9,6 +9,7 @@ Este diretório concentra a documentação técnica e operacional do projeto.
 - [BILLING.md](./BILLING.md)
 - [ANALYTICS.md](./ANALYTICS.md)
 - [PRODUCT_LIMITS.md](./PRODUCT_LIMITS.md)
+- [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md)
 - [TEMPLATES.md](./TEMPLATES.md)
 - [TECHNICAL_AUDIT.md](./TECHNICAL_AUDIT.md)
 
