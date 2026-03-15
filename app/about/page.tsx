@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,8 +18,6 @@ import {
   Globe,
   Star,
   TrendingUp,
-  Award,
-  CheckCircle,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -193,7 +191,7 @@ export default function AboutPage() {
             className="h-24 bg-primary text-white border-4 border-foreground shadow-neo-lg px-20 text-3xl font-black uppercase tracking-tighter hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all"
             asChild
           >
-            <a href="/onboarding">CRIAR MEU PERFIL</a>
+            <Link href="/onboarding">CRIAR MEU PERFIL</Link>
           </Button>
         </section>
       </main>

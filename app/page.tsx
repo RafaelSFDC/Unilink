@@ -1,8 +1,8 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -11,19 +11,12 @@ import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
-  Link as LinkIcon,
   Users,
   BarChart3,
   Palette,
   Zap,
-  Shield,
-  Smartphone,
-  Globe,
-  Star,
   ArrowRight,
   CheckCircle,
-  TrendingUp,
-  Eye,
   MousePointer,
   Sparkles,
 } from "lucide-react";
@@ -84,10 +77,10 @@ export default function Home() {
                     className="h-20 px-12 text-2xl font-black uppercase tracking-tighter border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                     asChild
                   >
-                    <a href="/dashboard">
+                    <Link href="/dashboard">
                       MEU PAINEL
                       <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
-                    </a>
+                    </Link>
                   </Button>
                 </SignedIn>
               </div>
@@ -225,7 +218,7 @@ export default function Home() {
                 className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo group"
                 asChild
               >
-                <a href="/onboarding">COMEÇAR GRÁTIS</a>
+                <Link href="/onboarding">COMEÇAR GRÁTIS</Link>
               </Button>
             </div>
 
@@ -263,7 +256,7 @@ export default function Home() {
                 className="h-16 bg-white text-primary hover:bg-gray-100 text-xl font-black uppercase border-4 border-foreground shadow-neo"
                 asChild
               >
-                <a href="/onboarding">QUERO SER PRO</a>
+                <Link href="/onboarding">QUERO SER PRO</Link>
               </Button>
             </div>
           </div>
@@ -313,7 +306,7 @@ export default function Home() {
                   {t.name[0]}
                 </div>
                 <p className="text-xl font-bold italic mb-8 leading-tight">
-                  "{t.quote}"
+                  &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="border-t-4 border-foreground pt-4">
                   <div className="font-black uppercase tracking-tighter text-xl">
@@ -355,7 +348,7 @@ export default function Home() {
                 className="h-24 bg-yellow-400 text-black hover:bg-yellow-300 border-4 border-foreground shadow-neo-lg px-20 text-3xl font-black uppercase tracking-tighter"
                 asChild
               >
-                <a href="/onboarding">CRIAR MEU PERFIL</a>
+                <Link href="/onboarding">CRIAR MEU PERFIL</Link>
               </Button>
               <div className="text-white font-black text-xl uppercase tracking-tighter opacity-80">
                 Junte-se a +10k criadores

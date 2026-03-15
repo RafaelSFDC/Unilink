@@ -1,18 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  Link as LinkIcon,
   Menu,
   X,
-  Sparkles,
   BarChart3,
   Palette,
   Shield,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import {
@@ -60,14 +59,14 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-3 group">
+          <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative border-2 border-foreground p-1 bg-secondary shadow-neo group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
               <Logo className="h-8 w-8 text-foreground" />
             </div>
             <h1 className="text-3xl font-black tracking-tighter uppercase italic">
               Unilink
             </h1>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden lg:flex">
@@ -125,10 +124,10 @@ export function Header() {
                 variant="outline"
                 className="hidden sm:inline-flex font-bold uppercase shadow-neo"
               >
-                <a href="/dashboard">
+                <Link href="/dashboard">
                   <BarChart3 className="w-4 h-4 mr-2" />
                   Painel
-                </a>
+                </Link>
               </Button>
               <div className="border-2 border-foreground p-0.5 shadow-neo">
                 <UserButton />
@@ -154,24 +153,24 @@ export function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden border-t-4 border-foreground py-6 space-y-4 bg-background animate-in slide-in-from-top duration-300">
-            <a
+            <Link
               href="/"
               className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
             >
               Início
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about"
               className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
             >
               Sobre
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               className="block px-4 py-3 text-xl font-black uppercase border-2 border-foreground shadow-neo bg-white"
             >
               Contato
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -189,13 +188,13 @@ const ListItem = ({
   className?: string;
   title: string;
   children: React.ReactNode;
-  icon: any;
+  icon: LucideIcon;
   href: string;
 }) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <Link
           className={cn(
             "block select-none space-y-1 border-2 border-transparent p-4 leading-none no-underline outline-none transition-all hover:bg-secondary hover:border-foreground hover:shadow-neo",
             className,
@@ -211,7 +210,7 @@ const ListItem = ({
           <p className="line-clamp-2 text-sm font-medium leading-snug opacity-70">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );

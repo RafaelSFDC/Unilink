@@ -18,8 +18,10 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (error: any) {
-    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Failed to verify webhook";
+    return new NextResponse(`Webhook Error: ${message}`, { status: 400 });
   }
 
   if (event.type === "checkout.session.completed") {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -55,10 +56,10 @@ export default async function EditLinkPage({ params }: EditLinkPageProps) {
           asChild
           className="mb-8 h-12 px-6 border-2 font-black uppercase shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
         >
-          <a href="/dashboard/links">
+          <Link href="/dashboard/links">
             <ArrowLeft className="h-5 w-5 mr-2" />
             Voltar para Links
-          </a>
+          </Link>
         </Button>
 
         <div className="p-8 bg-secondary border-4 border-foreground shadow-neo-lg rotate-[1deg] max-w-2xl">

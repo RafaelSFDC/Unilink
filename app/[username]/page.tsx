@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ProfilePage } from '@/components/profile-page'
-import { trackClick } from '@/app/actions/analytics'
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>

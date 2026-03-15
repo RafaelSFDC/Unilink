@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,10 +11,8 @@ import {
   Github,
   Mail,
   MapPin,
-  Phone,
   Heart,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 
 const footerLinks = {
@@ -74,7 +73,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <a
+            <Link
               href="/"
               className="flex items-center space-x-3 mb-8 group w-fit"
             >
@@ -84,7 +83,7 @@ export function Footer() {
               <span className="text-4xl font-black uppercase italic">
                 Unilink
               </span>
-            </a>
+            </Link>
             <p className="text-xl font-bold leading-tight mb-8">
               A PLATAFORMA MAIS COMPLETA PARA QUEM NÃO ACEITA O COMUM.
             </p>
@@ -111,12 +110,12 @@ export function Footer() {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-lg font-bold uppercase hover:bg-secondary px-2 transition-colors inline-block"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

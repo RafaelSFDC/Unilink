@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Zap, Star, Shield, ArrowRight } from "lucide-react";
+import { CheckCircle, Zap, Star, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function PricingPage() {
@@ -58,7 +59,7 @@ export default function PricingPage() {
             </ul>
 
             <Button size="lg" className="h-20 text-2xl font-black uppercase border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all" variant="outline" asChild>
-              <a href="/onboarding">COMEÇAR AGORA</a>
+              <Link href="/onboarding">COMEÇAR AGORA</Link>
             </Button>
           </div>
 
@@ -97,7 +98,7 @@ export default function PricingPage() {
             </ul>
 
             <Button size="lg" className="h-20 bg-white text-primary hover:bg-zinc-100 text-2xl font-black uppercase border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all" asChild>
-              <a href="/onboarding">QUERO SER PRO</a>
+              <Link href="/onboarding">QUERO SER PRO</Link>
             </Button>
           </div>
         </div>

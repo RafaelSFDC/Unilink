@@ -228,7 +228,7 @@ export default function TermsPage() {
                 </h3>
               </div>
               <p className="font-bold uppercase tracking-tight leading-tight mb-4">
-                O UNILINK É FORNECIDO "COMO ESTÁ". NÃO GARANTIMOS QUE O SERVIÇO
+                O UNILINK É FORNECIDO &ldquo;COMO ESTÁ&rdquo;. NÃO GARANTIMOS QUE O SERVIÇO
                 SERÁ 100% LIVRE DE ERROS.
               </p>
               <p className="text-sm font-black uppercase opacity-60">

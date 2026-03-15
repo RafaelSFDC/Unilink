@@ -47,7 +47,7 @@ export async function GET() {
         payer: {
           email: user.emailAddresses[0].emailAddress,
           name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
-        } as any,
+        },
         metadata: {
           user_id: dbUser.id
         },

@@ -1,3 +1,4 @@
+import NextLink from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -87,7 +88,7 @@ export default async function DashboardPage() {
             asChild
             className="bg-black text-white hover:bg-zinc-800 border-4 border-white shadow-neo-sm h-14 px-8 text-lg font-black uppercase whitespace-nowrap"
           >
-            <a href="/dashboard/billing">Assinar por R$ 10/mês</a>
+            <NextLink href="/dashboard/billing">Assinar por R$ 10/mês</NextLink>
           </Button>
         </div>
       )}
@@ -158,7 +159,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full h-14 text-xl">
-              <a href="/dashboard/links/new">Criar Link</a>
+              <NextLink href="/dashboard/links/new">Criar Link</NextLink>
             </Button>
           </CardContent>
         </Card>
@@ -175,7 +176,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Button asChild variant="outline" className="w-full h-14 text-xl">
-              <a href="/dashboard/theme">Editar Tema</a>
+              <NextLink href="/dashboard/theme">Editar Tema</NextLink>
             </Button>
           </CardContent>
         </Card>
@@ -192,9 +193,9 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Button asChild variant="outline" className="w-full h-14 text-xl">
-              <a href={`/${user.username}`} target="_blank">
+              <NextLink href={`/${user.username}`} target="_blank">
                 Perfil Público
-              </a>
+              </NextLink>
             </Button>
           </CardContent>
         </Card>
@@ -219,7 +220,7 @@ export default async function DashboardPage() {
                 COMECE ADICIONANDO SEU PRIMEIRO LINK
               </p>
               <Button asChild className="h-16 px-10 text-xl">
-                <a href="/dashboard/links/new">Adicionar Primeiro Link</a>
+                <NextLink href="/dashboard/links/new">Adicionar Primeiro Link</NextLink>
               </Button>
             </div>
           ) : (
@@ -256,7 +257,7 @@ export default async function DashboardPage() {
                       size="sm"
                       className="h-10 px-6"
                     >
-                      <a href={`/dashboard/links/${link.id}`}>Editar</a>
+                      <NextLink href={`/dashboard/links/${link.id}`}>Editar</NextLink>
                     </Button>
                   </div>
                 </div>
@@ -269,7 +270,7 @@ export default async function DashboardPage() {
                     variant="outline"
                     className="h-14 px-10 text-lg"
                   >
-                    <a href="/dashboard/links">Ver Todos os Links</a>
+                    <NextLink href="/dashboard/links">Ver Todos os Links</NextLink>
                   </Button>
                 </div>
               )}

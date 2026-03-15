@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -144,10 +145,10 @@ export default function DemoPage() {
             </CardHeader>
             <CardContent>
               <Button asChild variant="outline" className="w-full">
-                <a href="/demo/profile" target="_blank">
+                <NextLink href="/demo/profile" target="_blank">
                   Ver Perfil Demo
                   <ExternalLink className="h-4 w-4 ml-2" />
-                </a>
+                </NextLink>
               </Button>
             </CardContent>
           </Card>
@@ -194,9 +195,7 @@ export default function DemoPage() {
 
         <div className="mt-8 text-center">
           <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300">
-            <a href="/">
-              Voltar ao Início
-            </a>
+            <NextLink href="/">Voltar ao Início</NextLink>
           </Button>
         </div>
       </main>

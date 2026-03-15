@@ -1,3 +1,4 @@
+import NextLink from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { LinksList } from "@/components/links-list";
 import { Plus, Link, Zap } from "lucide-react";
+import { checkSubscription } from "@/lib/subscription";
 
 async function getUserLinks(clerkId: string) {
   const user = await prisma.user.findUnique({
@@ -38,9 +40,7 @@ export default async function LinksPage() {
     redirect("/onboarding");
   }
 
-  const isPro = 
-    user.plan === "PRO" || 
-    (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()));
+  const isPro = await checkSubscription();
 
   const canAddLink = isPro || user.links.length < 5;
 
@@ -60,10 +60,10 @@ export default async function LinksPage() {
           <div className="flex flex-col sm:flex-row gap-4">
             {!isPro && user.links.length >= 5 && (
               <Button asChild variant="destructive" className="h-14 px-8 text-lg bg-yellow-400 text-black hover:bg-yellow-500 border-4">
-                <a href="/dashboard/billing">
+                <NextLink href="/dashboard/billing">
                   <Zap className="h-5 w-5 mr-2" />
                   Upgrade PRO
-                </a>
+                </NextLink>
               </Button>
             )}
             
@@ -73,10 +73,10 @@ export default async function LinksPage() {
               className="h-14 px-8 text-lg"
             >
               {canAddLink ? (
-                <a href="/dashboard/links/new">
+                <NextLink href="/dashboard/links/new">
                   <Plus className="h-5 w-5 mr-2" />
                   Adicionar Link
-                </a>
+                </NextLink>
               ) : (
                 <span className="opacity-50 cursor-not-allowed flex items-center">
                   <Plus className="h-5 w-5 mr-2" />
@@ -101,10 +101,10 @@ export default async function LinksPage() {
           </CardHeader>
           <CardContent>
             <Button asChild className="h-16 px-12 text-xl">
-              <a href="/dashboard/links/new">
+              <NextLink href="/dashboard/links/new">
                 <Plus className="h-5 w-5 mr-2" />
                 Adicionar Primeiro Link
-              </a>
+              </NextLink>
             </Button>
           </CardContent>
         </Card>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -18,10 +19,10 @@ export default function NewLinkPage() {
           asChild
           className="mb-8 h-12 px-6 border-2 font-black uppercase shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
         >
-          <a href="/dashboard/links">
+          <Link href="/dashboard/links">
             <ArrowLeft className="h-5 w-5 mr-2" />
             Voltar para Links
-          </a>
+          </Link>
         </Button>
 
         <div className="p-8 bg-primary border-4 border-foreground shadow-neo-lg rotate-[-1deg] max-w-2xl">

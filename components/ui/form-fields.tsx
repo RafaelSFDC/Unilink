@@ -1,5 +1,6 @@
 "use client";
 
+import type { Updater } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -82,19 +83,21 @@ function normalizeErrors(errors: unknown[] | undefined) {
     .filter(Boolean);
 }
 
-interface TextFieldProps {
-  field: {
-    name: string;
-    state: {
-      value: string;
-      meta: {
-        errors: unknown[];
-        isTouched: boolean;
-      };
+interface FormFieldController<TValue extends string = string> {
+  name: string;
+  state: {
+    value: TValue;
+    meta: {
+      errors: unknown[];
+      isTouched: boolean;
     };
-    handleChange: (value: string) => void;
-    handleBlur: () => void;
   };
+  handleChange: (value: Updater<TValue>) => void;
+  handleBlur: () => void;
+}
+
+interface TextFieldProps<TValue extends string = string> {
+  field: FormFieldController<TValue>;
   label: string;
   type?: string;
   placeholder?: string;
@@ -104,10 +107,10 @@ interface TextFieldProps {
   autoComplete?: string;
   disabled?: boolean;
   trailing?: React.ReactNode;
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: TValue) => void;
 }
 
-export function TextField({
+export function TextField<TValue extends string = string>({
   field,
   label,
   type = "text",
@@ -119,7 +122,7 @@ export function TextField({
   disabled,
   trailing,
   onValueChange,
-}: TextFieldProps) {
+}: TextFieldProps<TValue>) {
   const errors = field.state.meta.isTouched
     ? normalizeErrors(field.state.meta.errors)
     : undefined;
@@ -140,8 +143,9 @@ export function TextField({
           value={field.state.value}
           onBlur={field.handleBlur}
           onChange={(event) => {
-            field.handleChange(event.target.value);
-            onValueChange?.(event.target.value);
+            const nextValue = event.target.value as TValue;
+            field.handleChange(nextValue);
+            onValueChange?.(nextValue);
           }}
           placeholder={placeholder}
           autoComplete={autoComplete}
@@ -163,19 +167,8 @@ export function TextField({
   );
 }
 
-interface TextareaFieldProps {
-  field: {
-    name: string;
-    state: {
-      value: string;
-      meta: {
-        errors: unknown[];
-        isTouched: boolean;
-      };
-    };
-    handleChange: (value: string) => void;
-    handleBlur: () => void;
-  };
+interface TextareaFieldProps<TValue extends string = string> {
+  field: FormFieldController<TValue>;
   label: string;
   placeholder?: string;
   description?: string;
@@ -185,7 +178,7 @@ interface TextareaFieldProps {
   disabled?: boolean;
 }
 
-export function TextareaField({
+export function TextareaField<TValue extends string = string>({
   field,
   label,
   placeholder,
@@ -194,7 +187,7 @@ export function TextareaField({
   className,
   textareaClassName,
   disabled,
-}: TextareaFieldProps) {
+}: TextareaFieldProps<TValue>) {
   const errors = field.state.meta.isTouched
     ? normalizeErrors(field.state.meta.errors)
     : undefined;
@@ -212,7 +205,7 @@ export function TextareaField({
         name={field.name}
         value={field.state.value}
         onBlur={field.handleBlur}
-        onChange={(event) => field.handleChange(event.target.value)}
+        onChange={(event) => field.handleChange(event.target.value as TValue)}
         placeholder={placeholder}
         rows={rows}
         disabled={disabled}
@@ -228,19 +221,8 @@ interface SelectOption {
   value: string;
 }
 
-interface SelectFieldProps {
-  field: {
-    name: string;
-    state: {
-      value: string;
-      meta: {
-        errors: unknown[];
-        isTouched: boolean;
-      };
-    };
-    handleChange: (value: any) => void;
-    handleBlur: () => void;
-  };
+interface SelectFieldProps<TValue extends string = string> {
+  field: FormFieldController<TValue>;
   label: string;
   options: SelectOption[];
   description?: string;
@@ -249,7 +231,7 @@ interface SelectFieldProps {
   disabled?: boolean;
 }
 
-export function SelectField({
+export function SelectField<TValue extends string = string>({
   field,
   label,
   options,
@@ -257,7 +239,7 @@ export function SelectField({
   className,
   triggerClassName,
   disabled,
-}: SelectFieldProps) {
+}: SelectFieldProps<TValue>) {
   const errors = field.state.meta.isTouched
     ? normalizeErrors(field.state.meta.errors)
     : undefined;
@@ -273,7 +255,7 @@ export function SelectField({
       <Select
         name={field.name}
         value={field.state.value}
-        onValueChange={field.handleChange}
+        onValueChange={(value) => field.handleChange(value as TValue)}
         disabled={disabled}
       >
         <SelectTrigger
@@ -300,19 +282,8 @@ export function SelectField({
   );
 }
 
-interface ColorFieldProps {
-  field: {
-    name: string;
-    state: {
-      value: string;
-      meta: {
-        errors: unknown[];
-        isTouched: boolean;
-      };
-    };
-    handleChange: (value: string) => void;
-    handleBlur: () => void;
-  };
+interface ColorFieldProps<TValue extends string = string> {
+  field: FormFieldController<TValue>;
   label: string;
   placeholder?: string;
   description?: string;
@@ -321,7 +292,7 @@ interface ColorFieldProps {
   disabled?: boolean;
 }
 
-export function ColorField({
+export function ColorField<TValue extends string = string>({
   field,
   label,
   placeholder,
@@ -329,7 +300,7 @@ export function ColorField({
   className,
   textInputClassName,
   disabled,
-}: ColorFieldProps) {
+}: ColorFieldProps<TValue>) {
   const errors = field.state.meta.isTouched
     ? normalizeErrors(field.state.meta.errors)
     : undefined;
@@ -349,7 +320,7 @@ export function ColorField({
           type="color"
           value={field.state.value}
           onBlur={field.handleBlur}
-          onChange={(event) => field.handleChange(event.target.value)}
+          onChange={(event) => field.handleChange(event.target.value as TValue)}
           disabled={disabled}
           aria-invalid={errors?.length ? true : undefined}
           className="w-16 h-12 p-1 border-2"
@@ -357,7 +328,7 @@ export function ColorField({
         <Input
           value={field.state.value}
           onBlur={field.handleBlur}
-          onChange={(event) => field.handleChange(event.target.value)}
+          onChange={(event) => field.handleChange(event.target.value as TValue)}
           placeholder={placeholder}
           disabled={disabled}
           aria-invalid={errors?.length ? true : undefined}

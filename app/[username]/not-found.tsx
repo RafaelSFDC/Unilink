@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { UserX, Home, Search } from 'lucide-react'
@@ -22,17 +23,17 @@ export default function UserNotFound() {
           
           <div className="flex flex-col sm:flex-row gap-3">
             <Button asChild variant="outline" className="flex-1">
-              <a href="/">
+              <Link href="/">
                 <Home className="h-4 w-4 mr-2" />
                 Página Inicial
-              </a>
+              </Link>
             </Button>
             
             <Button asChild className="flex-1">
-              <a href="/">
+              <Link href="/">
                 <Search className="h-4 w-4 mr-2" />
                 Criar Meu Perfil
-              </a>
+              </Link>
             </Button>
           </div>
         </CardContent>

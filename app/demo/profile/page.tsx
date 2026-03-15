@@ -1,9 +1,9 @@
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { 
-  Link, 
   ExternalLink,
   ArrowLeft,
   Github,
@@ -54,10 +54,10 @@ export default function DemoProfilePage() {
         {/* Header */}
         <div className="mb-6">
           <Button asChild variant="ghost" size="sm">
-            <a href="/demo">
+            <Link href="/demo">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Voltar ao Dashboard
-            </a>
+            </Link>
           </Button>
         </div>
 
@@ -138,15 +138,11 @@ export default function DemoProfilePage() {
           
           <div className="flex justify-center space-x-4">
             <Button asChild variant="outline" size="sm">
-              <a href="/">
-                Criar Minha Conta
-              </a>
+              <Link href="/">Criar Minha Conta</Link>
             </Button>
             
             <Button asChild variant="ghost" size="sm">
-              <a href="/demo">
-                Ver Dashboard Demo
-              </a>
+              <Link href="/demo">Ver Dashboard Demo</Link>
             </Button>
           </div>
         </div>

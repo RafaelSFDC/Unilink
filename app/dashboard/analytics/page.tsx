@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -75,7 +76,7 @@ export default async function AnalyticsPage() {
             asChild
             className="h-20 px-12 text-2xl font-black uppercase bg-black text-white hover:bg-zinc-800 border-4 border-white shadow-neo"
           >
-            <a href="/dashboard/billing">Assinar Agora por R$ 10/mês</a>
+            <Link href="/dashboard/billing">Assinar Agora por R$ 10/mês</Link>
           </Button>
         </div>
       </div>
