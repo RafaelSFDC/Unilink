@@ -144,11 +144,11 @@ export function ThemeForm({ user, isPro }: ThemeFormProps) {
         >
           <div className="p-6 bg-muted border-4 border-foreground shadow-neo rotate-[0.5deg] transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
             <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">
-              Personalização Avançada
+              Escolha de Visual e Personalizacao
             </h3>
             <p className="text-xs font-bold uppercase opacity-60">
-              Ajuste o comportamento visual do perfil e veja o resultado em
-              tempo real.
+              Templates definem o estilo base. Cores, fontes e presets ajustam
+              o acabamento da sua pagina em tempo real.
             </p>
           </div>
 

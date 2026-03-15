@@ -22,6 +22,9 @@ async function getInternalAnalytics(clerkId: string) {
 
   if (!user) return null;
 
+  const last30Days = new Date();
+  last30Days.setDate(last30Days.getDate() - 30);
+
   const totalViews = await prisma.analytics.aggregate({
     where: { userId: user.id },
     _sum: { totalViews: true },
@@ -31,9 +34,30 @@ async function getInternalAnalytics(clerkId: string) {
     where: { link: { userId: user.id } },
   });
 
+  const viewsLast30Days = await prisma.analytics.aggregate({
+    where: {
+      userId: user.id,
+      date: {
+        gte: last30Days,
+      },
+    },
+    _sum: { totalViews: true },
+  });
+
+  const clicksLast30Days = await prisma.click.count({
+    where: {
+      link: { userId: user.id },
+      clickedAt: {
+        gte: last30Days,
+      },
+    },
+  });
+
   return {
-    views: totalViews._sum.totalViews || 0,
-    clicks: totalClicks,
+    allTimeViews: totalViews._sum.totalViews || 0,
+    allTimeClicks: totalClicks,
+    viewsLast30Days: viewsLast30Days._sum.totalViews || 0,
+    clicksLast30Days,
   };
 }
 
@@ -94,65 +118,140 @@ export default async function AnalyticsPage() {
             Analytics PRO
           </h1>
           <p className="text-foreground/90 font-bold text-lg uppercase tracking-tight">
-            Leituras de performance do seu perfil com dados do PostHog e métricas internas: unilink.com/{user.username}
+            Leitura clara da sua performance separando tendencias do PostHog e metricas internas: unilink.com/{user.username}
           </p>
         </div>
       </div>
 
-      {/* Stats Cards (Misto de local e PostHog) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <Card className="group bg-primary text-primary-foreground border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <Users className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
-              Views do Perfil
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-5xl font-black tracking-tighter">
-              {analyticsData?.totalViews || internalStats?.views || 0}
+      <div className="space-y-12">
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="bg-primary text-white border-4 border-foreground shadow-neo px-4 py-2 font-black uppercase text-sm">
+              Tendencias via PostHog
             </div>
-            <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Últimos 7 dias via PostHog
+            <p className="text-sm font-bold uppercase opacity-60">
+              Janela de 7 dias para entender ritmo de visualizacao
             </p>
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card className="group bg-secondary border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <MousePointer className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
-              Cliques em Links
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-5xl font-black tracking-tighter">
-              {internalStats?.clicks || 0}
-            </div>
-            <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Acumulado no banco local
-            </p>
-          </CardContent>
-        </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="group bg-primary text-primary-foreground border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                  <Users className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
+                  Views de Tendencia
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-black tracking-tighter">
+                  {analyticsData?.totalViews || 0}
+                </div>
+                <p className="text-xs font-bold opacity-70 uppercase mt-2">
+                  Fonte: PostHog | Periodo: ultimos 7 dias
+                </p>
+              </CardContent>
+            </Card>
 
-        <Card className="group bg-background border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 transition-transform duration-100 group-hover:-rotate-6" />
-              Conversão Estimada
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-5xl font-black tracking-tighter">
-              {internalStats && internalStats.views > 0 
-                ? `${((internalStats.clicks / internalStats.views) * 100).toFixed(1)}%`
-                : "0%"}
+            <Card className="border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader>
+                <CardTitle className="uppercase font-black">
+                  Resumo Interpretativo
+                </CardTitle>
+                <CardDescription className="font-bold">
+                  Use este bloco para ler tendencia e volume sem confundir com a base local.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm font-medium leading-relaxed opacity-80">
+                  O PostHog mostra como seu perfil evoluiu em visualizacoes recentes. Ele serve para leitura de tendencia, nao para comparar diretamente com cliques acumulados do banco local.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="bg-secondary border-4 border-foreground shadow-neo px-4 py-2 font-black uppercase text-sm">
+              Metricas internas
             </div>
-            <p className="text-xs font-bold opacity-70 uppercase mt-2">
-              Base local de views e cliques
+            <p className="text-sm font-bold uppercase opacity-60">
+              Dados locais para cliques, views agregadas e conversao compativel
             </p>
-          </CardContent>
-        </Card>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <Card className="group bg-secondary border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                  <Users className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
+                  Views Internas
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-black tracking-tighter">
+                  {internalStats?.viewsLast30Days || 0}
+                </div>
+                <p className="text-xs font-bold opacity-70 uppercase mt-2">
+                  Fonte: banco local | Periodo: ultimos 30 dias
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="group bg-background border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                  <MousePointer className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
+                  Cliques 30d
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-black tracking-tighter">
+                  {internalStats?.clicksLast30Days || 0}
+                </div>
+                <p className="text-xs font-bold opacity-70 uppercase mt-2">
+                  Fonte: banco local | Periodo: ultimos 30 dias
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="group bg-background border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                  <MousePointer className="h-4 w-4 transition-transform duration-100 group-hover:scale-110" />
+                  Cliques Totais
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-black tracking-tighter">
+                  {internalStats?.allTimeClicks || 0}
+                </div>
+                <p className="text-xs font-bold opacity-70 uppercase mt-2">
+                  Fonte: banco local | Periodo: acumulado
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="group bg-background border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 transition-transform duration-100 group-hover:-rotate-6" />
+                  Conversao 30d
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-black tracking-tighter">
+                  {internalStats && internalStats.viewsLast30Days > 0
+                    ? `${((internalStats.clicksLast30Days / internalStats.viewsLast30Days) * 100).toFixed(1)}%`
+                    : "N/D"}
+                </div>
+                <p className="text-xs font-bold opacity-70 uppercase mt-2">
+                  Fonte: banco local | Base: views e cliques dos ultimos 30 dias
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
 
       {!analyticsData || analyticsData.views.length === 0 ? (
@@ -160,7 +259,7 @@ export default async function AnalyticsPage() {
           <TrendingUp className="h-24 w-24 mx-auto mb-6 opacity-20" />
           <h2 className="text-3xl font-black uppercase mb-4">Sem dados de tendência</h2>
           <p className="text-lg font-bold opacity-60 uppercase">
-            Aguardando primeiras interações via PostHog para gerar o gráfico de visualizações.
+            Aguardando primeiras interacoes via PostHog para gerar o grafico de tendencias.
           </p>
         </Card>
       ) : (
@@ -178,11 +277,11 @@ export default async function AnalyticsPage() {
              <Card className="flex-1 border-4 shadow-neo transition-all duration-100 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
                 <CardHeader>
                    <CardTitle className="uppercase font-black">Configuração do PostHog</CardTitle>
-                   <CardDescription className="font-bold">Sua conta está integrada e esta tela combina tendências do PostHog com métricas internas.</CardDescription>
+                   <CardDescription className="font-bold">Sua conta esta integrada e esta tela separa o que vem do PostHog do que vem do banco local.</CardDescription>
                 </CardHeader>
                 <CardContent>
                    <p className="text-sm opacity-70 mb-4 font-medium italic">
-                     * Os períodos e origens importam: views de tendência vêm do PostHog, enquanto cliques e conversão continuam sendo processados localmente.
+                     * Tendencia de views vem do PostHog em 7 dias. Cliques, views internas agregadas e conversao usam apenas a base local compativel.
                    </p>
                    <Button variant="outline" className="border-2 font-black uppercase">
                       <ExternalLink className="mr-2 h-4 w-4" />

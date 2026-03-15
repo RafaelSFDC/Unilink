@@ -32,16 +32,16 @@ export function ProModal({ isOpen, onClose }: ProModalProps) {
             Precisa de mais?
           </DialogTitle>
           <DialogDescription className="text-center font-bold text-foreground">
-            Desbloqueie todo o poder do Unilink com o plano PRO.
+            Desbloqueie templates premium, analytics avancados e mais controle visual com o plano PRO.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           {[
-            "Analytics detalhado (Fonte, Tempo, Cliques)",
-            "Temas e Templates Premium",
-            "Layouts customizados",
-            "Suporte prioritário",
+            "Templates premium para sua pagina",
+            "Analytics avancados com mais contexto",
+            "Personalizacao extra de visual e experiencia",
+            "Remocao da marca Unilink",
           ].map((feature) => (
             <div
               key={feature}

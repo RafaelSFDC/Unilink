@@ -50,7 +50,7 @@ export default async function ThemePage() {
             Personalizar Tema
           </h1>
           <p className="font-bold text-lg uppercase tracking-tight opacity-90">
-            Customize a aparência do seu perfil com templates e cores
+            Escolha o visual da sua pagina e refine sua identidade com templates e presets
           </p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default async function ThemePage() {
               Configurações de Tema
             </CardTitle>
             <CardDescription className="text-xs font-black uppercase opacity-60">
-              Escolha um template e personalize as cores do seu perfil
+              Default e minimal ficam no free. Modern, vibrant, professional e creative fazem parte do pro.
             </CardDescription>
           </CardHeader>
           <CardContent>

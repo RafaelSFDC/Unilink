@@ -9,38 +9,62 @@ export const TEMPLATE_OPTIONS = [
   {
     id: 'default',
     name: 'Padrão',
-    description: 'Template clássico e versátil',
-    preview: '/templates/default-preview.jpg'
+    description: 'Neo-brutalista direto ao ponto para publicar rápido',
+    preview: '/templates/default-preview.jpg',
+    tier: 'FREE',
+    accent: 'bg-primary',
+    surface: 'bg-white',
+    vibe: 'Estrutura forte e leitura imediata',
   },
   {
     id: 'minimal',
     name: 'Minimalista',
-    description: 'Design limpo e elegante',
-    preview: '/templates/minimal-preview.jpg'
+    description: 'Leve, editorial e elegante para marcas pessoais',
+    preview: '/templates/minimal-preview.jpg',
+    tier: 'FREE',
+    accent: 'bg-zinc-200',
+    surface: 'bg-white',
+    vibe: 'Silêncio visual com foco no conteúdo',
   },
   {
     id: 'modern',
     name: 'Moderno',
-    description: 'Glassmorphism com efeitos visuais',
-    preview: '/templates/modern-preview.jpg'
+    description: 'Glassmorphism com energia premium para creators visuais',
+    preview: '/templates/modern-preview.jpg',
+    tier: 'PRO',
+    accent: 'bg-cyan-300',
+    surface: 'bg-slate-900',
+    vibe: 'Camadas translúcidas e atmosfera digital',
   },
   {
     id: 'vibrant',
     name: 'Vibrante',
-    description: 'Cores vivas e animações dinâmicas',
-    preview: '/templates/vibrant-preview.jpg'
+    description: 'Cores vivas e presença alta para perfis cheios de personalidade',
+    preview: '/templates/vibrant-preview.jpg',
+    tier: 'PRO',
+    accent: 'bg-pink-400',
+    surface: 'bg-orange-100',
+    vibe: 'Impacto cromático e movimento aparente',
   },
   {
     id: 'professional',
     name: 'Profissional',
-    description: 'Layout corporativo e formal',
-    preview: '/templates/professional-preview.jpg'
+    description: 'Organizado, confiável e ótimo para consultoria e portfólio',
+    preview: '/templates/professional-preview.jpg',
+    tier: 'PRO',
+    accent: 'bg-blue-400',
+    surface: 'bg-slate-50',
+    vibe: 'Credibilidade com aparência limpa',
   },
   {
     id: 'creative',
     name: 'Criativo',
-    description: 'Artístico com elementos decorativos',
-    preview: '/templates/creative-preview.jpg'
+    description: 'Expressivo, artístico e feito para perfis autorais',
+    preview: '/templates/creative-preview.jpg',
+    tier: 'PRO',
+    accent: 'bg-yellow-300',
+    surface: 'bg-pink-100',
+    vibe: 'Composição lúdica e memorável',
   }
 ] as const
 

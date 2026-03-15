@@ -18,12 +18,7 @@ interface TemplateSelectorProps {
   isPro: boolean;
 }
 
-const PRO_TEMPLATES: TemplateId[] = [
-  "modern",
-  "vibrant",
-  "professional",
-  "creative",
-];
+const FREE_TEMPLATE_IDS: TemplateId[] = ["default", "minimal"];
 
 export function TemplateSelector({
   currentTemplate,
@@ -36,7 +31,7 @@ export function TemplateSelector({
   const [isProModalOpen, setIsProModalOpen] = useState(false);
 
   const handleTemplateClick = (templateId: TemplateId) => {
-    const isPremium = PRO_TEMPLATES.includes(templateId);
+    const isPremium = !FREE_TEMPLATE_IDS.includes(templateId);
 
     if (isPremium && !isPro) {
       setIsProModalOpen(true);
@@ -70,7 +65,7 @@ export function TemplateSelector({
             onClick={() => handleTemplateClick(template.id)}
           >
             <CardContent className="p-6 relative">
-              {PRO_TEMPLATES.includes(template.id) && (
+              {template.tier === "PRO" && (
                 <div className="absolute top-2 right-2 z-20">
                   <Badge className="bg-yellow-400 text-foreground border-2 border-foreground shadow-neo-sm font-black uppercase text-[8px] flex items-center gap-1">
                     <Zap className="w-2 h-2 fill-current" />
@@ -78,31 +73,30 @@ export function TemplateSelector({
                   </Badge>
                 </div>
               )}
-              {/* Template Preview */}
-              <div className="aspect-3/4 border-4 border-foreground bg-white mb-6 relative overflow-hidden shadow-neo-sm">
-                {/* Preview placeholder */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary border-4 border-foreground shadow-neo-sm mx-auto mb-4 rotate-[5deg]"></div>
-                    <div className="w-24 h-4 bg-foreground mb-2"></div>
-                    <div className="w-16 h-2 bg-foreground/30 mb-6 mx-auto"></div>
+              <div
+                className={`aspect-3/4 border-4 border-foreground mb-6 relative overflow-hidden shadow-neo-sm ${template.surface}`}
+              >
+                <div className="absolute inset-0 flex items-center justify-center p-5">
+                  <div className="w-full h-full border-2 border-foreground/20 bg-white/60 backdrop-blur-[1px] p-4 flex flex-col justify-between">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className={`w-10 h-10 border-2 border-foreground shadow-neo-sm rotate-[4deg] ${template.accent}`} />
+                      <Badge className="bg-background text-foreground border border-foreground font-black uppercase text-[8px] shadow-none">
+                        {template.tier}
+                      </Badge>
+                    </div>
+
                     <div className="space-y-3">
-                      <div className="w-32 h-6 bg-secondary border-2 border-foreground shadow-neo-sm"></div>
-                      <div className="w-32 h-6 bg-accent border-2 border-foreground shadow-neo-sm"></div>
+                      <div className="w-24 h-3 bg-foreground" />
+                      <div className="w-16 h-2 bg-foreground/30" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className={`h-8 border-2 border-foreground shadow-neo-sm ${template.accent}`} />
+                      <div className="h-8 border-2 border-foreground bg-white/80 shadow-neo-sm" />
+                      <div className="h-8 border-2 border-foreground bg-white/80 shadow-neo-sm opacity-80" />
                     </div>
                   </div>
                 </div>
-
-                {/* Template-specific styling overlay */}
-                {template.id === "minimal" && (
-                  <div className="absolute inset-0 bg-white opacity-20 pointer-events-none"></div>
-                )}
-                {template.id === "modern" && (
-                  <div className="absolute inset-0 bg-primary/20 pointer-events-none"></div>
-                )}
-                {template.id === "vibrant" && (
-                  <div className="absolute inset-0 bg-accent/20 pointer-events-none"></div>
-                )}
 
                 {/* Selection indicator */}
                 {selectedTemplate === template.id && (
@@ -127,6 +121,10 @@ export function TemplateSelector({
 
                 <p className="text-xs font-bold uppercase opacity-70 leading-tight h-8 overflow-hidden">
                   {template.description}
+                </p>
+
+                <p className="text-[10px] font-black uppercase tracking-wide text-foreground/50 h-8">
+                  {template.vibe}
                 </p>
 
                 {/* Preview button */}
@@ -159,25 +157,25 @@ export function TemplateSelector({
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               1
             </span>
-            Totalmente responsivos (Mobile & Desktop)
+            FREE com default e minimal
           </li>
           <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               2
             </span>
-            Personalizáveis com suas cores, fontes e presets
+            PRO com modern, vibrant, professional e creative
           </li>
           <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               3
             </span>
-            Animações suaves e efeitos visuais
+            Personalizaveis com cores, fontes e presets
           </li>
           <li className="flex items-center gap-3 text-white font-bold uppercase text-xs">
             <span className="w-6 h-6 bg-white text-primary border-2 border-white rounded-none flex items-center justify-center font-black">
               4
             </span>
-            Otimizados para presença pública e performance
+            Preview deve refletir o visual publico final
           </li>
         </ul>
       </div>

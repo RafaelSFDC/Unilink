@@ -77,7 +77,9 @@ O Unilink deve ser um **link-in-bio premium para criadores e profissionais**, co
 - `Fase 1`: consolidada em posicionamento, docs e copy principal
 - `Fase 2`: consolidada em regras oficiais e telas principais
 - `Fase 3`: implementada tecnicamente; validacao manual completa ainda precisa ser executada
-- `Fases 4` a `8`: seguem abertas para implementacao futura
+- `Fase 4`: em execucao com 6 templates preservados e curadoria em refinamento
+- `Fase 5`: em execucao com PostHog + base local mantidos e clarificados
+- `Fases 6` a `8`: seguem abertas para implementacao futura
 
 ## Regras de Uso Deste Roadmap
 
