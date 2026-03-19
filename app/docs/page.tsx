@@ -1,19 +1,12 @@
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { SupportIndex } from "@/components/support-index";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  BookOpen,
-  CreditCard,
-  BarChart3,
-  Zap,
-  ArrowRight,
-  ExternalLink,
-  FileText,
-  Settings,
-  Palette,
-} from "lucide-react";
+import { docsArticles } from "@/lib/support-content";
+import { BookOpen, CreditCard, FileText, Zap } from "lucide-react";
 
 export default function DocsPage() {
   return (
@@ -21,7 +14,6 @@ export default function DocsPage() {
       <Header />
 
       <main className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
         <section className="text-left mb-16 border-b-8 border-foreground pb-16">
           <Badge className="mb-6 px-6 py-2 bg-blue-400 text-white border-4 border-foreground shadow-neo font-black uppercase tracking-tighter text-sm -rotate-1 w-fit">
             <BookOpen className="w-4 h-4 mr-2" />
@@ -42,7 +34,6 @@ export default function DocsPage() {
           </p>
         </section>
 
-        {/* Quick Start */}
         <section className="mb-24">
           <div className="flex items-center gap-6 mb-12">
             <div className="w-20 h-20 bg-emerald-400 border-4 border-foreground shadow-neo flex items-center justify-center -rotate-3">
@@ -63,24 +54,27 @@ export default function DocsPage() {
               {
                 num: "1",
                 title: "CRIAR CONTA",
-                desc: "FAÇA LOGIN COM SUA CONTA GOOGLE, GITHUB OU EMAIL.",
+                desc: "FAÇA LOGIN COM EMAIL E SIGA PARA O ONBOARDING.",
                 color: "bg-blue-100",
+                href: "/docs/getting-started",
               },
               {
                 num: "2",
                 title: "CONFIGURAR PERFIL",
-                desc: "COMPLETE O ONBOARDING E PERSONALIZE SUA PÁGINA.",
+                desc: "AJUSTE USERNAME, BIO E VISUAL DA SUA PÁGINA.",
                 color: "bg-emerald-100",
+                href: "/help/configurar-perfil",
               },
               {
                 num: "3",
                 title: "ADICIONAR LINKS",
-                desc: "COMECE ADICIONANDO SEUS LINKS MAIS IMPORTANTES.",
+                desc: "COMECE A PUBLICAR SEUS DESTINOS PRINCIPAIS.",
                 color: "bg-purple-100",
+                href: "/help/adicionar-links",
               },
-            ].map((step, idx) => (
+            ].map((step) => (
               <Card
-                key={idx}
+                key={step.title}
                 className={`border-4 border-foreground shadow-neo ${step.color} rounded-none p-8 hover:translate-x-1 hover:-translate-y-1 transition-transform`}
               >
                 <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center mb-6 rotate-6">
@@ -93,18 +87,17 @@ export default function DocsPage() {
                   {step.desc}
                 </p>
                 <Button
+                  asChild
                   variant="ghost"
-                  className="p-0 h-auto font-black uppercase tracking-widest text-primary hover:bg-transparent group italic underline decoration-4 underline-offset-4"
+                  className="p-0 h-auto font-black uppercase tracking-widest text-primary hover:bg-transparent italic underline decoration-4 underline-offset-4"
                 >
-                  VER GUIA{" "}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform stroke-4" />
+                  <Link href={step.href}>VER GUIA</Link>
                 </Button>
               </Card>
             ))}
           </div>
         </section>
 
-        {/* Documentation Sections */}
         <section className="mb-24">
           <div className="flex items-center gap-6 mb-12 flex-row-reverse text-right">
             <div className="w-20 h-20 bg-purple-400 border-4 border-foreground shadow-neo flex items-center justify-center rotate-3">
@@ -120,86 +113,14 @@ export default function DocsPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "CONFIGURAÇÃO BÁSICA",
-                desc: "SETUP INICIAL E CONFIGURAÇÕES ESSENCIAIS.",
-                icon: Settings,
-                color: "bg-blue-400",
-                items: [
-                  "CRIANDO SUA CONTA",
-                  "CONFIGURAÇÕES DE PERFIL",
-                  "PRIVACIDADE",
-                ],
-              },
-              {
-                title: "GERENCIAMENTO DE LINKS",
-                desc: "COMO ADICIONAR, EDITAR E ORGANIZAR LINKS.",
-                icon: Zap,
-                color: "bg-emerald-400",
-                items: [
-                  "ADICIONANDO LINKS",
-                  "ORGANIZANDO ORDEM",
-                  "ÍCONES CUSTOM",
-                ],
-              },
-              {
-                title: "PERSONALIZAÇÃO",
-                desc: "CUSTOMIZE CORES, FONTES E LAYOUT.",
-                icon: Palette,
-                color: "bg-purple-400",
-                items: ["TEMAS E CORES", "FONTES", "LAYOUT DA PÁGINA"],
-              },
-              {
-                title: "ANALYTICS",
-                desc: "ENTENDA SUAS MÉTRICAS E RELATÓRIOS.",
-                icon: BarChart3,
-                color: "bg-pink-400",
-                items: ["VISUALIZAÇÕES", "CLIQUES", "RELATÓRIOS MENSAIS"],
-              },
-            ].map((section, idx) => (
-              <Card
-                key={idx}
-                className="border-4 border-foreground shadow-neo bg-white rounded-none p-8 hover:translate-x-1 hover:-translate-y-1 transition-transform overflow-hidden relative"
-              >
-                <div
-                  className={`absolute top-0 right-0 w-32 h-32 ${section.color} opacity-10 -mr-16 -mt-16 rounded-full`}
-                />
-                <div className="flex items-center gap-6 mb-8 relative z-10">
-                  <div
-                    className={`w-16 h-16 ${section.color} border-4 border-foreground shadow-neo flex items-center justify-center -rotate-2`}
-                  >
-                    <section.icon className="w-8 h-8 text-white stroke-3" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black uppercase tracking-tighter italic leading-none">
-                      {section.title}
-                    </h3>
-                    <p className="text-xs font-black uppercase tracking-widest opacity-60 mt-2">
-                      {section.desc}
-                    </p>
-                  </div>
-                </div>
-                <div className="space-y-4 relative z-10">
-                  {section.items.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between p-4 bg-gray-50 border-2 border-foreground hover:bg-white transition-colors cursor-pointer group"
-                    >
-                      <span className="font-bold uppercase tracking-tight group-hover:text-primary transition-colors">
-                        {item}
-                      </span>
-                      <ExternalLink className="w-4 h-4 text-foreground/30 group-hover:text-primary transition-colors stroke-3" />
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
+          <SupportIndex
+            articles={docsArticles}
+            basePath="/docs"
+            emptyTitle="Nenhum documento encontrado"
+            emptyDescription="Tente outro termo ou abra a área de ajuda para mais contexto."
+          />
         </section>
 
-        {/* Product operations */}
         <section className="mb-24">
           <div className="flex items-center gap-6 mb-12">
             <div className="w-20 h-20 bg-gray-800 border-4 border-foreground shadow-neo flex items-center justify-center -rotate-3">
@@ -210,7 +131,7 @@ export default function DocsPage() {
                 OPERAÇÃO DO PRODUTO
               </h2>
               <p className="text-xl font-bold uppercase tracking-tight opacity-70 leading-none">
-                BILLING, ANALYTICS E FONTES DE VERDADE
+                BILLING, ANALYTICS E SUPORTE
               </p>
             </div>
           </div>
@@ -226,98 +147,48 @@ export default function DocsPage() {
                 </h3>
               </div>
               <p className="text-lg font-bold uppercase tracking-tight opacity-70 mb-8 leading-tight">
-                ENTENDA O FLUXO DE UPGRADE, O PAPEL DO STRIPE COMO PADRÃO E COMO
-                O MERCADO PAGO ENTRA COMO ALTERNATIVA SECUNDÁRIA.
+                ENTENDA O PAPEL DE STRIPE E MERCADO PAGO NA ASSINATURA PRO.
               </p>
               <Button
+                asChild
                 variant="outline"
                 size="lg"
                 className="border-4 border-white bg-transparent text-white font-black hover:bg-white hover:text-gray-900 uppercase tracking-widest h-16 w-full shadow-neo transition-all"
               >
-                <CreditCard className="w-6 h-6 mr-3" />
-                VER BILLING
+                <Link href="/docs/billing-overview">
+                  <CreditCard className="w-6 h-6 mr-3" />
+                  VER BILLING
+                </Link>
               </Button>
             </Card>
 
             <Card className="border-4 border-foreground shadow-neo bg-blue-100 rounded-none p-10 hover:-rotate-1 transition-transform">
               <div className="flex items-center gap-6 mb-8">
                 <div className="w-16 h-16 bg-white border-4 border-foreground shadow-neo flex items-center justify-center rotate-6">
-                  <BarChart3 className="w-8 h-8 text-blue-400 stroke-3" />
+                  <FileText className="w-8 h-8 text-blue-400 stroke-3" />
                 </div>
                 <h3 className="text-3xl font-black uppercase tracking-tighter italic">
                   ANALYTICS
                 </h3>
               </div>
               <p className="text-lg font-bold uppercase tracking-tight opacity-70 mb-8 leading-tight">
-                ENTENDA A DIFERENÇA ENTRE MÉTRICAS INTERNAS E POSTHOG, E COMO
-                INTERPRETAR VIEWS, CLIQUES E CONVERSÃO SEM AMBIGUIDADE.
+                VEJA COMO O PRODUTO SEPARA MÉTRICAS INTERNAS E LEITURA DE TENDÊNCIA.
               </p>
               <Button
+                asChild
                 variant="outline"
                 size="lg"
                 className="border-4 border-foreground bg-white text-foreground font-black hover:bg-foreground hover:text-white uppercase tracking-widest h-16 w-full shadow-neo transition-all"
               >
-                <BarChart3 className="w-6 h-6 mr-3" />
-                VER ANALYTICS
+                <Link href="/docs/analytics-model">
+                  <FileText className="w-6 h-6 mr-3" />
+                  VER ANALYTICS
+                </Link>
               </Button>
             </Card>
           </div>
         </section>
 
-        {/* Resources */}
-        <section className="mb-24">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black uppercase tracking-tighter italic underline decoration-primary decoration-8 underline-offset-8">
-              RECURSOS EXTRAS
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "CHANGELOG",
-                desc: "ACOMPANHE TODAS AS ATUALIZAÇÕES.",
-                icon: FileText,
-                color: "text-blue-500",
-              },
-              {
-                title: "EXEMPLOS",
-                desc: "SNIPPETS PRÁTICOS DE CÓDIGO.",
-                icon: Settings,
-                color: "text-emerald-500",
-              },
-              {
-                title: "GUIAS AVANÇADOS",
-                desc: "TUTORIAIS PARA CASOS COMPLEXOS.",
-                icon: BookOpen,
-                color: "text-purple-500",
-              },
-            ].map((resource, i) => (
-              <Card
-                key={i}
-                className="border-4 border-foreground shadow-neo bg-white rounded-none p-8 text-center group hover:bg-gray-50 transition-colors"
-              >
-                <resource.icon
-                  className={`w-16 h-16 ${resource.color} mx-auto mb-6 stroke-3 group-hover:scale-110 transition-transform`}
-                />
-                <h3 className="text-2xl font-black uppercase tracking-tighter italic mb-2">
-                  {resource.title}
-                </h3>
-                <p className="text-sm font-bold uppercase tracking-tight opacity-50 mb-8">
-                  {resource.desc}
-                </p>
-                <Button
-                  variant="ghost"
-                  className="font-black uppercase tracking-widest text-primary italic underline decoration-2 underline-offset-4"
-                >
-                  VER AGORA
-                </Button>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* CTA Section */}
         <section className="mt-24">
           <Card className="border-8 border-foreground shadow-neo bg-primary text-white rounded-none p-16 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/10 to-transparent" />
@@ -329,23 +200,24 @@ export default function DocsPage() {
                   MAIS AJUDA?
                 </h3>
                 <p className="text-2xl font-bold uppercase tracking-tight max-w-xl leading-tight">
-                  NOSSA EQUIPE ESTÁ SEMPRE DISPONÍVEL PARA AJUDAR VOCÊ A
-                  CONSTRUIR COISAS INCRÍVEIS.
+                  USE A CENTRAL DE AJUDA OU ENTRE EM CONTATO COM O SUPORTE.
                 </p>
               </div>
               <div className="flex flex-col gap-6">
                 <Button
+                  asChild
                   size="lg"
                   className="bg-white text-foreground border-4 border-foreground shadow-neo font-black uppercase tracking-widest text-2xl h-20 -rotate-2 hover:rotate-0 transition-transform"
                 >
-                  FALAR COM SUPORTE
+                  <Link href="/contact">FALAR COM SUPORTE</Link>
                 </Button>
                 <Button
+                  asChild
                   size="lg"
                   variant="outline"
                   className="bg-foreground text-background border-4 border-foreground shadow-neo font-black uppercase tracking-widest text-2xl h-20 rotate-1 hover:rotate-0 transition-transform"
                 >
-                  COMUNIDADE
+                  <Link href="/help">CENTRAL DE AJUDA</Link>
                 </Button>
               </div>
             </div>
