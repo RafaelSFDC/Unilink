@@ -1,10 +1,14 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ProfilePage } from '@/components/profile-page'
+import { TEMPLATE_OPTIONS, type TemplateId } from '@/components/profile-templates'
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>
+  searchParams: Promise<{ preview?: string }>
 }
+
+const templateIds = new Set<string>(TEMPLATE_OPTIONS.map((template) => template.id))
 
 async function getUserByUsername(username: string) {
   const user = await prisma.user.findUnique({
@@ -64,35 +68,47 @@ export async function generateMetadata({ params }: ProfilePageProps) {
   }
 }
 
-export default async function UserProfilePage({ params }: ProfilePageProps) {
+export default async function UserProfilePage({ params, searchParams }: ProfilePageProps) {
   const { username } = await params
+  const { preview } = await searchParams
   const user = await getUserByUsername(username)
 
   if (!user) {
     notFound()
   }
 
-  // Incrementar visualização
-  const analyticsDate = getAnalyticsDate()
-  await prisma.analytics.upsert({
-    where: {
-      userId_date: {
-        userId: user.id,
-        date: analyticsDate
-      }
-    },
-    update: {
-      totalViews: {
-        increment: 1
-      }
-    },
-    create: {
-      userId: user.id,
-      date: analyticsDate,
-      totalViews: 1,
-      totalClicks: 0
-    }
-  })
+  const previewTemplateId =
+    preview && templateIds.has(preview) ? (preview as TemplateId) : null
 
-  return <ProfilePage user={user} />
+  // Incrementar visualização
+  if (!previewTemplateId) {
+    const analyticsDate = getAnalyticsDate()
+    await prisma.analytics.upsert({
+      where: {
+        userId_date: {
+          userId: user.id,
+          date: analyticsDate
+        }
+      },
+      update: {
+        totalViews: {
+          increment: 1
+        }
+      },
+      create: {
+        userId: user.id,
+        date: analyticsDate,
+        totalViews: 1,
+        totalClicks: 0
+      }
+    })
+  }
+
+  return (
+    <ProfilePage
+      user={user}
+      preview={!!previewTemplateId}
+      previewTemplateId={previewTemplateId}
+    />
+  )
 }

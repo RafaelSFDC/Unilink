@@ -37,10 +37,19 @@ interface User {
 interface ProfilePageProps {
   user: User
   preview?: boolean
+  previewTemplateId?: TemplateId | null
 }
 
-export function ProfilePage({ user, preview = false }: ProfilePageProps) {
-  const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null)
+export function ProfilePage({
+  user,
+  preview = false,
+  previewTemplateId = null,
+}: ProfilePageProps) {
+  const baseTheme = user.theme as Partial<ThemeSettings> | null
+  const theme = resolveTheme({
+    ...baseTheme,
+    template: previewTemplateId ?? baseTheme?.template,
+  })
 
   const handleLinkClick = async (linkId: string, url: string) => {
     if (preview) {

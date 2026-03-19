@@ -139,13 +139,12 @@ export default function BillingPage({
             ))}
           </ul>
 
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo"
-            disabled={!isPro}
-            onClick={() => toast.info("Para cancelar, entre em contato ou gerencie no portal do Stripe.")}
+            disabled
           >
-            {isPro ? "CANCELAR ASSINATURA" : "PLANO ATUAL"}
+            {!isPro ? "PLANO ATUAL" : "PLANO FREE"}
           </Button>
         </div>
 
@@ -189,9 +188,11 @@ export default function BillingPage({
               ? "STRIPE INDISPONIVEL"
               : isLoading
                 ? "CARREGANDO..."
-                : isPro && billingProvider === "stripe"
+              : isPro && billingProvider === "stripe"
                   ? "GERENCIAR NO STRIPE"
-                  : "ASSINAR COM STRIPE"}
+                  : isPro
+                    ? "STRIPE NÃO É O PROVEDOR DESTA CONTA"
+                    : "ASSINAR COM STRIPE"}
           </Button>
 
           {!isPro && (
@@ -205,9 +206,15 @@ export default function BillingPage({
                 ? "MERCADO PAGO INDISPONIVEL"
                 : isMercadoPagoLoading
                   ? "ABRINDO MERCADO PAGO..."
-                  : "ALTERNATIVA VIA MERCADO PAGO"}
+                : "ALTERNATIVA VIA MERCADO PAGO"}
             </Button>
           )}
+
+          {isPro && billingProvider === "mercadopago" ? (
+            <div className="mt-4 border-4 border-foreground bg-yellow-100 p-4 text-sm font-black uppercase tracking-tight text-black shadow-neo-sm">
+              Conta PRO ativada via Mercado Pago. Gestão e cancelamento ainda são feitos pelo suporte.
+            </div>
+          ) : null}
         </div>
       </div>
 

@@ -29,25 +29,25 @@ const features = [
     title: "Analytics",
     description: "Dados brutais em tempo real.",
     icon: BarChart3,
-    href: "#analytics",
+    href: "/pricing",
   },
   {
     title: "Design",
     description: "Personalização sem limites.",
     icon: Palette,
-    href: "#customization",
+    href: "/about",
   },
   {
     title: "Segurança",
     description: "Proteção total dos seus dados.",
     icon: Shield,
-    href: "#security",
+    href: "/privacy",
   },
   {
     title: "Velocidade",
     description: "Performance extrema.",
     icon: Zap,
-    href: "#performance",
+    href: "/sign-up",
   },
 ];
 

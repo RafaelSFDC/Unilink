@@ -1,22 +1,18 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { ContactForm } from "@/components/contact-form";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
   Mail,
   MessageCircle,
   Phone,
   MapPin,
-  Send,
   Twitter,
   Instagram,
   Linkedin,
@@ -63,55 +59,9 @@ export default function ContactPage() {
                   RESPOSTAS RÁPIDAS E DIRETAS AO PONTO
                 </CardDescription>
               </CardHeader>
-              <CardContent className="p-10 space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <label className="text-xl font-black uppercase tracking-tighter">
-                      NOME
-                    </label>
-                    <Input
-                      placeholder="SEU NOME BRUTAL"
-                      className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-xl font-black uppercase tracking-tighter">
-                      EMAIL
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="SEU@EMAIL.COM"
-                      className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <label className="text-xl font-black uppercase tracking-tighter">
-                    ASSUNTO
-                  </label>
-                  <Input
-                    placeholder="COMO PODEMOS AJUDAR?"
-                    className="h-16 border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
-                  />
-                </div>
-
-                <div className="space-y-3">
-                  <label className="text-xl font-black uppercase tracking-tighter">
-                    MENSAGEM
-                  </label>
-                  <Textarea
-                    placeholder="DIGITE SUA MENSAGEM AQUI..."
-                    rows={6}
-                    className="border-4 border-foreground shadow-neo text-lg font-bold uppercase placeholder:opacity-30 rounded-none focus-visible:ring-0 focus-visible:border-primary transition-all"
-                  />
-                </div>
-
-                <Button className="w-full h-20 text-2xl font-black uppercase tracking-tighter bg-primary text-white border-4 border-foreground shadow-neo-lg hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all">
-                  <Send className="w-8 h-8 mr-4 stroke-3" />
-                  ENVIAR AGORA
-                </Button>
-              </CardContent>
+              <div className="p-10">
+                <ContactForm />
+              </div>
             </Card>
           </div>
 

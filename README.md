@@ -81,6 +81,7 @@ cp .env.example .env
 ```
 
 3. Configure as variaveis obrigatorias no `.env`.
+   Para o formulario de contato enviar email diretamente pelo app, configure tambem `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` e `SUPPORT_EMAIL`.
 
 4. Gere o Prisma Client:
 
