@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { checkSubscription } from "@/lib/subscription";
+import { checkSubscription, hasActiveProAccess } from "@/lib/subscription";
 import BillingPageClient from "@/components/billing-page";
 import { requireAuthSession } from "@/lib/auth-session";
 
@@ -15,6 +15,7 @@ export default async function BillingPage() {
       plan: true,
       stripeCustomerId: true,
       stripeCurrentPeriodEnd: true,
+      mercadopagoCurrentPeriodEnd: true,
     },
   });
 
@@ -22,7 +23,12 @@ export default async function BillingPage() {
     redirect("/onboarding");
   }
 
-  const billingProvider = user.stripeCustomerId ? "stripe" : user.plan === "PRO" ? "mercadopago" : "free";
+  const billingProvider =
+    user.stripeCustomerId
+      ? "stripe"
+      : hasActiveProAccess(user)
+        ? "mercadopago"
+        : "free";
 
   return (
     <BillingPageClient

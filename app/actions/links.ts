@@ -4,15 +4,10 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { isValidHttpUrl, validateRequired } from '@/lib/form-utils'
 import { getAuthSession } from '@/lib/auth-session'
+import { linkInputSchema } from '@/lib/contracts'
+import { hasActiveProAccess } from '@/lib/subscription'
 
-interface CreateLinkData {
-  title: string
-  url: string
-  description?: string
-  icon?: string
-}
-
-export async function createLink(data: CreateLinkData) {
+export async function createLink(data: unknown) {
   try {
     const session = await getAuthSession()
     if (!session) {
@@ -28,30 +23,18 @@ export async function createLink(data: CreateLinkData) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
-    const title = data.title.trim()
-    const url = data.url.trim()
-    const description = data.description?.trim() || null
-    const icon = data.icon?.trim() || null
-
-    const titleError = validateRequired(title, 'Titulo e obrigatorio')
-    if (titleError) {
-      return { success: false, error: titleError }
+    const parsed = linkInputSchema.safeParse(data)
+    if (!parsed.success) {
+      return { success: false, error: 'Dados do link inválidos.' }
     }
 
-    const urlError = validateRequired(url, 'URL e obrigatoria')
-    if (urlError) {
-      return { success: false, error: urlError }
-    }
+    const { title, url, description, icon } = parsed.data
 
     if (!isValidHttpUrl(url)) {
       return { success: false, error: 'URL invalida. Use http:// ou https://.' }
     }
 
-    // Verificar limite de links para usuários Free
-    const DAY_IN_MS = 86_400_000;
-    const isPro = 
-      user.plan === "PRO" || 
-      (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now()));
+    const isPro = hasActiveProAccess(user)
 
     if (!isPro && user.links.length >= 5) {
       return { 
@@ -69,8 +52,8 @@ export async function createLink(data: CreateLinkData) {
       data: {
         title,
         url,
-        description,
-        icon,
+        description: description || null,
+        icon: icon || null,
         order: maxOrder + 1,
         userId: user.id
       }
@@ -85,7 +68,7 @@ export async function createLink(data: CreateLinkData) {
   }
 }
 
-export async function updateLink(linkId: string, data: Partial<CreateLinkData>) {
+export async function updateLink(linkId: string, data: unknown) {
   try {
     const session = await getAuthSession()
     if (!session) {
@@ -112,12 +95,17 @@ export async function updateLink(linkId: string, data: Partial<CreateLinkData>) 
       return { success: false, error: 'Link não encontrado' }
     }
 
-    const nextTitle = data.title?.trim()
-    const nextUrl = data.url?.trim()
-    const nextDescription = data.description === undefined
+    const parsed = linkInputSchema.partial().safeParse(data)
+    if (!parsed.success) {
+      return { success: false, error: 'Dados do link inválidos.' }
+    }
+
+    const nextTitle = parsed.data.title
+    const nextUrl = parsed.data.url
+    const nextDescription = parsed.data.description === undefined
       ? undefined
-      : data.description.trim() || null
-    const nextIcon = data.icon === undefined ? undefined : data.icon.trim() || null
+      : parsed.data.description || null
+    const nextIcon = parsed.data.icon === undefined ? undefined : parsed.data.icon || null
 
     if (nextTitle !== undefined) {
       const titleError = validateRequired(nextTitle, 'Titulo e obrigatorio')

@@ -3,6 +3,33 @@ import { getAuthSession } from "./auth-session";
 
 const DAY_IN_MS = 86_400_000;
 
+export function hasActiveProAccess(user: {
+  plan: "FREE" | "PRO";
+  stripePriceId?: string | null;
+  stripeCurrentPeriodEnd?: Date | null;
+  mercadopagoCurrentPeriodEnd?: Date | null;
+}) {
+  const hasActiveStripe =
+    !!user.stripePriceId &&
+    !!user.stripeCurrentPeriodEnd &&
+    user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now();
+
+  const hasActiveMercadoPago =
+    !!user.mercadopagoCurrentPeriodEnd &&
+    user.mercadopagoCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now();
+
+  const hasTrackedSubscription =
+    !!user.stripePriceId ||
+    !!user.stripeCurrentPeriodEnd ||
+    !!user.mercadopagoCurrentPeriodEnd;
+
+  if (hasTrackedSubscription) {
+    return hasActiveStripe || hasActiveMercadoPago;
+  }
+
+  return user.plan === "PRO";
+}
+
 export async function getSubscription() {
   const session = await getAuthSession();
 
@@ -17,6 +44,7 @@ export async function getSubscription() {
       stripeCurrentPeriodEnd: true,
       stripeCustomerId: true,
       stripePriceId: true,
+      mercadopagoCurrentPeriodEnd: true,
       plan: true,
     },
   });
@@ -25,14 +53,9 @@ export async function getSubscription() {
     return null;
   }
 
-  const isValid =
-    user.stripePriceId &&
-    !!user.stripeCurrentPeriodEnd &&
-    user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now();
-
   return {
     ...user,
-    isPro: !!isValid || user.plan === "PRO",
+    isPro: hasActiveProAccess(user),
   };
 }
 

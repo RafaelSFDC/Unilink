@@ -4,33 +4,30 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { validateRequired, validateUsername } from '@/lib/form-utils'
 import { getAuthSession } from '@/lib/auth-session'
+import { profileInputSchema, profileUpdateSchema } from '@/lib/contracts'
 
-interface CreateUserData {
-  email: string
-  firstName: string
-  lastName: string
-  imageUrl: string
-  username: string
-  bio?: string
-  title?: string
-}
-
-export async function createUser(data: CreateUserData) {
+export async function createUser(data: unknown) {
   try {
     const session = await getAuthSession()
     if (!session) {
       return { success: false, error: 'Sessao invalida. Entre novamente para continuar.' }
     }
 
-    const normalizedUsername = data.username.trim().toLowerCase()
+    const parsed = profileInputSchema.safeParse(data)
+    if (!parsed.success) {
+      return { success: false, error: 'Dados de perfil inválidos.' }
+    }
+
+    const input = parsed.data
+    const normalizedUsername = input.username.trim().toLowerCase()
     const usernameError = validateUsername(normalizedUsername)
     if (usernameError) {
       return { success: false, error: usernameError }
     }
 
-    const email = data.email.trim().toLowerCase()
-    const firstName = data.firstName.trim()
-    const lastName = data.lastName.trim()
+    const email = input.email.trim().toLowerCase()
+    const firstName = input.firstName.trim()
+    const lastName = input.lastName.trim()
     const nameError = validateRequired(firstName, 'Nome e obrigatorio')
     if (nameError) {
       return { success: false, error: nameError }
@@ -65,9 +62,9 @@ export async function createUser(data: CreateUserData) {
         displayUsername: normalizedUsername,
         firstName,
         lastName: lastName || null,
-        imageUrl: data.imageUrl,
-        bio: data.bio?.trim() || null,
-        title: data.title?.trim() || null,
+        imageUrl: input.imageUrl || null,
+        bio: input.bio?.trim() || null,
+        title: input.title?.trim() || null,
       }
     })
 
@@ -100,7 +97,7 @@ export async function createUser(data: CreateUserData) {
   }
 }
 
-export async function updateUser(userId: string, data: Partial<CreateUserData>) {
+export async function updateUser(userId: string, data: unknown) {
   try {
     const session = await getAuthSession()
     if (!session) {
@@ -117,7 +114,13 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
       return { success: false, error: 'Usuário não encontrado' }
     }
 
-    const nextUsername = data.username?.trim().toLowerCase()
+    const parsed = profileUpdateSchema.safeParse(data)
+    if (!parsed.success) {
+      return { success: false, error: 'Dados de perfil inválidos.' }
+    }
+
+    const input = parsed.data
+    const nextUsername = input.username?.trim().toLowerCase()
     if (nextUsername) {
       const usernameError = validateUsername(nextUsername)
       if (usernameError) {
@@ -138,12 +141,12 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
       data: {
         username: nextUsername,
         displayUsername: nextUsername,
-        name: [data.firstName?.trim(), data.lastName?.trim()].filter(Boolean).join(' ').trim() || existingUser.name,
-        firstName: data.firstName?.trim(),
-        lastName: data.lastName?.trim() || null,
-        bio: data.bio?.trim() || null,
-        title: data.title?.trim() || null,
-        imageUrl: data.imageUrl,
+        name: [input.firstName?.trim(), input.lastName?.trim()].filter(Boolean).join(' ').trim() || existingUser.name,
+        firstName: input.firstName?.trim(),
+        lastName: input.lastName?.trim() || null,
+        bio: input.bio?.trim() || null,
+        title: input.title?.trim() || null,
+        imageUrl: input.imageUrl || null,
       }
     })
 

@@ -5,33 +5,9 @@ import { ExternalLink } from "lucide-react";
 import { Watermark } from "@/components/watermark";
 import { NewsletterBlock } from "@/components/newsletter-block";
 import { getThemeBackgroundStyle, getThemeFontFamily, resolveTheme, type ThemeSettings } from "@/lib/theme";
+import type { ProfileTemplateProps } from "@/components/profile-templates/types";
 
-interface User {
-  id: string;
-  username: string;
-  firstName: string | null;
-  lastName: string | null;
-  imageUrl: string | null;
-  bio: string | null;
-  title: string | null;
-  links: Array<{
-    id: string;
-    title: string;
-    url: string;
-    description: string | null;
-    icon: string | null;
-    order: number;
-  }>;
-  theme: Partial<ThemeSettings> | Record<string, unknown> | null;
-  isPro?: boolean;
-}
-
-interface DefaultTemplateProps {
-  user: User;
-  onLinkClick: (linkId: string, url: string) => void;
-}
-
-export function DefaultTemplate({ user, onLinkClick }: DefaultTemplateProps) {
+export function DefaultTemplate({ user, onLinkClick }: ProfileTemplateProps) {
   const theme = resolveTheme(user.theme as Partial<ThemeSettings> | null);
 
   return (

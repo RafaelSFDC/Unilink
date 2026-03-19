@@ -4,22 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { DEFAULT_THEME } from '@/lib/theme'
 import { getAuthSession } from '@/lib/auth-session'
+import { themeInputSchema } from '@/lib/contracts'
 
-interface UpdateThemeData {
-  template?: string
-  backgroundColor: string
-  textColor: string
-  linkColor: string
-  buttonStyle: string
-  fontFamily: string
-  backgroundType: string
-  gradientFrom?: string
-  gradientTo?: string
-  motionPreset: string
-  interactionPreset: string
-}
-
-export async function updateTheme(userId: string, data: UpdateThemeData) {
+export async function updateTheme(userId: string, data: unknown) {
   try {
     const session = await getAuthSession()
     if (!session) {
@@ -35,18 +22,24 @@ export async function updateTheme(userId: string, data: UpdateThemeData) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
+    const parsed = themeInputSchema.safeParse(data)
+    if (!parsed.success) {
+      return { success: false, error: 'Configuração de tema inválida.' }
+    }
+
+    const input = parsed.data
     const themeData = {
-      template: data.template || 'default',
-      backgroundColor: data.backgroundColor,
-      textColor: data.textColor,
-      linkColor: data.linkColor,
-      buttonStyle: data.buttonStyle,
-      fontFamily: data.fontFamily,
-      backgroundType: data.backgroundType,
-      gradientFrom: data.backgroundType === 'gradient' ? data.gradientFrom : null,
-      gradientTo: data.backgroundType === 'gradient' ? data.gradientTo : null,
-      motionPreset: data.motionPreset,
-      interactionPreset: data.interactionPreset,
+      template: input.template || 'default',
+      backgroundColor: input.backgroundColor,
+      textColor: input.textColor,
+      linkColor: input.linkColor,
+      buttonStyle: input.buttonStyle,
+      fontFamily: input.fontFamily,
+      backgroundType: input.backgroundType,
+      gradientFrom: input.backgroundType === 'gradient' ? input.gradientFrom || null : null,
+      gradientTo: input.backgroundType === 'gradient' ? input.gradientTo || null : null,
+      motionPreset: input.motionPreset,
+      interactionPreset: input.interactionPreset,
     }
 
     let theme

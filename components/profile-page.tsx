@@ -13,29 +13,10 @@ import {
   CreativeTemplate,
   type TemplateId
 } from '@/components/profile-templates'
-
-interface User {
-  id: string
-  username: string
-  firstName: string | null
-  lastName: string | null
-  imageUrl: string | null
-  bio: string | null
-  title: string | null
-  links: Array<{
-    id: string
-    title: string
-    url: string
-    description: string | null
-    icon: string | null
-    order: number
-  }>
-  theme: Partial<ThemeSettings> | Record<string, unknown> | null
-  isPro?: boolean
-}
+import type { ProfileTemplateUser } from '@/components/profile-templates/types'
 
 interface ProfilePageProps {
-  user: User
+  user: ProfileTemplateUser
   preview?: boolean
   previewTemplateId?: TemplateId | null
 }

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ProfilePage } from '@/components/profile-page'
 import { TEMPLATE_OPTIONS, type TemplateId } from '@/components/profile-templates'
+import { hasActiveProAccess } from '@/lib/subscription'
 
 interface ProfilePageProps {
   params: Promise<{ username: string }>
@@ -28,10 +29,7 @@ async function getUserByUsername(username: string) {
   if (!user) return null
 
   // Adicionando flag isPro baseada no plano ou assinatura ativa
-  const DAY_IN_MS = 86_400_000;
-  const isPro = 
-    user.plan === "PRO" || 
-    (!!user.stripePriceId && !!user.stripeCurrentPeriodEnd && (user.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now()));
+  const isPro = hasActiveProAccess(user)
 
   return {
     ...user,

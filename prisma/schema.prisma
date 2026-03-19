@@ -54,6 +54,8 @@ model User {
   stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
   stripePriceId          String?   @map("stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map("stripe_current_period_end")
+  mercadopagoPaymentId   String?   @unique @map("mercadopago_payment_id")
+  mercadopagoCurrentPeriodEnd DateTime? @map("mercadopago_current_period_end")
 
   @@map("users")
 }

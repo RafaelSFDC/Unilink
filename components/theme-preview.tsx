@@ -13,34 +13,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { resolveTheme, type ThemeSettings } from "@/lib/theme";
+import type { ProfileTemplateUser } from "@/components/profile-templates/types";
 
 const ProfilePage = dynamic(
   () => import("@/components/profile-page").then((mod) => mod.ProfilePage),
   { ssr: false },
 );
 
-interface PreviewUser {
-  id: string;
-  username: string;
-  firstName: string | null;
-  lastName: string | null;
-  imageUrl: string | null;
-  bio: string | null;
-  title: string | null;
-  links: Array<{
-    id: string;
-    title: string;
-    url: string;
-    description: string | null;
-    icon: string | null;
-    order: number;
-  }>;
-  theme: Partial<ThemeSettings> | Record<string, unknown> | null;
-  isPro?: boolean;
-}
-
 interface ThemePreviewProps {
-  user: PreviewUser;
+  user: ProfileTemplateUser;
   theme: ThemeSettings;
 }
 
@@ -141,7 +122,7 @@ function PreviewFrame({
   user,
   viewport,
 }: {
-  user: PreviewUser;
+  user: ProfileTemplateUser;
   viewport: "desktop" | "mobile";
 }) {
   const isDesktop = viewport === "desktop";

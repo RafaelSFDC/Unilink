@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getMercadoPagoPreference } from "@/lib/mercadopago";
 import { absoluteUrl } from "@/lib/utils";
 import { getAuthSession } from "@/lib/auth-session";
+import { hasActiveProAccess } from "@/lib/subscription";
 
 const settingsUrl = absoluteUrl("/dashboard/billing");
 
@@ -25,7 +26,7 @@ export async function GET() {
 
     // O Mercado Pago entra como fluxo secundário.
     // Se o usuário já é PRO, mantemos a pessoa na página de billing.
-    if (dbUser.plan === 'PRO') {
+    if (hasActiveProAccess(dbUser)) {
       return NextResponse.json({ url: settingsUrl });
     }
 
