@@ -1,9 +1,9 @@
 'use server'
 
-import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { DEFAULT_THEME } from '@/lib/theme'
+import { getAuthSession } from '@/lib/auth-session'
 
 interface UpdateThemeData {
   template?: string
@@ -21,20 +21,17 @@ interface UpdateThemeData {
 
 export async function updateTheme(userId: string, data: UpdateThemeData) {
   try {
-    const { userId: clerkId } = await auth()
-    if (!clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-        clerkId
-      },
+      where: { id: userId },
       include: { theme: true }
     })
 
-    if (!user) {
+    if (!user || user.id !== session.user.id) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
@@ -80,19 +77,16 @@ export async function updateTheme(userId: string, data: UpdateThemeData) {
 
 export async function resetTheme(userId: string) {
   try {
-    const { userId: clerkId } = await auth()
-    if (!clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-        clerkId
-      }
+      where: { id: userId }
     })
 
-    if (!user) {
+    if (!user || user.id !== session.user.id) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 

@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAuthSession } from "@/lib/auth-session";
 import {
   Card,
   CardContent,
@@ -11,26 +11,27 @@ import {
 import { SettingsForm } from "@/components/settings-form";
 import { Settings, Link } from "lucide-react";
 
-async function getUserData(clerkId: string) {
+async function getUserData(userId: string) {
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: userId },
   });
 
   return user;
 }
 
 export default async function SettingsPage() {
-  const { userId } = await auth();
+  const session = await requireAuthSession();
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  const user = await getUserData(session.user.id);
 
-  const user = await getUserData(userId);
-
-  if (!user) {
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
+
+  const settingsUser = {
+    ...user,
+    username: user.username,
+  };
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -57,7 +58,7 @@ export default async function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <SettingsForm user={user} />
+            <SettingsForm user={settingsUser} />
           </CardContent>
         </Card>
 
@@ -75,8 +76,8 @@ export default async function SettingsPage() {
             <div className="bg-background border-4 border-foreground shadow-neo p-6 mb-8 rotate-[-1deg]">
               <code className="text-lg font-black break-all text-primary uppercase">
                 {process.env.NODE_ENV === "production"
-                  ? `unilink.com/${user.username}`
-                  : `localhost:3000/${user.username}`}
+                  ? `unilink.com/${settingsUser.username}`
+                  : `localhost:3000/${settingsUser.username}`}
               </code>
             </div>
             <div className="space-y-4 bg-muted border-2 border-dashed border-foreground p-6">

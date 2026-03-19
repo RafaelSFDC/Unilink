@@ -1,7 +1,7 @@
 import NextLink from "next/link";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireAuthSession } from "@/lib/auth-session";
 import {
   Card,
   CardContent,
@@ -13,10 +13,10 @@ import { Button } from "@/components/ui/button";
 import { Plus, Link, BarChart3, Palette, Eye, Zap } from "lucide-react";
 import { checkSubscription } from "@/lib/subscription";
 
-async function getUserData(clerkId: string) {
+async function getUserData(userId: string) {
   try {
     const user = await prisma.user.findUnique({
-      where: { clerkId },
+      where: { id: userId },
       include: {
         links: {
           orderBy: { order: "asc" },
@@ -38,16 +38,11 @@ async function getUserData(clerkId: string) {
 }
 
 export default async function DashboardPage() {
-  const { userId } = await auth();
+  const session = await requireAuthSession();
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  const user = await getUserData(session.user.id);
 
-  const user = await getUserData(userId);
-
-  if (!user) {
-    // Usuário não existe no banco ou erro de conexão, vamos para onboarding
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
 

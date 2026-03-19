@@ -1,17 +1,17 @@
-import { auth } from "@clerk/nextjs/server";
 import { prisma } from "./prisma";
+import { getAuthSession } from "./auth-session";
 
 const DAY_IN_MS = 86_400_000;
 
 export async function getSubscription() {
-  const { userId: clerkId } = await auth();
+  const session = await getAuthSession();
 
-  if (!clerkId) {
+  if (!session) {
     return null;
   }
 
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: session.user.id },
     select: {
       stripeSubscriptionId: true,
       stripeCurrentPeriodEnd: true,

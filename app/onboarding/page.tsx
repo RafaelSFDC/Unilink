@@ -1,22 +1,17 @@
-import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { OnboardingForm } from '@/components/onboarding-form'
 import { prisma } from '@/lib/prisma'
+import { requireAuthSession } from '@/lib/auth-session'
 
 export default async function OnboardingPage() {
-  const { userId } = await auth()
-  const user = await currentUser()
-
-  if (!userId || !user) {
-    redirect('/sign-in')
-  }
+  const session = await requireAuthSession()
 
   const existingUser = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    select: { id: true },
+    where: { id: session.user.id },
+    select: { username: true, email: true, firstName: true, lastName: true, imageUrl: true },
   })
 
-  if (existingUser) {
+  if (existingUser?.username) {
     redirect('/dashboard')
   }
 
@@ -33,11 +28,10 @@ export default async function OnboardingPage() {
         </div>
 
         <OnboardingForm
-          clerkId={userId}
-          email={user.emailAddresses[0]?.emailAddress || ''}
-          firstName={user.firstName || ''}
-          lastName={user.lastName || ''}
-          imageUrl={user.imageUrl || ''}
+          email={existingUser?.email || session.user.email || ''}
+          firstName={existingUser?.firstName || session.user.firstName || ''}
+          lastName={existingUser?.lastName || session.user.lastName || ''}
+          imageUrl={existingUser?.imageUrl || session.user.image || ''}
         />
       </div>
     </div>

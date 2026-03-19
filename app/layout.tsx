@@ -5,8 +5,6 @@ import {
   Plus_Jakarta_Sans,
   Space_Grotesk,
 } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { ptBR } from "@clerk/localizations";
 import { Toaster } from "@/components/ui/sonner";
 import { PostHogProvider } from "@/components/providers/posthog-provider";
 import PostHogPageView from "@/components/providers/posthog-pageview";
@@ -47,18 +45,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={ptBR}>
-      <html lang="pt-BR">
-        <body
-          className={`${bricolage.variable} ${plusJakarta.variable} ${spaceGrotesk.variable} ${playfair.variable} font-jakarta antialiased`}
-        >
-          <PostHogProvider>
-            <PostHogPageView />
-            {children}
-            <Toaster />
-          </PostHogProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="pt-BR">
+      <body
+        className={`${bricolage.variable} ${plusJakarta.variable} ${spaceGrotesk.variable} ${playfair.variable} font-jakarta antialiased`}
+      >
+        <PostHogProvider>
+          <PostHogPageView />
+          {children}
+          <Toaster />
+        </PostHogProvider>
+      </body>
+    </html>
   );
 }

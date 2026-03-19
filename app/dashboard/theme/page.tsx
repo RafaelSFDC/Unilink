@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs/server";
 import { checkSubscription } from "@/lib/subscription";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -11,10 +10,11 @@ import {
 } from "@/components/ui/card";
 import { ThemeForm } from "@/components/theme-form";
 import { Palette } from "lucide-react";
+import { requireAuthSession } from "@/lib/auth-session";
 
-async function getUserData(clerkId: string) {
+async function getUserData(userId: string) {
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: userId },
     include: {
       theme: true,
       links: {
@@ -28,19 +28,19 @@ async function getUserData(clerkId: string) {
 }
 
 export default async function ThemePage() {
-  const { userId } = await auth();
+  const session = await requireAuthSession();
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  const user = await getUserData(session.user.id);
 
-  const user = await getUserData(userId);
-
-  if (!user) {
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
 
   const isPro = await checkSubscription();
+  const themedUser = {
+    ...user,
+    username: user.username,
+  };
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -67,7 +67,7 @@ export default async function ThemePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ThemeForm user={user} isPro={isPro} />
+            <ThemeForm user={themedUser} isPro={isPro} />
           </CardContent>
         </Card>
       </div>

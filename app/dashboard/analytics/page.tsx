@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getSubscription } from "@/lib/subscription";
 import { getPostHogAnalytics } from "@/lib/posthog-api";
 import { PostHogChart } from "@/components/analytics-chart";
+import { requireAuthSession } from "@/lib/auth-session";
 import {
   Card,
   CardContent,
@@ -15,9 +15,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Zap, BarChart3, TrendingUp, Users, MousePointer, ExternalLink } from "lucide-react";
 
-async function getInternalAnalytics(clerkId: string) {
+async function getInternalAnalytics(userId: string) {
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: userId },
   });
 
   if (!user) return null;
@@ -62,25 +62,21 @@ async function getInternalAnalytics(clerkId: string) {
 }
 
 export default async function AnalyticsPage() {
-  const { userId: clerkId } = await auth();
-
-  if (!clerkId) {
-    redirect("/sign-in");
-  }
+  const session = await requireAuthSession();
 
   const subscription = await getSubscription();
   const isPro = subscription?.isPro;
 
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: session.user.id },
     select: { username: true, id: true },
   });
 
-  if (!user) {
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
 
-  const internalStats = await getInternalAnalytics(clerkId);
+  const internalStats = await getInternalAnalytics(session.user.id);
 
   // Se não for PRO, mostramos o bloqueador
   if (!isPro) {

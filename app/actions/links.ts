@@ -1,9 +1,9 @@
 'use server'
 
-import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { isValidHttpUrl, validateRequired } from '@/lib/form-utils'
+import { getAuthSession } from '@/lib/auth-session'
 
 interface CreateLinkData {
   title: string
@@ -14,13 +14,13 @@ interface CreateLinkData {
 
 export async function createLink(data: CreateLinkData) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId },
+      where: { id: session.user.id },
       include: { links: true }
     })
 
@@ -87,13 +87,13 @@ export async function createLink(data: CreateLinkData) {
 
 export async function updateLink(linkId: string, data: Partial<CreateLinkData>) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId }
+      where: { id: session.user.id }
     })
 
     if (!user) {
@@ -158,13 +158,13 @@ export async function updateLink(linkId: string, data: Partial<CreateLinkData>) 
 
 export async function toggleLinkStatus(linkId: string) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId }
+      where: { id: session.user.id }
     })
 
     if (!user) {
@@ -201,13 +201,13 @@ export async function toggleLinkStatus(linkId: string) {
 
 export async function deleteLink(linkId: string) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId }
+      where: { id: session.user.id }
     })
 
     if (!user) {
@@ -241,13 +241,13 @@ export async function deleteLink(linkId: string) {
 
 export async function reorderLinks(linkIds: string[]) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId }
+      where: { id: session.user.id }
     })
 
     if (!user) {

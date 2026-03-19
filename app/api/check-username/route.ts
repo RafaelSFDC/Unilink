@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { auth } from '@clerk/nextjs/server'
 import { validateUsername } from '@/lib/form-utils'
+import { getAuthSession } from '@/lib/auth-session'
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = await auth()
-    if (!userId) {
+    const session = await getAuthSession()
+    if (!session) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 })
     }
 
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
     // Verificar se o username já existe (excluindo o usuário atual)
     const currentUser = await prisma.user.findUnique({
-      where: { clerkId: userId }
+      where: { id: session.user.id }
     })
 
     const existingUser = await prisma.user.findUnique({

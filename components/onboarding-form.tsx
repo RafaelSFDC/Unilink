@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 interface OnboardingFormProps {
-  clerkId: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -21,7 +20,6 @@ interface OnboardingFormProps {
 }
 
 export function OnboardingForm({
-  clerkId,
   email,
   firstName,
   lastName,
@@ -45,7 +43,6 @@ export function OnboardingForm({
       }
 
       const result = await createUser({
-        clerkId,
         email,
         firstName,
         lastName,

@@ -1,8 +1,8 @@
 'use server'
 
-import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { headers } from 'next/headers'
+import { getAuthSession } from '@/lib/auth-session'
 
 function getAnalyticsDate(date = new Date()) {
   const normalizedDate = new Date(date)
@@ -64,20 +64,17 @@ export async function trackClick(linkId: string) {
 
 export async function getAnalytics(userId: string, days: number = 30) {
   try {
-    const { userId: clerkId } = await auth()
-    if (!clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-        clerkId,
-      },
+      where: { id: userId },
       select: { id: true }
     })
 
-    if (!user) {
+    if (!user || user.id !== session.user.id) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 

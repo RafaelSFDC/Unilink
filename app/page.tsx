@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { HomeCta } from "@/components/auth/home-cta";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
@@ -15,7 +15,6 @@ import {
   BarChart3,
   Palette,
   Zap,
-  ArrowRight,
   CheckCircle,
   MousePointer,
   Sparkles,
@@ -51,30 +50,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap gap-8 items-center">
-                <SignedOut>
-                  <SignInButton mode="modal">
-                    <Button
-                      size="lg"
-                      className="h-20 px-12 text-2xl font-black uppercase tracking-tighter border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
-                    >
-                      COMEÇAR AGORA
-                      <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
-                    </Button>
-                  </SignInButton>
-                </SignedOut>
-
-                <SignedIn>
-                  <Button
-                    size="lg"
-                    className="h-20 px-12 text-2xl font-black uppercase tracking-tighter border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
-                    asChild
-                  >
-                    <Link href="/dashboard">
-                      MEU PAINEL
-                      <ArrowRight className="w-8 h-8 ml-3 stroke-3" />
-                    </Link>
-                  </Button>
-                </SignedIn>
+                <HomeCta />
               </div>
             </div>
 
@@ -208,7 +184,7 @@ export default function Home() {
                 className="h-16 text-xl font-black uppercase border-4 border-foreground shadow-neo group"
                 asChild
               >
-                <Link href="/onboarding">COMEÇAR GRATIS</Link>
+                <Link href="/sign-up">COMEÇAR GRATIS</Link>
               </Button>
             </div>
 
@@ -246,7 +222,7 @@ export default function Home() {
                 className="h-16 bg-white text-primary hover:bg-gray-100 text-xl font-black uppercase border-4 border-foreground shadow-neo"
                 asChild
               >
-                <Link href="/onboarding">QUERO SER PRO</Link>
+                <Link href="/sign-up">QUERO SER PRO</Link>
               </Button>
             </div>
           </div>
@@ -336,7 +312,7 @@ export default function Home() {
                 className="h-24 bg-yellow-400 text-black hover:bg-yellow-300 border-4 border-foreground shadow-neo-lg px-20 text-3xl font-black uppercase tracking-tighter"
                 asChild
               >
-                <Link href="/onboarding">CRIAR MEU PERFIL</Link>
+                <Link href="/sign-up">CRIAR MEU PERFIL</Link>
               </Button>
               <div className="text-white font-black text-xl uppercase tracking-tighter opacity-80">
                 Pronto para sair do zero sem complicacao

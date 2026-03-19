@@ -1,23 +1,22 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getMercadoPagoPreference } from "@/lib/mercadopago";
 import { absoluteUrl } from "@/lib/utils";
+import { getAuthSession } from "@/lib/auth-session";
 
 const settingsUrl = absoluteUrl("/dashboard/billing");
 
 export async function GET() {
   try {
     const mpPreference = getMercadoPagoPreference();
-    const { userId } = await auth();
-    const user = await currentUser();
+    const session = await getAuthSession();
 
-    if (!userId || !user) {
+    if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const dbUser = await prisma.user.findUnique({
-      where: { clerkId: userId },
+      where: { id: session.user.id },
     });
 
     if (!dbUser) {
@@ -44,8 +43,8 @@ export async function GET() {
           }
         ],
         payer: {
-          email: user.emailAddresses[0].emailAddress,
-          name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+          email: dbUser.email,
+          name: [dbUser.firstName, dbUser.lastName].filter(Boolean).join(' ').trim() || dbUser.name,
         },
         metadata: {
           user_id: dbUser.id

@@ -1,9 +1,9 @@
 "use client";
 
 import NextLink from "next/link";
-import { UserButton } from "@clerk/nextjs";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Link } from "lucide-react";
+import { UserMenu } from "@/components/auth/user-menu";
 
 export function DashboardHeader() {
   return (
@@ -27,13 +27,7 @@ export function DashboardHeader() {
 
       {/* User Button */}
       <div className="flex items-center">
-        <UserButton
-          appearance={{
-            elements: {
-              avatarBox: "w-8 h-8",
-            },
-          }}
-        />
+        <UserMenu />
       </div>
     </header>
   );

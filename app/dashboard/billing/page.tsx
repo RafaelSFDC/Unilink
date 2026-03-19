@@ -1,27 +1,24 @@
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { checkSubscription } from "@/lib/subscription";
 import BillingPageClient from "@/components/billing-page";
+import { requireAuthSession } from "@/lib/auth-session";
 
 export default async function BillingPage() {
-  const { userId } = await auth();
-
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  const session = await requireAuthSession();
 
   const isPro = await checkSubscription();
   const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
+    where: { id: session.user.id },
     select: {
+      username: true,
       plan: true,
       stripeCustomerId: true,
       stripeCurrentPeriodEnd: true,
     },
   });
 
-  if (!user) {
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
 

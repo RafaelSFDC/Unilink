@@ -1,12 +1,11 @@
 'use server'
 
-import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { validateRequired, validateUsername } from '@/lib/form-utils'
+import { getAuthSession } from '@/lib/auth-session'
 
 interface CreateUserData {
-  clerkId: string
   email: string
   firstName: string
   lastName: string
@@ -18,8 +17,8 @@ interface CreateUserData {
 
 export async function createUser(data: CreateUserData) {
   try {
-    const { userId: sessionClerkId } = await auth()
-    if (!sessionClerkId || sessionClerkId !== data.clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Sessao invalida. Entre novamente para continuar.' }
     }
 
@@ -37,38 +36,33 @@ export async function createUser(data: CreateUserData) {
       return { success: false, error: nameError }
     }
 
-    const existingByClerkId = await prisma.user.findUnique({
-      where: { clerkId: sessionClerkId }
+    const existingUser = await prisma.user.findUnique({
+      where: { id: session.user.id }
     })
 
-    if (existingByClerkId) {
+    if (!existingUser) {
+      return { success: false, error: 'Nao foi possivel localizar sua conta.' }
+    }
+
+    if (existingUser.username) {
       return { success: false, error: 'Seu perfil ja existe. Acesse o dashboard para continuar.' }
     }
 
-    // Verificar se o username já existe
-    const existingUser = await prisma.user.findUnique({
+    const conflictingUser = await prisma.user.findUnique({
       where: { username: normalizedUsername }
     })
 
-    if (existingUser) {
+    if (conflictingUser && conflictingUser.id !== existingUser.id) {
       return { success: false, error: 'Nome de usuário já está em uso' }
     }
 
-    // Verificar se o email já existe
-    const existingEmail = await prisma.user.findUnique({
-      where: { email }
-    })
-
-    if (existingEmail) {
-      return { success: false, error: 'Email já está em uso' }
-    }
-
-    // Criar o usuário
-    const user = await prisma.user.create({
+    const user = await prisma.user.update({
+      where: { id: existingUser.id },
       data: {
-        clerkId: sessionClerkId,
+        name: [firstName, lastName].filter(Boolean).join(' ').trim(),
         email,
         username: normalizedUsername,
+        displayUsername: normalizedUsername,
         firstName,
         lastName: lastName || null,
         imageUrl: data.imageUrl,
@@ -77,9 +71,10 @@ export async function createUser(data: CreateUserData) {
       }
     })
 
-    // Criar tema padrão para o usuário
-    await prisma.theme.create({
-      data: {
+    await prisma.theme.upsert({
+      where: { userId: user.id },
+      update: {},
+      create: {
         userId: user.id,
       }
     })
@@ -107,19 +102,18 @@ export async function createUser(data: CreateUserData) {
 
 export async function updateUser(userId: string, data: Partial<CreateUserData>) {
   try {
-    const { userId: clerkId } = await auth()
-    if (!clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const existingUser = await prisma.user.findFirst({
       where: {
         id: userId,
-        clerkId,
       },
     })
 
-    if (!existingUser) {
+    if (!existingUser || existingUser.id !== session.user.id) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 
@@ -143,6 +137,8 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
       where: { id: existingUser.id },
       data: {
         username: nextUsername,
+        displayUsername: nextUsername,
+        name: [data.firstName?.trim(), data.lastName?.trim()].filter(Boolean).join(' ').trim() || existingUser.name,
         firstName: data.firstName?.trim(),
         lastName: data.lastName?.trim() || null,
         bio: data.bio?.trim() || null,
@@ -166,19 +162,16 @@ export async function updateUser(userId: string, data: Partial<CreateUserData>) 
 
 export async function toggleUserVisibility(userId: string) {
   try {
-    const { userId: clerkId } = await auth()
-    if (!clerkId) {
+    const session = await getAuthSession()
+    if (!session) {
       return { success: false, error: 'Não autorizado' }
     }
 
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-        clerkId,
-      }
+      where: { id: userId }
     })
 
-    if (!user) {
+    if (!user || user.id !== session.user.id) {
       return { success: false, error: 'Usuário não encontrado' }
     }
 

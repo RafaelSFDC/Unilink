@@ -191,7 +191,7 @@ export default function AboutPage() {
             className="h-24 bg-primary text-white border-4 border-foreground shadow-neo-lg px-20 text-3xl font-black uppercase tracking-tighter hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all"
             asChild
           >
-            <Link href="/onboarding">CRIAR MEU PERFIL</Link>
+                <Link href="/sign-up">CRIAR MEU PERFIL</Link>
           </Button>
         </section>
       </main>

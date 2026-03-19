@@ -60,7 +60,7 @@ export default function PricingPage() {
             </ul>
 
             <Button size="lg" className="h-20 text-2xl font-black uppercase border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all" variant="outline" asChild>
-              <Link href="/onboarding">COMEÇAR AGORA</Link>
+              <Link href="/sign-up">COMEÇAR AGORA</Link>
             </Button>
           </div>
 
@@ -99,7 +99,7 @@ export default function PricingPage() {
             </ul>
 
             <Button size="lg" className="h-20 bg-white text-primary hover:bg-zinc-100 text-2xl font-black uppercase border-4 border-foreground shadow-neo hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all" asChild>
-              <Link href="/onboarding">QUERO SER PRO</Link>
+              <Link href="/sign-up">QUERO SER PRO</Link>
             </Button>
           </div>
         </div>

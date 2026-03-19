@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import {
   Card,
@@ -12,14 +11,15 @@ import {
 import { LinkForm } from "@/components/link-form";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { requireAuthSession } from "@/lib/auth-session";
 
 interface EditLinkPageProps {
   params: Promise<{ id: string }>;
 }
 
-async function getLink(linkId: string, clerkId: string) {
+async function getLink(linkId: string, userId: string) {
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: userId },
   });
 
   if (!user) return null;
@@ -35,14 +35,10 @@ async function getLink(linkId: string, clerkId: string) {
 }
 
 export default async function EditLinkPage({ params }: EditLinkPageProps) {
-  const { userId } = await auth();
+  const session = await requireAuthSession();
   const { id } = await params;
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
-
-  const link = await getLink(id, userId);
+  const link = await getLink(id, session.user.id);
 
   if (!link) {
     notFound();

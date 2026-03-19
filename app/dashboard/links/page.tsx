@@ -1,5 +1,4 @@
 import NextLink from "next/link";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
@@ -13,10 +12,11 @@ import {
 import { LinksList } from "@/components/links-list";
 import { Plus, Link, Zap } from "lucide-react";
 import { checkSubscription } from "@/lib/subscription";
+import { requireAuthSession } from "@/lib/auth-session";
 
-async function getUserLinks(clerkId: string) {
+async function getUserLinks(userId: string) {
   const user = await prisma.user.findUnique({
-    where: { clerkId },
+    where: { id: userId },
     include: {
       links: {
         orderBy: { order: "asc" },
@@ -28,15 +28,11 @@ async function getUserLinks(clerkId: string) {
 }
 
 export default async function LinksPage() {
-  const { userId } = await auth();
+  const session = await requireAuthSession();
 
-  if (!userId) {
-    redirect("/sign-in");
-  }
+  const user = await getUserLinks(session.user.id);
 
-  const user = await getUserLinks(userId);
-
-  if (!user) {
+  if (!user || !user.username) {
     redirect("/onboarding");
   }
 

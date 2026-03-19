@@ -38,8 +38,7 @@ Antes de iniciar qualquer novo trabalho, ler nesta ordem:
 
 Itens de maior prioridade para o proximo ciclo.
 
-- Executar validacao manual completa da jornada principal e registrar o resultado.
-- Executar validacao manual completa do billing com Stripe e Mercado Pago.
+- Executar `docs/MANUAL_VALIDATION_ROADMAP.md` e registrar o resultado da rodada.
 - Revisar a landing e a pagina `/docs` para remover qualquer copy residual fora da oferta atual.
 - Reduzir o bundle da rota `app/dashboard/analytics/page.tsx`, especialmente no grafico.
 - Definir uma rotina simples de saneamento ou auditoria dos dados historicos de analytics.
@@ -66,7 +65,7 @@ Ideias que podem gerar aprendizado, mas nao devem competir com as prioridades pr
 
 ## Debitos Tecnicos Remanescentes
 
-- A validacao manual de fluxos criticos ainda nao foi documentada neste ciclo.
+- A validacao manual de fluxos criticos ainda nao foi executada neste ciclo.
 - A rota de analytics continua sendo uma das mais pesadas da aplicacao.
 - Observabilidade de erros e webhooks ainda pode evoluir.
 - Mercado Pago continua operacionalmente menos maduro do que Stripe.

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Menu,
@@ -22,6 +21,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { HeaderAuth } from "@/components/auth/header-auth";
 import { cn } from "@/lib/utils";
 
 const features = [
@@ -104,35 +104,7 @@ export function Header() {
 
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button
-                  variant="ghost"
-                  className="hidden sm:inline-flex font-bold uppercase"
-                >
-                  Entrar
-                </Button>
-              </SignInButton>
-              <SignInButton mode="modal">
-                <Button className="font-bold uppercase">Começar</Button>
-              </SignInButton>
-            </SignedOut>
-
-            <SignedIn>
-              <Button
-                asChild
-                variant="outline"
-                className="hidden sm:inline-flex font-bold uppercase shadow-neo"
-              >
-                <Link href="/dashboard">
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  Painel
-                </Link>
-              </Button>
-              <div className="border-2 border-foreground p-0.5 shadow-neo">
-                <UserButton />
-              </div>
-            </SignedIn>
+            <HeaderAuth />
 
             {/* Mobile Menu Button */}
             <Button

@@ -35,7 +35,7 @@ Hoje o projeto ja esta funcional para desenvolvimento local e possui base tecnic
 - React 19
 - TypeScript
 - Prisma + PostgreSQL
-- Clerk para autenticacao
+- better-auth para autenticacao
 - Tailwind CSS 4 + shadcn/ui
 - Stripe
 - Mercado Pago
@@ -60,6 +60,8 @@ docs/         documentacao tecnica e operacional
 - [docs/ANALYTICS.md](./docs/ANALYTICS.md)
 - [docs/PRODUCT_LIMITS.md](./docs/PRODUCT_LIMITS.md)
 - [docs/PRODUCT_ROADMAP.md](./docs/PRODUCT_ROADMAP.md)
+- [docs/MANUAL_VALIDATION_ROADMAP.md](./docs/MANUAL_VALIDATION_ROADMAP.md)
+- [docs/QA_CHECKLIST.md](./docs/QA_CHECKLIST.md)
 - [docs/CONTINUITY_BACKLOG.md](./docs/CONTINUITY_BACKLOG.md)
 - [docs/TEMPLATES.md](./docs/TEMPLATES.md)
 - [docs/TECHNICAL_AUDIT.md](./docs/TECHNICAL_AUDIT.md)
@@ -122,4 +124,5 @@ pnpm db:reset
 - documentacao tecnica consolidada em `docs/`
 - fases `0` a `7` consolidadas neste ciclo
 - fase `8` fechada com backlog, dividas tecnicas e continuidade organizados
-- validacoes manuais finais seguem documentadas como pendencias operacionais
+- roadmap de implementacao concluido
+- validacoes manuais finais agora seguem em um roadmap separado

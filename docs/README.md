@@ -4,7 +4,7 @@ Este diretorio concentra a documentacao tecnica e operacional do projeto.
 
 ## Fonte de Verdade
 
-Para fechar as fases `0` a `3`, estes arquivos mandam no projeto:
+Para o estado atual do projeto, estes arquivos mandam no projeto:
 
 - `docs/PRODUCT_ROADMAP.md` para status, criterio de saida e ordem de execucao
 - `docs/PRODUCT_LIMITS.md` para regras oficiais de produto e matriz `FREE` vs `PRO`
@@ -20,6 +20,8 @@ Para fechar as fases `0` a `3`, estes arquivos mandam no projeto:
 - [ANALYTICS.md](./ANALYTICS.md)
 - [PRODUCT_LIMITS.md](./PRODUCT_LIMITS.md)
 - [PRODUCT_ROADMAP.md](./PRODUCT_ROADMAP.md)
+- [MANUAL_VALIDATION_ROADMAP.md](./MANUAL_VALIDATION_ROADMAP.md)
+- [QA_CHECKLIST.md](./QA_CHECKLIST.md)
 - [CONTINUITY_BACKLOG.md](./CONTINUITY_BACKLOG.md)
 - [TEMPLATES.md](./TEMPLATES.md)
 - [TECHNICAL_AUDIT.md](./TECHNICAL_AUDIT.md)
@@ -30,8 +32,10 @@ Para fechar as fases `0` a `3`, estes arquivos mandam no projeto:
 2. `SETUP.md` para subir o projeto
 3. `PRODUCT_LIMITS.md` para regras de negocio e oferta
 4. `PRODUCT_ROADMAP.md` para o estado de execucao do produto
-5. `CONTINUITY_BACKLOG.md` para o que vem depois
-6. `BILLING.md` e `ANALYTICS.md` para integracoes e metricas
+5. `MANUAL_VALIDATION_ROADMAP.md` para tudo que ainda depende de teste humano
+6. `QA_CHECKLIST.md` para executar uma rodada de QA sem ambiguidade
+7. `CONTINUITY_BACKLOG.md` para o que vem depois
+8. `BILLING.md` e `ANALYTICS.md` para integracoes e metricas
 
 ## Regra Geral
 

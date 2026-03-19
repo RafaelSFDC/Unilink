@@ -4,6 +4,8 @@
 
 Este documento existe para servir como guia de execucao completo do projeto, do estado atual ate um produto final consistente.
 
+Status atual: roadmap de implementacao concluido. O que ainda depende de validacao humana foi movido para `docs/MANUAL_VALIDATION_ROADMAP.md`.
+
 Ele responde:
 
 - qual produto estamos construindo
@@ -199,7 +201,7 @@ Definir oficialmente o que pertence ao FREE e o que pertence ao PRO.
 - [x] analytics avancados
 - [x] remocao de marca
 - [x] features de personalizacao extra
-- [ ] suporte prioritario
+- [x] suporte prioritario explicitamente fora da oferta atual
 
 ### Entregaveis
 
@@ -285,11 +287,11 @@ Transformar personalizacao em um diferencial real, e nao so em uma lista de opco
 
 ### Checklist
 
+- [x] revisar presets de:
 - [x] auditar todos os templates existentes
 - [x] definir quais templates sao realmente de qualidade final
 - [x] revisar consistencia visual entre templates
 - [x] revisar consistencia tecnica entre preview e pagina publica
-- [ ] revisar presets de:
   - [x] fonte
   - [x] cor
   - [x] tipo de fundo
@@ -488,7 +490,7 @@ O time consegue pausar e retomar o projeto sem perder direcao.
 - [x] onboarding confiavel
 - [x] links confiaveis
 - [x] perfil publico confiavel
-- [ ] personalizacao confiavel
+- [x] personalizacao confiavel
 
 ### Analytics
 
@@ -536,3 +538,15 @@ Se em algum momento surgir duvida de prioridade, a regra deve ser:
 2. depois fluxo principal
 3. depois monetizacao e analytics
 4. por fim polimento e expansao
+
+## Encerramento Deste Roadmap
+
+Este roadmap deve ser tratado como concluido no escopo de implementacao.
+
+Pendencias que ainda existem:
+
+- execucao de testes manuais da jornada principal
+- execucao de testes manuais de billing
+- validacao manual de templates, analytics e responsividade final em ambiente real
+
+Esses itens agora vivem em `docs/MANUAL_VALIDATION_ROADMAP.md`.

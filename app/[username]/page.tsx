@@ -31,6 +31,7 @@ async function getUserByUsername(username: string) {
 
   return {
     ...user,
+    username: user.username ?? username,
     isPro
   }
 }
